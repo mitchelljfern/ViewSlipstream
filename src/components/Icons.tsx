@@ -25,4 +25,6 @@ export const IconLock = (p: P) => <S {...p}><rect x="3" y="11" width="18" height
 export const IconInstagram = (p: P) => <S {...p}><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></S>;
 export const IconTikTok = (p: P) => <S {...p}><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5" /><path d="M14 4c0 2.5 2 4.5 4.5 4.5" /></S>;
 export const IconThreads = (p: P) => <S {...p}><circle cx="12" cy="12" r="9" /><path d="M9 10.5c.5-1.5 1.7-2.3 3-2.3 1.8 0 3 1.2 3 3.2 0 2.3-1.4 3.6-3.2 3.6-1.5 0-2.6-.8-2.6-2 0-1.1 1-1.8 2.6-1.8H15" /></S>;
+export const IconSun = (p: P) => <S {...p}><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></S>;
+export const IconMoon = (p: P) => <S {...p}><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" /></S>;
 export const IconSliders = (p: P) => <S {...p}><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" /><circle cx="16" cy="6" r="2" /><circle cx="10" cy="12" r="2" /><circle cx="18" cy="18" r="2" /></S>;

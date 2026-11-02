@@ -3,7 +3,7 @@
  * Header: transparent over the page at the top, then a soft dark glass bar
  * (opaque tint + blur) that fades in on the first scroll. Phones get the
  * tab bar at the bottom (BottomNav) for navigation, so the header stays
- * light: logo and the account button.
+ * light: logo, the theme button and the account button.
  */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { initials, usePreview } from "./Preview";
 import { allShows } from "@/lib/data";
 import { upcomingShows } from "@/lib/time";
+import { ThemeToggle } from "./Theme";
 
 export function useNav() {
   const { leadSlug, now, guest, phaseFor } = usePreview();
@@ -55,6 +56,7 @@ export default function SiteHeader() {
           ))}
         </nav>
         <div className="header-actions" style={{ visibility: ready ? "visible" : "hidden" }}>
+          <ThemeToggle />
           {guest ? (
             <>
               <Link href="/account/" className="btn btn-glass btn-sm" style={{ paddingLeft: 6 }} aria-label="Account">

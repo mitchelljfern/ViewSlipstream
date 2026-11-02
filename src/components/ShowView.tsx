@@ -95,7 +95,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
             <div className="card stack g10" style={{ padding: "14px 16px" }}>
               <div className="row between"><b style={{ fontWeight: 600 }}>Viewing password</b><span className="muted tiny">Also in your email</span></div>
               <div className="row g8">
-                <div style={{ flex: 1, height: 48, borderRadius: 12, background: "#000", border: "1px solid var(--line-strong)", display: "flex", alignItems: "center", padding: "0 14px", font: "600 18px/1 var(--font-display)", letterSpacing: ".16em" }}>{pw}</div>
+                <div style={{ flex: 1, height: 48, borderRadius: 12, background: "var(--field-bg)", border: "1px solid var(--line-strong)", display: "flex", alignItems: "center", padding: "0 14px", font: "600 18px/1 var(--font-display)", letterSpacing: ".16em" }}>{pw}</div>
                 <button className="btn btn-secondary" style={{ minHeight: 48, padding: "0 16px", fontSize: 14 }}
                   onClick={async () => { try { await navigator.clipboard.writeText(pw); setCopied(true); setTimeout(() => setCopied(false), 1800); } catch { /* ignore */ } }}>
                   <IconCopy size={16} />{copied ? "Copied" : "Copy"}

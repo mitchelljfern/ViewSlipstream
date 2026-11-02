@@ -6,6 +6,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import BottomNav from "@/components/BottomNav";
 import ReviewBar, { Toast } from "@/components/ReviewBar";
+import { ThemeScript } from "@/components/Theme";
 import { allShows } from "@/lib/data";
 import { currentShow } from "@/lib/time";
 import { DEFAULT_TITLE, SITE_URL, share } from "@/lib/share";
@@ -29,8 +30,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const now = new Date();
   const lead = currentShow(allShows(), now);
   return (
-    <html lang="en" className={`${outfit.variable} ${figtree.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${figtree.variable}`} suppressHydrationWarning>
       <body>
+        <ThemeScript />
         <PreviewProvider buildNow={now.toISOString()} leadSlug={lead?.slug ?? null}>
           <a href="#main" className="sr-only">Skip to content</a>
           <SiteHeader />
