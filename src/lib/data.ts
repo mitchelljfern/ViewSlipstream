@@ -10,15 +10,18 @@ import showsJson from "@/data/shows.json";
 import groupsJson from "@/data/featured-groups.json";
 import archiveJson from "@/data/archive.json";
 import conversationsJson from "@/data/conversations.json";
+import historyJson from "@/data/history.json";
 import type { ArchiveGroup, ArchiveItem, Conversation, Show } from "./types";
 
 const shows = showsJson as unknown as Show[];
 const groups = groupsJson as { title: string; slugs: string[] }[];
 const archive = archiveJson as ArchiveGroup[];
 const conversations = conversationsJson as Conversation[];
+/** Past shows imported from the WordPress export: full pages, never listed as current. */
+const history = historyJson as unknown as Show[];
 
 export const allShows = (): Show[] => shows;
-export const getShow = (slug: string): Show | undefined => shows.find((s) => s.slug === slug);
+export const getShow = (slug: string): Show | undefined => shows.find((s) => s.slug === slug) ?? history.find((s) => s.slug === slug);
 
 export const featuredGroups = (): { title: string; shows: Show[] }[] =>
   groups.map((g) => ({ title: g.title, shows: g.slugs.map((s) => getShow(s)).filter(Boolean) as Show[] }));
@@ -39,10 +42,10 @@ export const getConversation = (id: string | null | undefined) =>
 
 /** Every path that gets a show page: featured shows plus the archive. */
 export const showPageSlugs = (): string[] => {
-  const set = new Set<string>(shows.map((s) => s.slug));
+  const set = new Set<string>([...shows, ...history].map((s) => s.slug));
   for (const g of archive) for (const i of g.items) set.add(i.slug);
   return [...set];
 };
 
 export const moreInSeries = (show: Show, n = 5): Show[] =>
-  shows.filter((s) => s.series === show.series && s.slug !== show.slug).slice(0, n);
+  (shows.includes(show) ? shows : history).filter((s) => s.series === show.series && s.slug !== show.slug && s.title !== show.title).slice(0, n);

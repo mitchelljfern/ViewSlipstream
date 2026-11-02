@@ -101,7 +101,7 @@ src/app/                 pages (one folder per URL)
 src/components/          the parts: header, RSVP card, show page, video facade, review toolbar
 src/lib/data.ts          the ONLY place pages read content from (swap for Supabase in phase 2)
 src/lib/time.ts          show phases (upcoming, live, closed), dates in Pacific time
-src/data/*.json          snapshot of the live site: 19 featured shows, 250 archive titles, 148 conversations
+src/data/*.json          snapshot of the live site: 19 featured shows, 250 archive titles (202 with full pages from the WordPress export), 148 conversations
 src/app/globals.css      colors, type, buttons, chips, layout (mobile first, full width on big screens)
 scripts/                 data import from WordPress, staging deploy helper
 docs/BRIEF.md            the full redesign brief (flow, emails, show types, admin, decisions)

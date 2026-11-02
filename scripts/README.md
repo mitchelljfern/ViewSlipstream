@@ -34,3 +34,13 @@ python3 scripts/build_data_from_wordpress.py $C src/data
 ```
 
 This is a review-phase tool. Phase 2 moves shows into the database and this script retires.
+
+## import_wordpress_export.py
+
+Builds a full show page for every past show in a WordPress export (WP admin, Tools > Export > All content). It reads the dates, venue, about text, short films, trailer, conversation line and images from each show page, and writes `src/data/history.json`. It also tidies the matching titles in `archive.json`. The 19 current shows in `shows.json` are left alone.
+
+```bash
+python3 scripts/import_wordpress_export.py /path/to/slipstream.WordPress.xml src/data
+```
+
+The export holds email addresses for WordPress users, so keep it out of the repo. The script only reads it.
