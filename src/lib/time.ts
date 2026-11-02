@@ -56,7 +56,10 @@ const fmt = (iso: string, o: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat("en-US", { timeZone: TZ, ...o })
     .formatToParts(new Date(iso))
     .map((part) => (part.type === "day" ? ordinal(Number(part.value)) : part.value))
-    .join("");
+    .join("")
+    // Browsers put a narrow no-break space before AM/PM; Node uses a plain space.
+    // Same string on both sides, or React re-renders the page on load.
+    .replace(/[\u202f\u00a0]/g, " ");
 
 const timeOf = (iso: string) => {
   const s = fmt(iso, { hour: "numeric", minute: "2-digit" });
