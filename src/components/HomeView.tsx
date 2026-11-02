@@ -68,8 +68,8 @@ export default function HomeView({ groups, conversations, allShows }: {
           <h2 className="tagline">Streaming Interactive Entertainment</h2>
           <p className="lede">Compelling, provocative presentations and conversations with artists and creators.</p>
           <nav className="pillars" aria-label="What Slipstream does">
-            <a href="#titles"><IconPlay size={16} />Screenings online &amp; in Los Angeles</a>
-            <Link href="/in-conversation/"><IconMic size={16} />Conversations with Makers</Link>
+            <a href="#titles"><IconPlay size={16} />Screenings &amp; Live Events</a>
+            <Link href="/in-conversation/"><IconMic size={16} />Conversations w/ Makers</Link>
             <Link href={giveawayHref}><IconGift size={16} />Giveaways</Link>
           </nav>
         </div>
