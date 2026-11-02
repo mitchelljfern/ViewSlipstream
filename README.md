@@ -18,16 +18,27 @@ The new Slipstream site: screenings people RSVP to, a password-protected DaCast 
 | Admin (Shows tab in the Client Hub) | https://dashboard.socialupgrades.com (Shows in the sidebar) |
 | Design canvas (all screens, admin, emails, style guide) | https://claude.ai/artifact/NeWnLfEuZjPmmgYnaC5eH2 |
 | Current live site (WordPress, don't change) | https://viewslipstream.com |
-| Production (not live yet, blocked until launch) | https://viewslipstream.netlify.app |
+| **New site, live version** (no password, not in Google yet) | https://viewslipstream.netlify.app |
 
-## One-time setup (Mitchell)
+## How it's wired
 
-These need an owner login, so they're not done yet:
+- GitHub is linked to Netlify. Pushing to a branch is how you deploy; nobody uploads anything to Netlify by hand.
+- `staging` is the one shared workspace. Social Upgrades, the Slipstream team and anyone's AI assistant all push here, and the staging site rebuilds in a minute or two. It's password protected and costs no production credits.
+- `main` is the live site. GitHub only lets Mitchell update it (repo ruleset "Live site: Mitchell only"). Everyone else gets "push declined" if they try, which is the point.
+- Any other branch builds nothing unless it has a pull request (`ignore` in `netlify.toml`), so experiments cost nothing.
+- `staging` is the default branch on GitHub, so new pull requests point at it automatically.
 
-1. **Let Claude push to GitHub.** Add `mitchelljfern/ViewSlipstream` (and `mitchelljfern/SU-Dashboard`) as sources for the Claude session. The first push sends both `main` and `staging` (each has the launch guard).
-2. **Connect Netlify to GitHub.** Netlify > viewslipstream > Project configuration > Build & deploy > Link repository > GitHub > `mitchelljfern/ViewSlipstream`. Production branch: `main`. Branch deploys: "Let me add individual branches" > `staging`. Deploy previews: any pull request. Build settings come from `netlify.toml`, so leave them blank.
-3. **Give the Slipstream team access.** GitHub > ViewSlipstream > Settings > Collaborators > add their GitHub usernames with Write access. Share the staging password with them directly, not in the repo.
-4. If a Slipstream team push ever shows "Pending approval" in Netlify, approve it once from the Deploys page (Netlify asks for this on private repos with people outside the team).
+## Going live (Mitchell only)
+
+1. Check the staging site.
+2. Open https://github.com/mitchelljfern/ViewSlipstream/compare/main...staging?expand=1 and click **Create pull request**, then **Merge pull request**.
+3. Netlify builds `main` and https://viewslipstream.netlify.app updates in a couple of minutes. That's the only step that uses a production deploy.
+
+## Giving people access (Mitchell)
+
+- **GitHub:** ViewSlipstream > Settings > Collaborators > Add people, with **Write** access. They can push to `staging` and open pull requests, but can't touch `main`.
+- **Staging password:** share it directly, not in the repo (Netlify > Project configuration > Access & security > Visitor access).
+- If a push from someone outside the Netlify team ever shows "Pending approval" on the Deploys page, approve it once.
 
 ## How to review
 
@@ -44,12 +55,12 @@ Nothing you do on staging is saved anywhere except your browser, and no emails a
 |---|---|---|
 | `staging` | Netlify builds it and updates the staging site. No production credits used. | Anyone on either team |
 | `your-name/what-you-changed` + a pull request into `staging` | Netlify builds a private preview link on the pull request. | Recommended for anything bigger than a text fix |
-| `main` | **Production. Blocked until launch.** `netlify.toml` makes production builds fail on purpose. | Mitchell only, on launch day |
+| `main` | **Live site** (https://viewslipstream.netlify.app). GitHub blocks everyone but Mitchell. | Mitchell only |
 
 Rules for everyone, people and AI assistants alike:
 
 - **Only ever push to `staging` or to a branch with a pull request into `staging`.**
-- **Never push to `main`, never merge into `main`, never run `netlify deploy --prod`, and never remove the launch guard in `netlify.toml`.** Production deploys use Netlify credits and would put an unfinished site at the real address.
+- **Never push to `main`, never merge into `main`, and never run `netlify deploy --prod`.** That's Mitchell's step. Production deploys use Netlify credits, so everything gets checked on staging first.
 - Don't create new Netlify projects or change Netlify settings. Ask Mitchell.
 - Don't touch the WordPress site.
 
@@ -91,7 +102,7 @@ src/data/*.json          snapshot of the live site: 19 featured shows, 250 archi
 src/app/globals.css      colors, type, buttons, chips, layout (mobile first, full width on big screens)
 scripts/                 data import from WordPress, staging deploy helper
 docs/BRIEF.md            the full redesign brief (flow, emails, show types, admin, decisions)
-netlify.toml             build settings, launch guard, old-URL redirects
+netlify.toml             build settings, which branches build, old-URL redirects
 ```
 
 Design system: black ground, Slipstream blue `#1E73BE`, deep blue `#003972` for the RSVP and newsletter panels, white. Outfit for headings, Figtree for everything else. Buttons are 52px tall on phones. The layout has no maximum width, so it fills big monitors for a movie night; the player sizes itself to the screen height.
@@ -109,4 +120,4 @@ The JSON in `src/data` was built from the live WordPress site on Nov 1, 2026. To
 3. **Emails** (RSVP confirmation, "It's showtime", Thank you) on Resend from viewslipstream.com, sent on schedule by the database, logged for the Client Hub.
 4. **DaCast** embed and password per show, shown only to signed-in guests with an RSVP during the window. **Stripe** Checkout for paid shows. **YouTube Live** for live streams.
 5. **Admin.** The Shows tab in the Client Hub (dashboard.socialupgrades.com) switches from sample data to the real database. Launch shows, see every email past and upcoming, payments and guests.
-6. **Launch.** Migrate WordPress accounts, point viewslipstream.com at Netlify, keep every old URL working, remove the launch guard. Mitchell does this step.
+6. **Launch.** Migrate WordPress accounts, point viewslipstream.com at Netlify, keep every old URL working, and drop the noindex header. Mitchell does this step.
