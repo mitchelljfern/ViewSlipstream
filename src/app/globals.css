@@ -343,12 +343,20 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 /* What Slipstream is, across the top of the home page above the next show.
    (After .wrap so the top padding wins.) */
 .hero-intro { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; padding-top: 36px; padding-bottom: 20px; }
-.tagline { margin: 0; font: 600 clamp(34px, 4.2vw, 80px)/1.05 var(--font-display); letter-spacing: -0.025em; color: var(--text); max-width: 14ch; text-wrap: balance; }
+/* One line on every screen: the size follows the width so three words always fit. */
+.tagline { margin: 0; font: 600 clamp(19px, 5.4vw, 80px)/1.1 var(--font-display); letter-spacing: -0.03em; color: var(--text); white-space: nowrap; }
 .lede { font: 400 clamp(17px, 1.3vw, 24px)/1.45 var(--font-body); color: var(--muted); max-width: 44ch; text-wrap: balance; }
-.pillars { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.pillars li { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--line); font: 600 13px/1 var(--font-body); color: var(--text); white-space: nowrap; }
-.pillars svg { color: var(--link); }
-@media (min-width: 960px) { .hero-intro { padding-top: 72px; padding-bottom: 32px; gap: 18px; } .pillars { gap: 10px; } .pillars li { font-size: 14px; min-height: 40px; padding: 0 16px; } }
+/* Pills stay on one line: on a phone the row swipes sideways, bleeding to the screen edges. */
+.pillars { display: flex; flex-wrap: nowrap; gap: 8px; margin: 6px calc(var(--gutter) * -1) 0; padding: 2px var(--gutter); width: calc(100% + var(--gutter) * 2); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+.pillars::-webkit-scrollbar { display: none; }
+.pillars a { flex: 0 0 auto; scroll-snap-align: start; display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 14px; border-radius: 999px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--line); font: 600 13px/1 var(--font-body); color: var(--text); white-space: nowrap; transition: background 0.15s ease, border-color 0.15s ease; }
+.pillars a:hover { background: rgba(var(--fg-rgb), 0.12); border-color: var(--line-strong); color: var(--text); }
+.pillars svg { color: var(--link); flex: 0 0 auto; }
+@media (min-width: 960px) {
+  .hero-intro { padding-top: 72px; padding-bottom: 32px; gap: 18px; }
+  .pillars { width: auto; margin: 6px 0 0; padding: 2px 0; overflow: visible; justify-content: center; gap: 10px; }
+  .pillars a { font-size: 14px; min-height: 40px; padding: 0 16px; }
+}
 @media (min-width: 960px) { .home-hero { border-top: 1px solid rgba(var(--fg-rgb), 0.08); } }
 .home-hero { display: grid; gap: 20px; padding-top: 24px; padding-bottom: 8px; }
 @media (min-width: 960px) { .home-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: center; padding-top: 40px; padding-bottom: 32px; } }

@@ -20,6 +20,9 @@ export default function HomeView({ groups, conversations, allShows }: {
   const status = ctx.rsvps[lead.slug];
   const others = upcomingShows(allShows, ctx.now, lead.slug);
   const watchable = phase === "live" && !!status && !!ctx.guest && lead.kind !== "in-person";
+  // Giveaways: the open one if there is one, otherwise the newsletter (that's where the next one is announced).
+  const openGiveaway = allShows.find((s) => s.kind === "giveaway" && ctx.phaseFor(s) !== "closed");
+  const giveawayHref = openGiveaway ? `/${openGiveaway.slug}/` : "#newsletter";
 
   const toItem = (s: Show): RailItem => {
     const p = s.slug === lead.slug ? phase : phaseOf(s, ctx.now);
@@ -62,13 +65,13 @@ export default function HomeView({ groups, conversations, allShows }: {
       <section className="hero bleed-top">
         {lead.heroImage ? <div className="hero-bg"><img src={lead.heroImage} alt="" /></div> : null}
         <div className="wrap hero-intro">
-          <h2 className="tagline">Streaming interactive entertainment</h2>
+          <h2 className="tagline">Streaming Interactive Entertainment</h2>
           <p className="lede">Compelling, provocative presentations and conversations with artists and creators.</p>
-          <ul className="pillars" aria-label="What Slipstream does">
-            <li><IconPlay size={16} />Screenings online and in Los Angeles</li>
-            <li><IconMic size={16} />Conversations with the makers</li>
-            <li><IconGift size={16} />Giveaways</li>
-          </ul>
+          <nav className="pillars" aria-label="What Slipstream does">
+            <a href="#titles"><IconPlay size={16} />Screenings online &amp; in Los Angeles</a>
+            <Link href="/in-conversation/"><IconMic size={16} />Conversations with Makers</Link>
+            <Link href={giveawayHref}><IconGift size={16} />Giveaways</Link>
+          </nav>
         </div>
         <div className="wrap home-hero">
           <div className="stack g14">
@@ -132,7 +135,7 @@ export default function HomeView({ groups, conversations, allShows }: {
 
       <section className="wrap section">
         <div className="auto-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(360px, 100%), 1fr))" }}>
-          <div className="panel-deep on-deep stack g12">
+          <div id="newsletter" className="panel-deep on-deep stack g12" style={{ scrollMarginTop: "calc(var(--header-h) + 16px)" }}>
             <h2 className="h2">Hear About the Next Show First</h2>
             <p>Screenings, filmmaker conversations and giveaways, once or twice a month.</p>
             <form className="stack g10" onSubmit={(e) => { e.preventDefault(); ctx.say("Thanks. You're on the list (review build: nothing was sent)."); (e.currentTarget as HTMLFormElement).reset(); }}>
