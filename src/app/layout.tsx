@@ -8,14 +8,16 @@ import BottomNav from "@/components/BottomNav";
 import ReviewBar, { Toast } from "@/components/ReviewBar";
 import { allShows } from "@/lib/data";
 import { currentShow } from "@/lib/time";
+import { DEFAULT_TITLE, SITE_URL, share } from "@/lib/share";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-outfit", display: "swap" });
 const figtree = Figtree({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-figtree", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://viewslipstream.com"),
-  title: { default: "Slipstream | Screenings and conversations with filmmakers", template: "%s | Slipstream" },
-  description: "Compelling, provocative presentations and conversations with artists and creators. RSVP to stream new films and series, and watch the filmmaker conversations.",
+  // Link previews resolve images against the site that was shared (live or staging).
+  metadataBase: new URL(SITE_URL),
+  ...share(),
+  title: { default: DEFAULT_TITLE, template: "%s | Slipstream" },
   // The review build must never be indexed.
   robots: REVIEW_MODE ? { index: false, follow: false } : undefined,
   icons: { icon: "/favicon.svg" },

@@ -1,7 +1,8 @@
 import ConversationArchive from "@/components/ConversationArchive";
 import { allConversations } from "@/lib/data";
 
-export const metadata = { title: "In Conversation", description: "Talks with the people who made the shows." };
+import { share } from "@/lib/share";
+export const metadata = share({ title: "In Conversation", description: "Talks with the people who made the shows.", path: "/in-conversation/" });
 
 export default function InConversation() {
   const all = allConversations();

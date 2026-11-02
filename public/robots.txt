@@ -1,2 +1,17 @@
+# Link-preview bots may read pages so shared links show the title, description
+# and image. Search engines stay out until viewslipstream.com moves here (the
+# X-Robots-Tag noindex header in netlify.toml also keeps pages out of search).
+User-agent: facebookexternalhit
+User-agent: Facebot
+User-agent: LinkedInBot
+User-agent: Twitterbot
+User-agent: Slackbot
+User-agent: Slackbot-LinkExpanding
+User-agent: Discordbot
+User-agent: WhatsApp
+User-agent: TelegramBot
+User-agent: Pinterestbot
+Allow: /
+
 User-agent: *
 Disallow: /

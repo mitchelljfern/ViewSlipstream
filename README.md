@@ -1,5 +1,10 @@
 # Slipstream (viewslipstream.com) redesign
 
+> **If you are not Mitchell, push your updates to the staging server, never the live server.**
+> That means the `staging` branch (https://staging--viewslipstream.netlify.app), or a pull request into `staging`.
+> Never push to or merge into `main`: `main` is the live site (https://viewslipstream.netlify.app), and only Mitchell publishes it.
+> This applies to people and AI assistants alike.
+
 The new Slipstream site: screenings people RSVP to, a password-protected DaCast player during each show's window, three emails per RSVP, giveaways, YouTube live streams, paid shows, and the In Conversation archive.
 
 **Right now this is a review build.** It's the real frontend, but with no database: shows come from a snapshot of the live WordPress site, and signing in and RSVPing only happen in your own browser. That lets Social Upgrades and the Slipstream team get the look and the flow right before the database is built. The live site at viewslipstream.com is untouched.
@@ -24,7 +29,7 @@ The new Slipstream site: screenings people RSVP to, a password-protected DaCast 
 
 - GitHub is linked to Netlify. Pushing to a branch is how you deploy; nobody uploads anything to Netlify by hand.
 - `staging` is the one shared workspace. Social Upgrades, the Slipstream team and anyone's AI assistant all push here, and the staging site rebuilds in a minute or two. It's password protected and costs no production credits.
-- `main` is the live site. GitHub only lets Mitchell update it (repo ruleset "Live site: Mitchell only"). Everyone else gets "push declined" if they try, which is the point.
+- `main` is the live site. Only Mitchell updates it. A GitHub ruleset ("Live site: Mitchell only") enforces this, so everyone else gets "push declined" if they try.
 - Any other branch builds nothing unless it has a pull request (`ignore` in `netlify.toml`), so experiments cost nothing.
 - `staging` is the default branch on GitHub, so new pull requests point at it automatically.
 
