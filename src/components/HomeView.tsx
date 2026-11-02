@@ -6,7 +6,7 @@ import { usePreview } from "./Preview";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
 import Rail, { type RailItem } from "./Rail";
 import CategoryBrowser, { slugId, splitGroupTitle, type Category } from "./CategoryBrowser";
-import { IconCalendar, IconChevron, IconMic, IconPin, IconPlay } from "./Icons";
+import { IconCalendar, IconChevron, IconGift, IconMic, IconPin, IconPlay } from "./Icons";
 import Countdown, { endLabel, startLabel } from "./Countdown";
 
 const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway: "Giveaway", live: "Live Stream", paid: "Paid" } as const;
@@ -62,12 +62,18 @@ export default function HomeView({ groups, conversations, allShows }: {
       <section className="hero bleed-top">
         {lead.heroImage ? <div className="hero-bg"><img src={lead.heroImage} alt="" /></div> : null}
         <div className="wrap hero-intro">
-          <p className="tagline">Streaming interactive screenings with the artists and creators behind the work</p>
+          <h2 className="tagline">Streaming interactive entertainment</h2>
+          <p className="lede">Compelling, provocative presentations and conversations with artists and creators.</p>
+          <ul className="pillars" aria-label="What Slipstream does">
+            <li><IconPlay size={16} />Screenings online and in Los Angeles</li>
+            <li><IconMic size={16} />Conversations with the makers</li>
+            <li><IconGift size={16} />Giveaways</li>
+          </ul>
         </div>
         <div className="wrap home-hero">
           <div className="stack g14">
             <div className="row between g8">
-              <span className="eyebrow">{phase === "live" ? "Now Showing" : phase === "upcoming" ? "Next Up" : "Most Recent"}</span>
+              <span className="eyebrow">{phase === "live" ? "Now Showing" : phase === "upcoming" ? "Next on Slipstream" : "Most Recent"}</span>
               <div className="row g6">
                 {phase === "live" && lead.kind !== "in-person" ? <span className="chip chip-white"><span className="live-dot" />Live</span> : null}
                 <span className="chip chip-outline">{KIND[lead.kind]}</span>
