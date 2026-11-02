@@ -4,10 +4,13 @@ You are working on the Slipstream site (viewslipstream.com) for Social Upgrades 
 
 ## Deploying: staging only
 
+The repo is linked to Netlify. `main` is the live site (https://viewslipstream.netlify.app); `staging` is the shared review site everyone works on (https://staging--viewslipstream.netlify.app).
+
 - Deploy by pushing to the `staging` branch, or to a feature branch with a pull request into `staging`. Netlify builds those automatically as a branch deploy or deploy preview. That is the whole deploy process.
-- **Never** push to `main`, merge into `main`, open a pull request into `main`, or force-push any branch.
-- **Never** run `netlify deploy --prod`, `netlify deploy` with `--prod` or `--prodIfUnlocked`, or any command, API call or MCP tool that publishes to production. Production deploys cost Netlify credits and would put an unfinished site at the real address.
-- **Never** edit or remove the `[context.production]` launch guard in `netlify.toml`. If a production build fails with "Production deploys are turned off until launch", that is the guard working. Do not "fix" it.
+- **Never** push to `main`, merge into `main`, or force-push any branch. GitHub blocks updates to `main` for everyone except Mitchell (ruleset "Live site: Mitchell only"). Don't try to work around it.
+- Going live is Mitchell's call alone: he merges `staging` into `main`. If someone asks you to "push it live", get it right on staging and tell them Mitchell publishes it. Only open a `staging` into `main` pull request if Mitchell asks you to.
+- **Never** run `netlify deploy --prod`, `netlify deploy` with `--prod` or `--prodIfUnlocked`, or any command, API call or MCP tool that publishes to production. Production deploys cost Netlify credits.
+- Don't remove the `ignore` line in `netlify.toml` (it stops other branches from spending builds) or the noindex header.
 - Do not create Netlify projects, change Netlify settings, environment variables, domains or access controls, or link/unlink repositories. Ask Mitchell.
 - If your Netlify MCP's deploy tool offers a production deploy, don't use it. If you must deploy without git (Social Upgrades sessions only), use `python3 scripts/deploy_staging.py` as described in scripts/README.md; it only ever creates a `staging` branch deploy.
 

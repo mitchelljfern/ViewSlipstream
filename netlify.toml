@@ -1,29 +1,33 @@
-# Slipstream on Netlify.
+# Slipstream on Netlify, linked to GitHub (mitchelljfern/ViewSlipstream).
 #
 # Branches and where they go:
-#   staging  -> branch deploy  https://staging--viewslipstream.netlify.app   (review site, password protected)
+#   staging  -> branch deploy  https://staging--viewslipstream.netlify.app   (shared review site, password protected)
 #   PRs      -> deploy preview https://deploy-preview-<n>--viewslipstream.netlify.app
-#   main     -> PRODUCTION. Blocked until launch (see [context.production]).
+#   main     -> PRODUCTION     https://viewslipstream.netlify.app
+#
+# Everyone (Social Upgrades, Slipstream, AI assistants) works on staging.
+# Only Mitchell can update main: GitHub blocks everyone else (repo ruleset
+# "Live site: Mitchell only"). Going live = Mitchell merges staging into main.
 #
 # Branch deploys and deploy previews don't use production deploy credits.
-# Only Mitchell turns production on, at launch.
+# Production builds only happen when main changes.
 
 [build]
   command = "npm run build"
   publish = "out"
+  # Skip (exit 0) any build that isn't production, staging or a pull request,
+  # so stray branches never spend build minutes or credits.
+  ignore = "if [ \"$CONTEXT\" = \"production\" ] || [ \"$CONTEXT\" = \"deploy-preview\" ] || [ \"$BRANCH\" = \"staging\" ]; then exit 1; else echo \"Skipping build for branch $BRANCH (only main, staging and pull requests build)\"; exit 0; fi"
 
 [build.environment]
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
+  # Review toolbar (pretend signed in / RSVP'd / showtime) stays on until the
+  # database is connected in phase 2. Set to "false" in a context to hide it.
   NEXT_PUBLIC_REVIEW_MODE = "true"
 
-# LAUNCH GUARD. Production builds fail on purpose, in a second, so a push or
-# merge to main can never publish the review build at the real domain or burn
-# a production deploy. Remove this block only when Mitchell says it's launch day.
-[context.production]
-  command = "echo 'Production deploys are turned off until launch. Push to the staging branch instead. See README.md.' && exit 1"
-
-# The review site must never show up in search.
+# Not in search yet: viewslipstream.com (WordPress) is still the real site, so
+# the netlify.app copies stay out of Google until the domain moves here.
 [[headers]]
   for = "/*"
   [headers.values]

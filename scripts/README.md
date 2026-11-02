@@ -11,7 +11,9 @@ Normally you deploy by pushing to the `staging` branch and Netlify builds it. If
 python3 scripts/deploy_staging.py "<proxy-path URL>"
 ```
 
-The script zips the repo (no node_modules, .git, .next or out) and asks Netlify for a build on the `staging` branch. It refuses any other branch. The result is the branch deploy at https://staging--viewslipstream.netlify.app. If Netlify ever treated it as production, the launch guard in netlify.toml fails that build and nothing is published.
+The script zips the repo (no node_modules, .git, .next or out) and asks Netlify for a build on the `staging` branch. It refuses any other branch. The result is the branch deploy at https://staging--viewslipstream.netlify.app.
+
+Now that the repo is linked to Netlify, prefer a plain `git push` to `staging`. Use this script only when you can't push.
 
 ## build_data_from_wordpress.py
 
