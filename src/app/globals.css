@@ -358,3 +358,18 @@ a.list-row:hover { color: #fff; background: rgba(255, 255, 255, 0.03); }
 .jumpbar .filter { transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
 .jumpbar .filter:hover { color: #fff; border-color: rgba(255, 255, 255, 0.4); }
 .jumpbar .filter[aria-current="true"] { background: #fff; color: #000; border-color: #fff; }
+
+/* Screenings month tabs: underlined text tabs, so they read differently from the jump bar's pills */
+.month-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin: 4px calc(var(--gutter) * -1) 14px; padding: 0 var(--gutter); }
+.month-tabs::-webkit-scrollbar { display: none; }
+.month-tab { flex: 0 0 auto; min-height: 48px; padding: 0 16px; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--muted); font: 600 clamp(16px, 1.3vw, 20px)/1 var(--font-display); letter-spacing: -0.01em; cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
+.month-tab:first-child { padding-left: 0; }
+.month-tab:hover { color: #fff; }
+.month-tab[aria-selected="true"] { color: #fff; border-bottom-color: var(--blue); }
+
+/* Show page: About sticks beside the RSVP card on desktop. Both columns are
+   sticky; the taller one has no room to travel, so only the shorter one sticks. */
+@media (min-width: 960px) {
+  .show-main { position: sticky; top: calc(var(--header-h) + 64px); }
+  .show-conv { align-items: center; padding-top: 48px; }
+}

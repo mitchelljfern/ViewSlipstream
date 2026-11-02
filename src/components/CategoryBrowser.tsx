@@ -14,6 +14,8 @@ export interface Category {
   title: string;
   meta: string;
   items: RailItem[];
+  /** A tabbed section (Screenings): one tab per month, one row at a time. */
+  tabs?: { key: string; label: string; meta: string; items: RailItem[] }[];
 }
 
 /** "October Screenings" -> {kicker: "Screenings", title: "October"}; "Emmy-Nominated Screening Series" -> {kicker: "Series", title: "Emmy-Nominated Screening"} */
@@ -58,7 +60,7 @@ export default function CategoryBrowser({ categories, jumpBar = false }: { categ
           </div>
         </nav>
       ) : null}
-      {categories.map((c) => (
+      {categories.map((c) => c.tabs?.length ? <TabbedCategory key={c.id} c={c} /> : (
         <section key={c.id} id={c.id} className="cat" aria-labelledby={`${c.id}-h`}>
           <header className="cat-head">
             <div className="row g10 wrap-row"><span className="eyebrow cat-kicker">{c.kicker}</span><span className="cat-meta">{c.meta}</span></div>
@@ -68,5 +70,40 @@ export default function CategoryBrowser({ categories, jumpBar = false }: { categ
         </section>
       ))}
     </div>
+  );
+}
+
+/** Screenings: one heading, a tab per month (newest first), the month's row underneath. */
+function TabbedCategory({ c }: { c: Category }) {
+  const tabs = c.tabs!;
+  const [on, setOn] = useState(tabs[0].key);
+  const cur = tabs.find((t) => t.key === on) ?? tabs[0];
+  const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const move = (i: number) => {
+    const n = (i + tabs.length) % tabs.length;
+    setOn(tabs[n].key);
+    refs.current[n]?.focus();
+  };
+  return (
+    <section id={c.id} className="cat" aria-labelledby={`${c.id}-h`}>
+      <header className="cat-head">
+        <div className="row g10 wrap-row"><span className="eyebrow cat-kicker">{c.kicker}</span><span className="cat-meta">{c.meta}</span></div>
+        <h3 id={`${c.id}-h`} className="cat-title">{c.title}</h3>
+      </header>
+      <div className="month-tabs" role="tablist" aria-label={`${c.title} by month`}>
+        {tabs.map((t, i) => (
+          <button key={t.key} ref={(el) => { refs.current[i] = el; }} role="tab" id={`${c.id}-tab-${t.key}`} aria-selected={t.key === cur.key}
+            aria-controls={`${c.id}-panel`} tabIndex={t.key === cur.key ? 0 : -1} className="month-tab"
+            onClick={() => setOn(t.key)}
+            onKeyDown={(e) => { if (e.key === "ArrowRight") { e.preventDefault(); move(i + 1); } if (e.key === "ArrowLeft") { e.preventDefault(); move(i - 1); } }}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div id={`${c.id}-panel`} role="tabpanel" aria-labelledby={`${c.id}-tab-${cur.key}`} className="stack g10">
+        <span className="cat-meta">{cur.meta}</span>
+        <Rail key={cur.key} items={cur.items} label={`${cur.label} screenings`} />
+      </div>
+    </section>
   );
 }

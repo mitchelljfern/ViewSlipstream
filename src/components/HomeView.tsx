@@ -30,15 +30,31 @@ export default function HomeView({ groups, conversations, allShows }: {
     };
   };
 
-  const categories: Category[] = groups.map((g) => {
-    const { kicker, title } = splitGroupTitle(g.title);
-    const starts = g.shows.map((s) => s.startsAt).filter(Boolean) as string[];
-    const ends = g.shows.map((s) => s.endsAt ?? s.startsAt).filter(Boolean) as string[];
+  const metaFor = (shows: Show[]) => {
+    const starts = shows.map((s) => s.startsAt).filter(Boolean) as string[];
+    const ends = shows.map((s) => s.endsAt ?? s.startsAt).filter(Boolean) as string[];
     const a = starts.sort()[0], b = ends.sort().slice(-1)[0];
     const range = a && b ? (monthDay(a) === monthDay(b) ? monthDay(a) : `${monthDay(a)} to ${monthDay(b)}`) : "";
-    const n = g.shows.length;
-    return { id: slugId(g.title), kicker, title, meta: `${n} ${n === 1 ? "title" : "titles"}${range ? ` · ${range}` : ""}`, items: g.shows.map(toItem) };
-  });
+    return `${shows.length} ${shows.length === 1 ? "title" : "titles"}${range ? ` · ${range}` : ""}`;
+  };
+  // Month groups ("October Screenings") become tabs of one Screenings section,
+  // placed where the first month appears; series keep their own sections.
+  const categories: Category[] = [];
+  const months: NonNullable<Category["tabs"]> = [];
+  let screeningsAt = -1;
+  for (const g of groups) {
+    const { kicker, title } = splitGroupTitle(g.title);
+    if (kicker === "Screenings") {
+      if (screeningsAt < 0) { screeningsAt = categories.length; categories.push(null as unknown as Category); }
+      months.push({ key: slugId(g.title), label: title, meta: metaFor(g.shows), items: g.shows.map(toItem) });
+    } else {
+      categories.push({ id: slugId(g.title), kicker, title, meta: metaFor(g.shows), items: g.shows.map(toItem) });
+    }
+  }
+  if (screeningsAt >= 0) {
+    const all = groups.filter((g) => splitGroupTitle(g.title).kicker === "Screenings").flatMap((g) => g.shows);
+    categories[screeningsAt] = { id: "cat-screenings", kicker: "By month", title: "Screenings", meta: `${months.length} months · ${all.length} titles`, items: [], tabs: months };
+  }
 
   return (
     <>

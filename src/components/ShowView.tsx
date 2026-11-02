@@ -140,21 +140,15 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
       )}
 
       <div className="wrap show-grid">
-        <div className="stack g32" style={{ minWidth: 0 }}>
+        {/* Desktop: this column and the RSVP column are both sticky, so whichever is
+            shorter stays on screen beside the other while you scroll. */}
+        <div className="stack g32 show-main" style={{ minWidth: 0 }}>
           {watching ? facts : null}
           {aboutAll.length ? (
             <section className="stack g12" aria-labelledby="about-h">
-              <h2 id="about-h" className="h2">About the show</h2>
+              <h2 id="about-h" className="h2">About the Show</h2>
               <div className="prose stack g12">{about.map((p, i) => <p key={i} className={i ? "muted" : undefined}>{p}</p>)}</div>
               {aboutAll.length > 2 ? <button className="btn btn-glass btn-sm" style={{ alignSelf: "flex-start" }} onClick={() => setReadMore((v) => !v)}>{readMore ? "Show Less" : "Read More"}</button> : null}
-            </section>
-          ) : null}
-
-          {conversation ? (
-            <section id="conversation" className="stack g12" aria-labelledby="conv-h">
-              <div className="section-head"><h2 id="conv-h" className="h2">The conversation</h2><span className="muted small">{conversation.durationSec ? minutes(conversation.durationSec) : "Plays after the film"}</span></div>
-              <VideoFacade embed={conversation.embed} thumbnail={conversation.thumbnail} label={conversation.title} duration={minutes(conversation.durationSec)} />
-              <p className="small muted">{conversation.title}</p>
             </section>
           ) : null}
 
@@ -188,6 +182,19 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
           ) : null}
         </aside>
       </div>
+
+      {conversation ? (
+        <section id="conversation" className="wrap section show-grid show-conv" aria-labelledby="conv-h">
+          <div style={{ minWidth: 0 }}>
+            <VideoFacade embed={conversation.embed} thumbnail={conversation.thumbnail} label={conversation.title} duration={minutes(conversation.durationSec)} />
+          </div>
+          <div className="stack g10">
+            <span className="eyebrow">{conversation.durationSec ? minutes(conversation.durationSec) : "Plays after the film"}</span>
+            <h2 id="conv-h" className="h2">The Conversation</h2>
+            <p className="muted">{conversation.title}</p>
+          </div>
+        </section>
+      ) : null}
 
       {more.length ? (
         <section className="wrap section stack g16" aria-labelledby="more-h">
