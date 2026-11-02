@@ -61,9 +61,12 @@ export default function HomeView({ groups, conversations, allShows }: {
     <>
       <section className="hero bleed-top">
         {lead.heroImage ? <div className="hero-bg"><img src={lead.heroImage} alt="" /></div> : null}
+        <div className="wrap hero-intro">
+          <span className="eyebrow cat-kicker">Streaming interactive entertainment</span>
+          <p className="tagline">Compelling, provocative presentations and conversations with artists and creators.</p>
+        </div>
         <div className="wrap home-hero">
           <div className="stack g14">
-            <p className="tagline">Early screenings and filmmaker conversations, in Los Angeles and online.</p>
             <div className="row between g8">
               <span className="eyebrow">{phase === "live" ? "Now Showing" : phase === "upcoming" ? "Next Up" : "Most Recent"}</span>
               <div className="row g6">
