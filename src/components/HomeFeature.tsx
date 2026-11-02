@@ -1,30 +1,49 @@
 "use client";
 /**
- * The "what's on now / next" card at the bottom of the home hero.
- * Two designs are on trial (picked in the review panel):
- *   A · FeatureTabs: one card, a tab per show along its top edge.
- *   B · FeatureCarousel: one card per show in a swipe row, arrows and dots.
- * Both sit on the hero image as a glass card and show one show at a time.
+ * The "what's on now / next" card at the bottom of the home hero: a glass
+ * card on the hero image with one tab per show along its top edge.
  */
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { Phase, Show } from "@/lib/types";
 import { monthDay, whenLine } from "@/lib/time";
 import { usePreview } from "./Preview";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
-import { IconBack, IconCalendar, IconChevron, IconMic, IconPin, IconPlay } from "./Icons";
+import { IconCalendar, IconMic, IconPin, IconPlay } from "./Icons";
 import Countdown, { endLabel, startLabel } from "./Countdown";
 
 export const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway: "Giveaway", live: "Live Stream", paid: "Paid" } as const;
 
 export type FeatureItem = { show: Show; phase: Phase };
 
+/** Most tabs the hero shows. Four fit one row on desktop; the rest stay in the Upcoming rail. */
+export const MAX_FEATURED = 4;
+const MIN_FEATURED = 2;
+
+/**
+ * Which shows get a tab: live ones first, then upcoming soonest first. If that
+ * makes fewer than two, the most recent past shows fill in, newest first.
+ */
+export function pickFeatured(shows: Show[], phaseFor: (s: Show) => Phase): FeatureItem[] {
+  const items = shows.map((show) => ({ show, phase: phaseFor(show) }));
+  const start = (it: FeatureItem) => it.show.startsAt ?? "";
+  const last = (it: FeatureItem) => it.show.endsAt ?? it.show.startsAt ?? "";
+  const live = items.filter((it) => it.phase === "live").sort((a, b) => start(a).localeCompare(start(b)));
+  const next = items.filter((it) => it.phase === "upcoming").sort((a, b) => start(a).localeCompare(start(b)));
+  const picked = [...live, ...next].slice(0, MAX_FEATURED);
+  if (picked.length < MIN_FEATURED) {
+    const recent = items.filter((it) => it.phase === "closed").sort((a, b) => last(b).localeCompare(last(a)));
+    picked.push(...recent.slice(0, MIN_FEATURED - picked.length));
+  }
+  return picked;
+}
+
 const isLive = (it: FeatureItem) => it.phase === "live" && it.show.kind !== "in-person";
 
-/** Short status for tabs and dots: "Live Now", "Entries Open", "Nov 5th". */
+/** Short status for tabs: "Live Now", "Entries Open", "Nov 5th", "Ended Oct 30th". */
 export function statusLabel(it: FeatureItem) {
   if (isLive(it)) return it.show.kind === "giveaway" ? "Entries Open" : "Live Now";
-  if (it.phase === "closed") return "Most Recent";
+  if (it.phase === "closed") { const d = it.show.endsAt ?? it.show.startsAt; return d ? `Ended ${monthDay(d)}` : "Most Recent"; }
   return it.show.startsAt ? monthDay(it.show.startsAt) : "Coming Soon";
 }
 
@@ -33,7 +52,7 @@ function eyebrow(it: FeatureItem) {
 }
 
 /** Everything about one show: details and CTA on one side, trailer on the other. */
-export function FeatureBody({ item, compact = false, level = 1 }: { item: FeatureItem; compact?: boolean; level?: 1 | 2 }) {
+export function FeatureBody({ item }: { item: FeatureItem }) {
   const ctx = usePreview();
   const { show, phase } = item;
   const status = ctx.rsvps[show.slug];
@@ -42,7 +61,7 @@ export function FeatureBody({ item, compact = false, level = 1 }: { item: Featur
     ? <VideoFacade embed={youtubeEmbed(show.trailerYoutubeId)} thumbnail={youtubeThumb(show.trailerYoutubeId)} label={`${show.title} trailer`} caption="Watch the trailer" />
     : show.heroImage ? <div className="facade" style={{ cursor: "default" }}><img src={show.heroImage} alt="" loading="lazy" /></div> : null;
   return (
-    <div className={`feature-body${compact ? " is-compact" : ""}`}>
+    <div className="feature-body">
       <div className="stack g14">
         <div className="row between g8">
           <span className="eyebrow">{eyebrow(item)}</span>
@@ -51,7 +70,7 @@ export function FeatureBody({ item, compact = false, level = 1 }: { item: Featur
             <span className="chip chip-outline">{KIND[show.kind]}</span>
           </div>
         </div>
-        {level === 1 ? <h1 className="h1 feature-title">{show.title}</h1> : <h2 className="h1 feature-title">{show.title}</h2>}
+        <h1 className="h1 feature-title">{show.title}</h1>
         <div className="stack g8" style={{ fontSize: 15 }}>
           {show.startsAt ? <div className="row g10"><IconCalendar size={18} /><span>{whenLine(show)}</span></div> : null}
           {show.venue ? <div className="row g10 muted"><IconPin size={18} /><span>{show.venue.name}</span></div> : null}
@@ -70,8 +89,6 @@ export function FeatureBody({ item, compact = false, level = 1 }: { item: Featur
     </div>
   );
 }
-
-/* ---------- Option A: one card, tabs along the top ---------- */
 
 export function FeatureTabs({ items }: { items: FeatureItem[] }) {
   const [active, setActive] = useState(0);
@@ -100,64 +117,6 @@ export function FeatureTabs({ items }: { items: FeatureItem[] }) {
           <FeatureBody item={items[i]} />
         </div>
       </div>
-    </div>
-  );
-}
-
-/* ---------- Option B: a swipe row of cards ---------- */
-
-export function FeatureCarousel({ items }: { items: FeatureItem[] }) {
-  const track = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-  const many = items.length > 1;
-
-  useEffect(() => {
-    const el = track.current;
-    if (!el || !many) return;
-    const onScroll = () => {
-      const cards = Array.from(el.children) as HTMLElement[];
-      const left = el.scrollLeft + el.clientWidth * 0.25;
-      let k = 0;
-      cards.forEach((c, n) => { if (c.offsetLeft - el.offsetLeft <= left) k = n; });
-      setActive(k);
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
-  }, [many]);
-
-  const to = (n: number) => {
-    const el = track.current;
-    const card = el?.children[n] as HTMLElement | undefined;
-    if (el && card) el.scrollTo({ left: card.offsetLeft - el.offsetLeft - parseFloat(getComputedStyle(el).paddingLeft || "0"), behavior: "smooth" });
-  };
-
-  return (
-    <div className="feature-carousel">
-      {many ? (
-        <div className="wrap row between g12 feature-carousel-head">
-          <span className="eyebrow">On Slipstream · {active + 1} of {items.length}</span>
-          <div className="row g8">
-            <button className="icon-btn btn-glass feature-arrow" aria-label="Previous show" disabled={active === 0} onClick={() => to(active - 1)}><IconBack size={20} /></button>
-            <button className="icon-btn btn-glass feature-arrow" aria-label="Next show" disabled={active === items.length - 1} onClick={() => to(active + 1)}><IconChevron size={20} /></button>
-          </div>
-        </div>
-      ) : null}
-      <div ref={track} className={`feature-track${many ? " is-many" : ""}`} aria-roledescription={many ? "carousel" : undefined} aria-label="On Slipstream">
-        {items.map((it, n) => (
-          <article key={it.show.slug} className="feature-card feature-slide" aria-roledescription={many ? "slide" : undefined} aria-label={many ? `${n + 1} of ${items.length}: ${it.show.title}` : undefined}>
-            <FeatureBody item={it} compact={many} level={n === 0 ? 1 : 2} />
-          </article>
-        ))}
-      </div>
-      {many ? (
-        <div className="feature-dots">
-          {items.map((it, n) => (
-            <button key={it.show.slug} aria-label={`Show ${n + 1}: ${it.show.title}`} aria-current={n === active} onClick={() => to(n)}>
-              <span className={`feature-dot${isLive(it) ? " is-live" : ""}`} />
-            </button>
-          ))}
-        </div>
-      ) : null}
     </div>
   );
 }

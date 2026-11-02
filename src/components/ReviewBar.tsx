@@ -41,16 +41,6 @@ export default function ReviewBar() {
               </div>
             </div>
           ) : null}
-          <div className="stack g6"><span className="lbl">Home: next show design</span>
-            <div className="opts">
-              {([["a", "A · Tabs"], ["b", "B · Carousel"], ["original", "Original"]] as const).map(([h, l]) => <button key={h} aria-pressed={ctx.hero === h} onClick={() => ctx.setHero(h)}>{l}</button>)}
-            </div>
-          </div>
-          <div className="stack g6"><span className="lbl">Home: shows in the hero</span>
-            <div className="opts">
-              {([[0, "Real"], [2, "Demo 2"], [3, "Demo 3"]] as const).map(([n, l]) => <button key={n} aria-pressed={ctx.heroDemo === n} onClick={() => ctx.setHeroDemo(n)}>{l}</button>)}
-            </div>
-          </div>
           <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Tip: Signed in + RSVP'd + During shows the screening room with the player and password.</p>
           <div className="row g12 wrap-row" style={{ fontSize: 13 }}>
             <Link href="/review/" onClick={() => setOpen(false)}>All screens and states</Link>

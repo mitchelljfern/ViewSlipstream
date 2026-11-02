@@ -16,8 +16,6 @@ export const REVIEW_MODE = process.env.NEXT_PUBLIC_REVIEW_MODE !== "false";
 export type RsvpStatus = "confirmed" | "entered" | "paid";
 export type PhaseOverride = "auto" | Phase;
 export interface Guest { first: string; last: string; email: string }
-/** Home hero design being trialled: "a" tabbed card, "b" swipe carousel, "original" the old layout. */
-export type HeroDesign = "a" | "b" | "original";
 
 interface Stored {
   guest: Guest | null;
@@ -25,11 +23,8 @@ interface Stored {
   phase: PhaseOverride;
   newsletter: boolean;
   closingReminder: boolean;
-  hero: HeroDesign;
-  /** Review only: how many shows to feature on the home hero (0 = real data). */
-  heroDemo: 0 | 2 | 3;
 }
-const EMPTY: Stored = { guest: null, rsvps: {}, phase: "auto", newsletter: true, closingReminder: true, hero: "a", heroDemo: 0 };
+const EMPTY: Stored = { guest: null, rsvps: {}, phase: "auto", newsletter: true, closingReminder: true };
 const KEY = "slipstream-review-v1";
 
 interface Ctx extends Stored {
@@ -43,8 +38,6 @@ interface Ctx extends Stored {
   cancel: (slug: string) => void;
   setPhase: (p: PhaseOverride) => void;
   setPref: (k: "newsletter" | "closingReminder", v: boolean) => void;
-  setHero: (h: HeroDesign) => void;
-  setHeroDemo: (n: 0 | 2 | 3) => void;
   reset: () => void;
   /** Phase of a show, with the review override applied to the lead show. */
   phase: PhaseOverride;
@@ -65,10 +58,7 @@ export function PreviewProvider({ buildNow, leadSlug: initialLead, children }: {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(KEY);
-      const stored: Stored = raw ? { ...EMPTY, ...JSON.parse(raw) } : EMPTY;
-      // ?hero=a|b|original picks a home design, so a link can show one option.
-      const h = new URLSearchParams(window.location.search).get("hero");
-      setS(h === "a" || h === "b" || h === "original" ? { ...stored, hero: h } : stored);
+      if (raw) setS({ ...EMPTY, ...JSON.parse(raw) });
     } catch { /* storage blocked: start fresh */ }
     setReady(true);
     setNow(new Date());
@@ -97,8 +87,6 @@ export function PreviewProvider({ buildNow, leadSlug: initialLead, children }: {
     cancel: (slug) => save((p) => { const r = { ...p.rsvps }; delete r[slug]; return { ...p, rsvps: r }; }),
     setPhase: (phase) => save((p) => ({ ...p, phase })),
     setPref: (k, v) => save((p) => ({ ...p, [k]: v })),
-    setHero: (hero) => save((p) => ({ ...p, hero })),
-    setHeroDemo: (heroDemo) => save((p) => ({ ...p, heroDemo })),
     reset: () => save(() => EMPTY),
     phaseFor: (show) => (REVIEW_MODE && s.phase !== "auto" && show.slug === leadSlug ? s.phase : phaseOf(show, now)),
   }), [s, ready, now, leadSlug, toast, save, say]);
