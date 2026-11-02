@@ -342,9 +342,9 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 }
 /* What Slipstream is, across the top of the home page above the next show.
    (After .wrap so the top padding wins.) */
-.hero-intro { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; padding-top: 32px; padding-bottom: 4px; }
-.tagline { font: 600 clamp(26px, 3vw, 54px)/1.1 var(--font-display); letter-spacing: -0.02em; color: var(--text); max-width: 24ch; text-wrap: balance; }
-@media (min-width: 960px) { .hero-intro { padding-top: 64px; padding-bottom: 0; } }
+.hero-intro { position: relative; z-index: 1; display: flex; justify-content: center; text-align: center; padding-top: 36px; padding-bottom: 12px; }
+.tagline { font: 600 clamp(32px, 3.4vw, 64px)/1.08 var(--font-display); letter-spacing: -0.025em; color: var(--text); max-width: 22ch; text-wrap: balance; }
+@media (min-width: 960px) { .hero-intro { padding-top: 72px; padding-bottom: 8px; } }
 .home-hero { display: grid; gap: 20px; padding-top: 24px; padding-bottom: 8px; }
 @media (min-width: 960px) { .home-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: center; padding-top: 40px; padding-bottom: 32px; } }
 .auto-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }

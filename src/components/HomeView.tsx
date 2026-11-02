@@ -62,8 +62,7 @@ export default function HomeView({ groups, conversations, allShows }: {
       <section className="hero bleed-top">
         {lead.heroImage ? <div className="hero-bg"><img src={lead.heroImage} alt="" /></div> : null}
         <div className="wrap hero-intro">
-          <span className="eyebrow cat-kicker">Streaming interactive entertainment</span>
-          <p className="tagline">Compelling, provocative presentations and conversations with artists and creators.</p>
+          <p className="tagline">Streaming interactive screenings with the artists and creators behind the work</p>
         </div>
         <div className="wrap home-hero">
           <div className="stack g14">
