@@ -106,6 +106,7 @@ export default function HomeView({ groups, conversations, allShows }: {
       <section className="wrap section stack g16">
         <div className="section-head">
           <div className="stack g4"><h2 className="h2">In Conversation</h2><span className="muted small">Talks with the people who made the shows</span></div>
+          <Link href="/in-conversation/" className="btn btn-glass btn-sm"><IconPlay size={16} />Watch All {conversations.length} Conversations</Link>
         </div>
         <div className="auto-grid">
           {conversations.slice(0, 3).map((c) => (
@@ -115,7 +116,6 @@ export default function HomeView({ groups, conversations, allShows }: {
             </article>
           ))}
         </div>
-        <Link href="/in-conversation/" className="btn btn-white cta-center"><IconPlay size={18} />Watch All {conversations.length} Conversations</Link>
       </section>
 
       <section className="wrap section">
