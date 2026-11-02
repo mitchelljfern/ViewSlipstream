@@ -354,10 +354,11 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 .pillars svg { color: var(--link); flex: 0 0 auto; }
 @media (min-width: 960px) {
   .hero-intro { padding-top: 72px; padding-bottom: 32px; gap: 18px; }
+  /* Desktop: the lede reads as one line. */
+  .lede { max-width: none; white-space: nowrap; }
   .pillars { width: auto; margin: 6px 0 0; padding: 2px 0; overflow: visible; justify-content: center; gap: 10px; }
   .pillars a { font-size: 14px; min-height: 40px; padding: 0 16px; }
 }
-@media (min-width: 960px) { .home-hero { border-top: 1px solid rgba(var(--fg-rgb), 0.08); } }
 .home-hero { display: grid; gap: 20px; padding-top: 24px; padding-bottom: 8px; }
 @media (min-width: 960px) { .home-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: center; padding-top: 40px; padding-bottom: 32px; } }
 .auto-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
