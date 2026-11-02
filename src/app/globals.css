@@ -465,6 +465,24 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 .cat-kicker { color: var(--link); }
 .cat-title { margin: 0; font: 600 clamp(28px, 3.2vw, 56px)/1.02 var(--font-display); letter-spacing: -0.025em; text-wrap: balance; }
 .cat-meta { font-size: 13px; color: var(--muted); }
+/* Previous Titles finder: search, sort, type and year chips. Sticky on desktop. */
+.finder { display: flex; flex-direction: column; gap: 10px; }
+.finder-row { display: flex; gap: 10px; }
+.finder-search { position: relative; flex: 1; min-width: 0; }
+.finder-search .input { padding-left: 44px; padding-right: 48px; background: var(--surface); }
+.finder-search .input::-webkit-search-cancel-button { display: none; }
+.finder-search-icon { position: absolute; left: 14px; top: 16px; color: var(--muted); pointer-events: none; }
+.finder-clear { position: absolute; right: 4px; top: 4px; }
+.finder-sort { width: auto; height: 44px; background: var(--surface); padding: 0 10px 0 14px; }
+.finder-chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter); }
+.finder-chips::-webkit-scrollbar { display: none; }
+.finder .filter { height: 44px; flex: 0 0 auto; }
+@media (min-width: 960px) {
+  .finder { position: sticky; top: var(--header-h); z-index: 20; margin: 0 calc(var(--gutter) * -1); padding: 12px var(--gutter); background: linear-gradient(180deg, rgba(var(--bg-rgb), 0.95), rgba(var(--bg-rgb), 0.85)); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(var(--fg-rgb), 0.06); }
+  .finder-row { max-width: 760px; }
+  .finder-chips { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
+  .finder .filter { height: 38px; }
+}
 .jumpbar { position: sticky; top: var(--header-h); z-index: 20; margin: 0 calc(var(--gutter) * -1); padding: 10px 0; background: linear-gradient(180deg, rgba(var(--bg-rgb), 0.94), rgba(var(--bg-rgb), 0.78)); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(var(--fg-rgb), 0.06); }
 .jumpbar-inner { display: flex; gap: 8px; overflow-x: auto; padding: 0 var(--gutter); scrollbar-width: none; }
 .jumpbar-inner::-webkit-scrollbar { display: none; }

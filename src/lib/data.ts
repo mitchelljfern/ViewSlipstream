@@ -36,6 +36,40 @@ export const getArchiveItem = (slug: string): (ArchiveItem & { series: string })
   return undefined;
 };
 
+/** One row per Previous Titles entry, flattened for search and filters. */
+export interface PastTitle {
+  slug: string; title: string; poster: string; ratio?: number;
+  program: string; year: number | null; date: string | null;
+  kind: Show["kind"] | null; shorts: boolean; conversation: boolean;
+  /** Lower-case text the search box matches: title, program, conversation guests, about (cast, directors). */
+  text: string;
+}
+
+export const pastTitles = (): PastTitle[] => {
+  const rows: PastTitle[] = [];
+  let lastYear: number | null = null;
+  for (const g of archive) {
+    const items = g.items.map((i) => ({ i, show: getShow(i.slug) }));
+    // Titles with no dated page take the year their program ran.
+    const years = items.map(({ show }) => (show?.startsAt ? Number(show.startsAt.slice(0, 4)) : null)).filter((y): y is number => y !== null);
+    const groupYear: number | null = years.length ? Math.max(...years) : lastYear;
+    lastYear = groupYear;
+    for (const { i, show } of items) {
+      const program = g.title.replace(/®/g, "");
+      rows.push({
+        slug: i.slug, title: i.title, poster: i.poster, ratio: i.ratio, program,
+        year: show?.startsAt ? Number(show.startsAt.slice(0, 4)) : groupYear,
+        date: show?.startsAt ?? null,
+        kind: show?.kind ?? null,
+        shorts: /short/i.test(`${i.title} ${program}`),
+        conversation: !!(i.conversationId || show?.conversationId || show?.conversationLine),
+        text: `${i.title} ${program} ${show?.conversationLine ?? ""} ${show?.about.join(" ") ?? ""}`.toLowerCase(),
+      });
+    }
+  }
+  return rows;
+};
+
 export const allConversations = (): Conversation[] => conversations;
 export const getConversation = (id: string | null | undefined) =>
   id ? conversations.find((c) => c.id === id) : undefined;
