@@ -1,0 +1,42 @@
+import type { Metadata, Viewport } from "next";
+import { Figtree, Outfit } from "next/font/google";
+import "./globals.css";
+import { PreviewProvider, REVIEW_MODE } from "@/components/Preview";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import ReviewBar, { Toast } from "@/components/ReviewBar";
+import { allShows } from "@/lib/data";
+import { currentShow } from "@/lib/time";
+
+const outfit = Outfit({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-outfit", display: "swap" });
+const figtree = Figtree({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-figtree", display: "swap" });
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://viewslipstream.com"),
+  title: { default: "Slipstream | Screenings and conversations with filmmakers", template: "%s | Slipstream" },
+  description: "Compelling, provocative presentations and conversations with artists and creators. RSVP to stream new films and series, and watch the filmmaker conversations.",
+  // The review build must never be indexed.
+  robots: REVIEW_MODE ? { index: false, follow: false } : undefined,
+  icons: { icon: "/favicon.svg" },
+};
+
+export const viewport: Viewport = { themeColor: "#000000", width: "device-width", initialScale: 1, viewportFit: "cover" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const now = new Date();
+  const lead = currentShow(allShows(), now);
+  return (
+    <html lang="en" className={`${outfit.variable} ${figtree.variable}`}>
+      <body>
+        <PreviewProvider buildNow={now.toISOString()} leadSlug={lead?.slug ?? null}>
+          <a href="#main" className="sr-only">Skip to content</a>
+          <SiteHeader />
+          <main id="main">{children}</main>
+          <SiteFooter />
+          <Toast />
+          <ReviewBar />
+        </PreviewProvider>
+      </body>
+    </html>
+  );
+}
