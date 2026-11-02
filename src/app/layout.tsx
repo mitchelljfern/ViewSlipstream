@@ -6,6 +6,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import BottomNav from "@/components/BottomNav";
 import ReviewBar, { Toast } from "@/components/ReviewBar";
+import NewsletterPrompt from "@/components/NewsletterPrompt";
 import { ThemeScript } from "@/components/Theme";
 import { allShows } from "@/lib/data";
 import { currentShow } from "@/lib/time";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <SiteFooter />
           <BottomNav />
+          <NewsletterPrompt />
           <Toast />
           <ReviewBar />
         </PreviewProvider>

@@ -422,3 +422,24 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
   .footer .wrap { display: grid !important; grid-template-columns: auto 1fr auto; align-items: center; column-gap: 48px; }
   .footer .wrap > p { grid-column: 1 / -1; }
 }
+
+/* ---------- Newsletter card: a quiet corner card, not a modal ---------- */
+.nl-card {
+  position: fixed; z-index: 45; right: 12px; left: 12px; bottom: calc(132px + env(safe-area-inset-bottom));
+  background: var(--surface); color: var(--text); border: 1px solid var(--line-strong); border-radius: 18px;
+  padding: 18px 18px 16px; box-shadow: var(--shadow-xl);
+  display: flex; flex-direction: column; gap: 10px;
+  animation: nl-in 0.35s ease both;
+}
+.nl-card .nl-close { position: absolute; top: 6px; right: 6px; width: 44px; height: 44px; border-radius: 12px; }
+.nl-card .h3 { padding-right: 40px; font-size: 17px; }
+.nl-card form { display: flex; gap: 8px; }
+.nl-card .input { flex: 1; min-width: 0; }
+/* Phones: one line of heading and the form, so it stays out of the way. */
+.nl-card p { display: none; }
+.nl-card .input { height: 48px; }
+.nl-card .btn { min-height: 48px; }
+@keyframes nl-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (min-width: 640px) { .nl-card { left: auto; width: 360px; right: 16px; } .nl-card p { display: block; } .nl-card .h3 { font-size: 18px; } }
+@media (min-width: 960px) { .nl-card { right: 20px; bottom: 68px; } }
+@media (prefers-reduced-motion: reduce) { .nl-card { animation: none; } .theme-toggle svg { transition: none; } }
