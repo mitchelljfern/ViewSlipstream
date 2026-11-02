@@ -1,7 +1,7 @@
 # Slipstream on Netlify, linked to GitHub (mitchelljfern/ViewSlipstream).
 #
 # Branches and where they go:
-#   staging  -> branch deploy  https://staging--viewslipstream.netlify.app   (shared review site, password protected)
+#   staging  -> branch deploy  https://staging--viewslipstream.netlify.app   (shared review site, no password)
 #   PRs      -> deploy preview https://deploy-preview-<n>--viewslipstream.netlify.app
 #   main     -> PRODUCTION     https://viewslipstream.netlify.app
 #
