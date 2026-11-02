@@ -159,9 +159,9 @@ for s in shows:
         s.update({
             "startsAt": pt(2026, 10, 13, 9), "endsAt": pt(2026, 10, 30, 12),
             "about": ["Based on the bestselling novel from Nobel Prize-winner Kazuo Ishiguro and written and directed by Academy Award winner Taika Waititi (Jojo Rabbit), Klara and the Sun introduces audiences to Klara (Jenna Ortega), an Artificial Friend who wants nothing more than to find the perfect home.",
-                      "Klara and the Sun is in theaters October 23."],
+                      "Klara and the Sun is in theaters October 23rd."],
             "giveaway": {"prize": "One of 5 exclusive Klara and the Sun prize packs: a hat, tote bag, sunglasses, pin, book and bookmarks (items may vary).",
-                         "winners": 5, "drawOn": "Friday, October 30", "rules": "One entry per email address. Five winners are selected at random and notified by email on Friday, October 30."},
+                         "winners": 5, "drawOn": "Friday, October 30th", "rules": "One entry per email address. Five winners are selected at random and notified by email on Friday, October 30th."},
         })
     if s["slug"] == "john-candy-i-like-me" and not s["about"]:
         s["about"] = ["From director Colin Hanks and lifelong John Candy fan Ryan Reynolds comes John Candy: I Like Me, an exploration of the life of the Canadian comedic icon. The film documents his on- and off-camera existence, featuring never-before-seen home videos, intimate access to his family and candid recollections from collaborators."]
