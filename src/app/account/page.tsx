@@ -1,3 +1,4 @@
 import AccountView from "@/components/AccountView";
-export const metadata = { title: "Your account" };
+import { share } from "@/lib/share";
+export const metadata = { ...share({ title: "Your account", path: "/account/" }), robots: { index: false } };
 export default function Account() { return <AccountView />; }

@@ -1,7 +1,8 @@
 import ArchiveGrid from "@/components/ArchiveGrid";
 import { archiveGroups } from "@/lib/data";
 
-export const metadata = { title: "Previous Titles" };
+import { share } from "@/lib/share";
+export const metadata = share({ title: "Previous Titles", description: "Films and series Slipstream has screened, with the filmmaker conversations.", path: "/previous-titles/" });
 
 export default function PreviousTitles() {
   const groups = archiveGroups();

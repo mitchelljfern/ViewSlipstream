@@ -6,6 +6,7 @@ import VideoFacade from "@/components/VideoFacade";
 import { PosterWell } from "@/components/PosterTile";
 import { getArchiveItem, getConversation, getShow, moreInSeries, showPageSlugs } from "@/lib/data";
 import { minutes } from "@/lib/time";
+import { share } from "@/lib/share";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => showPageSlugs().map((slug) => ({ slug }));
@@ -17,12 +18,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const show = getShow(slug);
   const item = show ?? getArchiveItem(slug);
   if (!item) return {};
-  return {
+  return share({
     title: item.title,
-    description: show?.about[0]?.slice(0, 160) ?? `${item.title} on Slipstream.`,
-    openGraph: { images: [show?.heroImage ?? item.poster] },
-    alternates: { canonical: `/${slug}/` },
-  };
+    description: show?.about[0] ?? `${item.title} on Slipstream.`,
+    image: show?.heroImage ?? item.poster,
+    imageAlt: item.title,
+    path: `/${slug}/`,
+  });
 }
 
 export default async function ShowPage({ params }: Props) {
