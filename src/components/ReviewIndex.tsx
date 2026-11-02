@@ -18,7 +18,7 @@ export default function ReviewIndex() {
   const screens: [string, string][] = [
     ["Home", "/"], [`Show page: ${lead.title}`, `/${lead.slug}/`], [`In person: ${inPerson.title}`, `/${inPerson.slug}/`],
     [`Giveaway: ${giveaway.title}`, `/${giveaway.slug}/`], ["Sign in / create account", "/sign-in/"], ["Account", "/account/"],
-    ["In conversation (all videos)", "/in-conversation/"], ["Previous titles", "/previous-titles/"],
+    ["In Conversation (all videos)", "/in-conversation/"], ["Previous titles", "/previous-titles/"],
     ["Email 1: confirmation", `/emails/rsvp/?show=${lead.slug}`], ["Email 2: it's showtime", `/emails/live/?show=${lead.slug}`], ["Email 3: thank you", `/emails/thanks/?show=${lead.slug}`],
     ["404 page", "/this-page-does-not-exist/"],
   ];

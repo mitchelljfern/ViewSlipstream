@@ -59,7 +59,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
       ) : null}
       {show.venue ? (
         <div className="fact"><IconPin /><div><b>{show.venue.name}</b><span className="muted small">{show.venue.address}</span>
-          <a className="small" style={{ fontWeight: 600, display: "block" }} href={`https://maps.google.com/?q=${encodeURIComponent(`${show.venue.name}, ${show.venue.address}`)}`} target="_blank" rel="noreferrer">Get directions</a></div></div>
+          <a className="btn btn-glass btn-sm" style={{ marginTop: 8 }} href={`https://maps.google.com/?q=${encodeURIComponent(`${show.venue.name}, ${show.venue.address}`)}`} target="_blank" rel="noreferrer">Get Directions</a></div></div>
       ) : null}
       {show.conversationLine ? (
         <div className="fact"><IconMic /><div><b>Conversation after the {show.kind === "giveaway" ? "release" : "film"}</b><span className="muted small">{show.conversationLine.replace(/^the screening will be followed by a conversation with\s*/i, "With ").replace(/^the documentary will be followed by a conversation with\s*/i, "With ")}</span></div></div>
@@ -117,7 +117,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
           </div>
         </section>
       ) : (
-        <section className="hero">
+        <section className={`hero${open && !status && !show.atCapacity ? "" : " bleed-top"}`}>
           {show.heroImage ? <div className="hero-bg"><img src={show.heroImage} alt="" /></div> : null}
           <div className="wrap show-hero">
             <div className="stack g16">
@@ -146,7 +146,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
             <section className="stack g12" aria-labelledby="about-h">
               <h2 id="about-h" className="h2">About the show</h2>
               <div className="prose stack g12">{about.map((p, i) => <p key={i} className={i ? "muted" : undefined}>{p}</p>)}</div>
-              {aboutAll.length > 2 ? <button className="small" style={{ alignSelf: "flex-start", background: "none", border: 0, padding: 0, color: "var(--link)", fontWeight: 600, cursor: "pointer" }} onClick={() => setReadMore((v) => !v)}>{readMore ? "Show less" : "Read more"}</button> : null}
+              {aboutAll.length > 2 ? <button className="btn btn-glass btn-sm" style={{ alignSelf: "flex-start" }} onClick={() => setReadMore((v) => !v)}>{readMore ? "Show Less" : "Read More"}</button> : null}
             </section>
           ) : null}
 
@@ -191,7 +191,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
 
       {more.length ? (
         <section className="wrap section stack g16" aria-labelledby="more-h">
-          <div className="section-head"><h2 id="more-h" className="h2">More in {show.series}</h2><Link href="/#titles">All titles</Link></div>
+          <div className="section-head"><h2 id="more-h" className="h2">More in {show.series}</h2><Link href="/#titles" className="btn btn-glass btn-sm">All Titles</Link></div>
           <div className="poster-grid">
             {more.map((s) => <PosterTile key={s.slug} href={`/${s.slug}/`} title={s.title} poster={s.poster} ratio={s.posterRatio} />)}
           </div>

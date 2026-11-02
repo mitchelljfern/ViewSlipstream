@@ -39,6 +39,8 @@ export interface ArchiveItem {
   slug: string;
   title: string;
   poster: string;
+  /** width / height of the poster image */
+  ratio?: number;
   conversationId: string | null;
 }
 

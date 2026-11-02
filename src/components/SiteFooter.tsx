@@ -7,10 +7,10 @@ export default function SiteFooter() {
       <div className="wrap stack g20" style={{ paddingTop: 32, paddingBottom: 40 }}>
         <img src="/slipstream-logo.png" alt="Slipstream" style={{ height: 12, width: "auto", alignSelf: "flex-start" }} />
         <nav aria-label="Footer" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 12, maxWidth: 420 }}>
-          <Link className="flink" href="/">Now showing</Link>
-          <Link className="flink" href="/previous-titles/">Previous titles</Link>
-          <Link className="flink" href="/in-conversation/">In conversation</Link>
-          <a className="flink" href="mailto:hello@viewslipstream.com">Contact us</a>
+          <Link className="flink" href="/">Now Showing</Link>
+          <Link className="flink" href="/previous-titles/">Previous Titles</Link>
+          <Link className="flink" href="/in-conversation/">In Conversation</Link>
+          <a className="flink" href="mailto:hello@viewslipstream.com">Contact Us</a>
         </nav>
         <div className="row g10">
           {SOCIAL.map(({ href, label, Icon }) => (

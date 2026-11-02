@@ -6,6 +6,7 @@
     "slug": "star-city",
     "title": "Star City",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/05/star-city-poster.jpg",
+    "ratio": 2.13,
     "conversationId": "1193471376"
    }
   ]
@@ -17,24 +18,28 @@
     "slug": "widows-bay",
     "title": "Widow's Bay",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/04/widows-bay-poster.jpg",
+    "ratio": 0.677,
     "conversationId": "944edac9-49a3-4c57-8257-45c67efd3290"
    },
    {
     "slug": "the-sheep-detectives",
     "title": "The Sheep Detectives",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/04/sheep-detectives-poster.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "lorne",
     "title": "Lorne",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/04/lorne-poster.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "i-swear",
     "title": "I Swear",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/04/I-SWEAR-POSTER.jpg",
+    "ratio": 0.677,
     "conversationId": null
    }
   ]
@@ -46,6 +51,7 @@
     "slug": "the-ai-doc-or-how-i-became-an-apocaloptimist",
     "title": "The AI Doc: Or How I Became an Apocaloptimist",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/03/AI_FP_horizontal-poster-scaled.jpg",
+    "ratio": 2.525,
     "conversationId": null
    }
   ]
@@ -57,42 +63,49 @@
     "slug": "hamnet",
     "title": "Hamnet",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/hamnet-poster-2.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "cutting-through-rocks",
     "title": "Cutting Through Rocks",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/ctr-poster.jpg",
+    "ratio": 0.677,
     "conversationId": "1166770683"
    },
    {
     "slug": "academy-award-nominated-short-film-showcase-2",
     "title": "Academy Award®-Nominated Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/colage-shorts.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "little-amelie-or-the-character-of-rain",
     "title": "Little Amélie or the Character of Rain",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/poster-2.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "bugonia",
     "title": "Bugonia",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/bugonia-poster-1.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "come-see-me-in-the-good-light",
     "title": "Come See Me in the Good Light",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/come-see-me-in-good-light-poster.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "f1",
     "title": "F1",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/f1-poster.jpg",
+    "ratio": 0.677,
     "conversationId": null
    }
   ]
@@ -104,12 +117,14 @@
     "slug": "midwinter-break",
     "title": "Midwinter Break",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/6rVqtRTY1HFxYwgj8Ovtnwsq1vo.jpg-e1771447221600.webp",
+    "ratio": 1.778,
     "conversationId": null
    },
    {
     "slug": "drops-of-god",
     "title": "Drops of God",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/02/dropsofapple1.jpg",
+    "ratio": 1.778,
     "conversationId": "1165485056"
    }
   ]
@@ -121,96 +136,112 @@
     "slug": "the-alabama-solution",
     "title": "The Alabama Solution",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/12/the-alabama-soulution.jpg",
+    "ratio": 0.678,
     "conversationId": "1149039746"
    },
    {
     "slug": "homebound",
     "title": "Homebound",
     "poster": "https://viewslipstream.com/wp-content/uploads/2026/01/Homebound_Poster_with_Laurels_-e1767735557902.png",
+    "ratio": 0.676,
     "conversationId": null
    },
    {
     "slug": "left-handed-girl",
     "title": "Left-Handed Girl",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/12/LeftHandedGirl_KA_v2-1-e1766528994631.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "after-the-hunt",
     "title": "After the Hunt",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/12/after-the-hunt-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-choral",
     "title": "The Choral",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/12/Choral_SONY-TCHMI-15_AMPASposter600x889-e1765796831142.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "song-sung-blue",
     "title": "Song Sung Blue",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/12/song-sung-blue-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-long-walk",
     "title": "The Long Walk",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/12/the-long-walk-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1144589854"
    },
    {
     "slug": "belen",
     "title": "Belén",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/belen-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "im-not-everything-i-want-to-be",
     "title": "I'm Not Everything I Want to Be",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/everythin-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "hedda-screening",
     "title": "Hedda Screening",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/hedda-virtual.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "merrily-we-roll-along",
     "title": "Merrily We Roll Along",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/merrily-we-roll-along-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "short-film-showcase-3",
     "title": "Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/12/short-film-poster-2.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "hedda",
     "title": "Hedda",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/hedda-in-person.jpg",
+    "ratio": 0.678,
     "conversationId": "1143700953"
    },
    {
     "slug": "hamnet",
     "title": "Hamnet",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/hamnet-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "train-dreams",
     "title": "Train Dreams",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/train-dreams-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-tale-of-silyan",
     "title": "The Tale of Silyan",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/11/silyan-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1133951079"
    }
   ]
@@ -222,6 +253,7 @@
     "slug": "slow-horses",
     "title": "Slow Horses",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/09/old.jpg",
+    "ratio": 0.806,
     "conversationId": "1122318194"
    }
   ]
@@ -233,6 +265,7 @@
     "slug": "bugonia",
     "title": "Bugonia",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/10/bugonia.jpg",
+    "ratio": 0.806,
     "conversationId": null
    }
   ]
@@ -244,6 +277,7 @@
     "slug": "unbound-stories-from-laliff",
     "title": "Unbound: Stories from LALIFF",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/09/IMG_7377-1.jpg",
+    "ratio": 2.206,
     "conversationId": null
    }
   ]
@@ -255,6 +289,7 @@
     "slug": "art-of-nom",
     "title": "Art of Nôm",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/09/art-of-nom.jpg",
+    "ratio": 2.206,
     "conversationId": null
    }
   ]
@@ -266,12 +301,14 @@
     "slug": "downton-abbey",
     "title": "Downton Abbey",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/08/downton-abbey-horizontal.jpg",
+    "ratio": 1.778,
     "conversationId": null
    },
    {
     "slug": "platonic",
     "title": "Platonic",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/08/PlatonicS2_KeyArt_16x9.png",
+    "ratio": 1.778,
     "conversationId": null
    }
   ]
@@ -283,12 +320,14 @@
     "slug": "sly-lives",
     "title": "Sly Lives!",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/08/sly-cover.jpg",
+    "ratio": 2.339,
     "conversationId": null
    },
    {
     "slug": "tucci-in-italy",
     "title": "Tucci in Italy",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/08/tuci-cover.jpg",
+    "ratio": 2.339,
     "conversationId": null
    }
   ]
@@ -300,6 +339,7 @@
     "slug": "dont-lets-go-to-the-dogs-tonight",
     "title": "Don't Let's Go to the Dogs Tonight",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/06/poster.jpg",
+    "ratio": 2.206,
     "conversationId": null
    }
   ]
@@ -311,36 +351,42 @@
     "slug": "overcompensating",
     "title": "Overcompensating",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/06/overcompensating.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "1-happy-family-usa",
     "title": "#1 Happy Family USA",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/06/1usafamily.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "beast-games",
     "title": "Beast Games",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/06/beast-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "another-simple-favor",
     "title": "Another Simple Favor",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/asf.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-better-sister",
     "title": "The Better Sister",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/better-sister.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "etoile",
     "title": "Étoile",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/etolie.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -352,6 +398,7 @@
     "slug": "shorts-program-in-the-mix-rhythms-motion",
     "title": "Shorts Program: In the Mix: Rhythms & Motion",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/shorts-poster.jpg",
+    "ratio": 1.913,
     "conversationId": null
    }
   ]
@@ -363,24 +410,28 @@
     "slug": "david-blaine-do-not-attempt",
     "title": "David Blaine: Do Not Attempt",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/dblane.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "road-diary-bruce-springsteen-and-e-street-band",
     "title": "Road Diary: Bruce Springsteen and E Street Band",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/bruce-s.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "tucci-in-italy",
     "title": "Tucci in Italy",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/tucci.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-phoenician-scheme",
     "title": "The Phoenician Scheme",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/05/poster22.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -392,12 +443,14 @@
     "slug": "careme",
     "title": "Carême",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/04/careme-scaled.jpg",
+    "ratio": 1.778,
     "conversationId": "1081640133"
    },
    {
     "slug": "another-simple-favor",
     "title": "Another Simple Favor",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/04/another-simple-favor-scaled.jpg",
+    "ratio": 1.778,
     "conversationId": null
    }
   ]
@@ -409,6 +462,7 @@
     "slug": "black-bag",
     "title": "Black Bag",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/02/horizontal-black-bag.png",
+    "ratio": 2.875,
     "conversationId": null
    }
   ]
@@ -420,42 +474,49 @@
     "slug": "memoir-of-a-snail",
     "title": "Memoir of a Snail",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/02/memoir-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "nickel-boys",
     "title": "Nickel Boys",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/poster_0001.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "sugarcane",
     "title": "Sugarcane",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/sugarcane.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "nominated-short-film-showcase",
     "title": "Nominated Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/02/shorts-new.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "dune-part-two",
     "title": "Dune: Part Two",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/02/dune2.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "nosferatu",
     "title": "Nosferatu",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/02/noferatu.jpg",
+    "ratio": 0.678,
     "conversationId": "1056939542"
    },
    {
     "slug": "porcelain-war",
     "title": "Porcelain War",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/02/porcelan-war.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -467,6 +528,7 @@
     "slug": "shorts-program",
     "title": "Shorts Program",
     "poster": "https://viewslipstream.com/wp-content/uploads/2025/01/shorts.jpg",
+    "ratio": 2.537,
     "conversationId": null
    }
   ]
@@ -478,96 +540,112 @@
     "slug": "inside-out-2",
     "title": "Inside Out 2",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/inside-out-2-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "my-old-ass",
     "title": "My Old Ass",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/my-old-ass-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-wild-robot",
     "title": "The Wild Robot",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/wild-robot.jpg",
+    "ratio": 0.678,
     "conversationId": "1047333114"
    },
    {
     "slug": "challengers",
     "title": "Challengers",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/challengers.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "her-fight-his-name-the-story-of-gwen-carr-and-eric-garner",
     "title": "Her Fight, His Name: The Story of Gwen Carr and Eric Garner",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/her-fight-his-name-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "fancy-dance",
     "title": "Fancy Dance",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/fancy-dance-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "nurse-unseen",
     "title": "Nurse Unseen",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/poster_0003.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "nickel-boys",
     "title": "Nickel Boys",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/poster_0001.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-fire-inside",
     "title": "The Fire Inside",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/poster_0000.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "twisters",
     "title": "Twisters",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/twisters-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1039139939"
    },
    {
     "slug": "wicked",
     "title": "Wicked",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/wicked-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1042974060"
    },
    {
     "slug": "blitz",
     "title": "Blitz",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/poster_0002.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "sugarcane",
     "title": "Sugarcane",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/sugarcane.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "in-her-place",
     "title": "In Her Place",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/in-her-place-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1031756615"
    },
    {
     "slug": "black-box-diaries",
     "title": "Black Box Diaries",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/11/bbd-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1033282368"
    },
    {
     "slug": "academy-awards-contender-short-film-showcase",
     "title": "Academy Awards®-Contender Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/12/poster-vertical-3.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -579,6 +657,7 @@
     "slug": "napoleon-dynamite",
     "title": "Napoleon Dynamite",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/07/Napoleon-Dynamite-background-e1721830735964.jpg",
+    "ratio": 2.337,
     "conversationId": null
    }
   ]
@@ -590,24 +669,28 @@
     "slug": "quiz-lady",
     "title": "Quiz Lady",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/08/quiz-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "red-white-royal-blue",
     "title": "Red, White & Royal Blue",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/12/RWBposter.jpg",
+    "ratio": 0.678,
     "conversationId": "900016164"
    },
    {
     "slug": "mr-mrs-smith",
     "title": "Mr. & Mrs. Smith",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/smith-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1020797502"
    },
    {
     "slug": "tig-notaro-hello-again",
     "title": "Tig Notaro: Hello Again",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/08/tig-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -619,6 +702,7 @@
     "slug": "cirque-du-soleil-without-a-net",
     "title": "Cirque Du Soleil: Without a Net",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/07/horizontal-poster-scaled.jpg",
+    "ratio": 2.886,
     "conversationId": "987394969"
    }
   ]
@@ -630,54 +714,63 @@
     "slug": "expats",
     "title": "Expats",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/expats-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "mary-george",
     "title": "Mary & George",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/mg-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "952076465"
    },
    {
     "slug": "fallout",
     "title": "Fallout",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/fallout-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "musica",
     "title": "Música",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/musica.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "im-a-virgo",
     "title": "I'm a Virgo",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/12/virgo.jpg",
+    "ratio": 0.678,
     "conversationId": "896722509"
    },
    {
     "slug": "mr-mrs-smith",
     "title": "Mr. & Mrs. Smith",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/smith-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1020797502"
    },
    {
     "slug": "for-love-life-no-ordinary-campaign",
     "title": "For Love & Life: No Ordinary Campaign",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/love-life-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "lawman-bass-reeves",
     "title": "Lawman: Bass Reeves",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/bass-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-beach-boys",
     "title": "The Beach Boys",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/beach-boys-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1020770685"
    }
   ]
@@ -689,30 +782,35 @@
     "slug": "genius-mlk-x",
     "title": "Genius: Mlk/x",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/mlk-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "maxines-baby-the-tyler-perry-story",
     "title": "Maxine's Baby: The Tyler Perry Story",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/maxine-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "947577019"
    },
    {
     "slug": "queens",
     "title": "Queens",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/queen.jpg",
+    "ratio": 0.678,
     "conversationId": "950076693"
    },
    {
     "slug": "red-white-royal-blue",
     "title": "Red, White & Royal Blue",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/12/RWBposter.jpg",
+    "ratio": 0.678,
     "conversationId": "900016164"
    },
    {
     "slug": "under-the-bridge",
     "title": "Under the Bridge",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/05/utb-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -724,12 +822,14 @@
     "slug": "women-artists-in-history-miss-alma-thomas-and-gloria-orenstein",
     "title": "Women Artists in History: Miss Alma Thomas and Dr. Gloria Orenstein",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/03/wh.jpg",
+    "ratio": 2.0,
     "conversationId": null
    },
    {
     "slug": "la-chimera",
     "title": "La Chimera",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/03/la-chimera-poster.jpg",
+    "ratio": 2.0,
     "conversationId": null
    }
   ]
@@ -741,60 +841,70 @@
     "slug": "the-holdovers",
     "title": "The Holdovers",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/holovers-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "916157675"
    },
    {
     "slug": "oppenheimer",
     "title": "Oppenheimer",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/poster-operh.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "academy-award-nominated-short-film-showcase",
     "title": "Academy Award-Nominated Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/short-films-2024-new.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-color-purple",
     "title": "The Color Purple",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/purple.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "killers-of-the-flower-moon",
     "title": "Killers of the Flower Moon",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/killeros-of-the-flower-moon.jpg",
+    "ratio": 0.678,
     "conversationId": "916895383"
    },
    {
     "slug": "the-boy-and-the-heron",
     "title": "The Boy and the Heron",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/boy-heron-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "maestro",
     "title": "Maestro",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/maestro-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "spider-man-across-the-spider-verse",
     "title": "Spider-Man: Across the Spider-Verse",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/spiderman-1.jpg",
+    "ratio": 0.678,
     "conversationId": "916935491"
    },
    {
     "slug": "bobi-wine-the-peoples-president",
     "title": "Bobi Wine: The People's President",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/boby-wine.jpg",
+    "ratio": 0.678,
     "conversationId": "916933382"
    },
    {
     "slug": "society-of-the-snow",
     "title": "Society of the Snow",
     "poster": "https://viewslipstream.com/wp-content/uploads/2024/02/sos-2.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -806,78 +916,91 @@
     "slug": "still-a-michael-j-fox-movie",
     "title": "Still: A Michael J. Fox Movie",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/still.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "american-fiction",
     "title": "American Fiction",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/american-fiction-1.jpg",
+    "ratio": 0.678,
     "conversationId": "1020770112"
    },
    {
     "slug": "the-eternal-memory",
     "title": "The Eternal Memory",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/the-eternal-memory.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "saltburn",
     "title": "Saltburn",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/saltburn.jpg",
+    "ratio": 0.678,
     "conversationId": "917215902"
    },
    {
     "slug": "short-films",
     "title": "Short Films",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/shortfilm.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-burial",
     "title": "The Burial",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/the-burial.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-pigeon-tunnel",
     "title": "The Pigeon Tunnel",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/the-pigeon-tunel.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "bottoms",
     "title": "Bottoms",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/bottoms.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "rustin",
     "title": "Rustin",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/rustin.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "silver-dollar-road",
     "title": "Silver Dollar Road",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/12/silver-dollar-road.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "a-million-miles-away",
     "title": "A Million Miles Away",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/miliom-miles-away.jpg",
+    "ratio": 0.678,
     "conversationId": "894685468"
    },
    {
     "slug": "im-a-virgo",
     "title": "I'm a Virgo",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/12/virgo.jpg",
+    "ratio": 0.678,
     "conversationId": "896722509"
    },
    {
     "slug": "red-white-royal-blue",
     "title": "Red, White & Royal Blue",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/12/RWBposter.jpg",
+    "ratio": 0.678,
     "conversationId": "900016164"
    }
   ]
@@ -889,18 +1012,21 @@
     "slug": "air",
     "title": "Air",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/air.jpg",
+    "ratio": 0.678,
     "conversationId": "913148448"
    },
    {
     "slug": "cassandro",
     "title": "Cassandro",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/cassandro.jpg",
+    "ratio": 0.678,
     "conversationId": "902354836"
    },
    {
     "slug": "the-mission",
     "title": "The Mission",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/11/mission-1.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -912,6 +1038,7 @@
     "slug": "plastic-kills-horror-short-film-contest",
     "title": "PLASTIC KILLS! Horror Short Film Contest",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/10/Plastic-Kills-finalists-graphic65.png",
+    "ratio": 1.778,
     "conversationId": null
    }
   ]
@@ -923,6 +1050,7 @@
     "slug": "upload",
     "title": "Upload",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/10/UPLO_S3PRShowBanner_Ensemble_1920x1080_PRE_FINAL_en-US_CPS.jpg",
+    "ratio": 1.988,
     "conversationId": null
    }
   ]
@@ -934,12 +1062,14 @@
     "slug": "silver-dollar-road",
     "title": "Silver Dollar Road",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/10/sdr-poster.jpg",
+    "ratio": 1.781,
     "conversationId": null
    },
    {
     "slug": "to-kill-a-tiger",
     "title": "To Kill a Tiger",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/10/fs-poster.jpg",
+    "ratio": 1.781,
     "conversationId": null
    }
   ]
@@ -951,6 +1081,7 @@
     "slug": "flora-and-son",
     "title": "Flora and Son",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/09/fs-poster.jpg",
+    "ratio": 2.327,
     "conversationId": null
    }
   ]
@@ -962,6 +1093,7 @@
     "slug": "sitting-in-bars-with-cake",
     "title": "Sitting in Bars with Cake",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/09/poster.jpg",
+    "ratio": 2.171,
     "conversationId": null
    }
   ]
@@ -973,18 +1105,21 @@
     "slug": "obi-wan-kenobi",
     "title": "Obi-Wan Kenobi",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/08/obi-wan-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "judy-blume-forever",
     "title": "Judy Blume Forever",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/judy-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "830325527"
    },
    {
     "slug": "andor",
     "title": "Andor",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/08/andor-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1020770259"
    }
   ]
@@ -996,12 +1131,14 @@
     "slug": "gran-turismo",
     "title": "Gran Turismo",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/07/gt-horizontal.jpg",
+    "ratio": 1.748,
     "conversationId": null
    },
    {
     "slug": "the-beanie-bubble",
     "title": "The Beanie Bubble",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/07/beanie-horizontal.jpg",
+    "ratio": 1.748,
     "conversationId": null
    }
   ]
@@ -1013,48 +1150,56 @@
     "slug": "elton-john-live-farewell-from-dodger-stadium",
     "title": "Elton John Live: Farewell from Dodger Stadium",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/poster.jpg_0003_Layer-1.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "bono-the-edge-a-sort-of-homecoming-with-dave-letterman",
     "title": "Bono & the Edge: A Sort of Homecoming, with Dave Letterman",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/poster.jpg_0002_Bono_The_Edge.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "a-small-light",
     "title": "A Small Light",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/poster.jpg_0001_MV5BYzVhNDVjMjktOGU1NC00ZjRmLWIxZjgtNjkzM2Y1M2ZjNTc0XkEyXkFqcGdeQXVyMTQzNTA5MzYz._V1_FMjpg_UX1000_.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "swarm",
     "title": "Swarm",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/06/swarm-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-1619-project",
     "title": "The 1619 Project",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/06/1619-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "yellowjackets",
     "title": "Yellowjackets",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/poster.jpg_0000_Yellowjackets_S2_KeyArt_0001.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-great-3",
     "title": "The Great",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/06/poster-the-great.jpg",
+    "ratio": 0.678,
     "conversationId": "709714770"
    },
    {
     "slug": "the-peripheral",
     "title": "The Peripheral",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/06/periphetal-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -1066,6 +1211,7 @@
     "slug": "the-scale-of-hope",
     "title": "The Scale of Hope",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/sc-of-hope-horizontal.jpg",
+    "ratio": 3.038,
     "conversationId": null
    }
   ]
@@ -1077,18 +1223,21 @@
     "slug": "dead-ringers",
     "title": "Dead Ringers",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/ringers-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "825578971"
    },
    {
     "slug": "the-english",
     "title": "The English",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/english-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "judy-blume-forever",
     "title": "Judy Blume Forever",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/05/judy-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "830325527"
    }
   ]
@@ -1100,6 +1249,7 @@
     "slug": "dungeons-dragons-conversation",
     "title": "Dungeons & Dragons Conversation",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/03/dd-poster.jpg",
+    "ratio": 2.047,
     "conversationId": null
    }
   ]
@@ -1111,54 +1261,63 @@
     "slug": "a-house-made-of-splinters",
     "title": "A House Made of Splinters",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/02/poster2.jpg",
+    "ratio": 0.678,
     "conversationId": "804067404"
    },
    {
     "slug": "all-the-beauty-and-the-bloodshed",
     "title": "All The Beauty And The Bloodshed",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/02/all-the-beautu-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "1020770404"
    },
    {
     "slug": "elvis",
     "title": "Elvis",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/02/elvis-popster-.jpg",
+    "ratio": 0.678,
     "conversationId": "770003418"
    },
    {
     "slug": "the-fabelmans",
     "title": "The Fabelmans",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/02/farg-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "804417086"
    },
    {
     "slug": "puss-in-boots",
     "title": "Puss In Boots",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/03/puss-in-the-boots.jpg",
+    "ratio": 0.678,
     "conversationId": "804488194"
    },
    {
     "slug": "guillermo-del-toros-pinocchio",
     "title": "Guillermo del Toro's Pinocchio",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/03/pinocchio-poster.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "short-film-showcase-2",
     "title": "Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/02/showcase-poster2.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "fire-of-love",
     "title": "Fire of Love",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/02/fire.jpg",
+    "ratio": 0.678,
     "conversationId": "800707067"
    },
    {
     "slug": "the-triangle-of-sadness",
     "title": "The Triangle of Sadness",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/02/triangle.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -1170,6 +1329,7 @@
     "slug": "the-boy-the-mole-the-fox-and-the-horse",
     "title": "The Boy, The Mole, The Fox and The Horse",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/03/C.Mauthorimagee.jpg",
+    "ratio": 1.925,
     "conversationId": "779386888"
    }
   ]
@@ -1181,6 +1341,7 @@
     "slug": "all-quiet-digital-booklet",
     "title": "All Quiet Digital Booklet",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/03/All_Quiet_Image_4a-scaled.jpg",
+    "ratio": 2.774,
     "conversationId": null
    }
   ]
@@ -1192,12 +1353,14 @@
     "slug": "till",
     "title": "Till",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/01/till-poster-2.png",
+    "ratio": 2.062,
     "conversationId": "783085523"
    },
    {
     "slug": "women-talking",
     "title": "Women Talking",
     "poster": "https://viewslipstream.com/wp-content/uploads/2023/01/women-talking-1.png",
+    "ratio": 2.062,
     "conversationId": null
    }
   ]
@@ -1209,36 +1372,42 @@
     "slug": "selena-gomez-my-mind-me",
     "title": "Selena Gomez: My Mind & Me",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/11/serena-poster.png",
+    "ratio": 0.678,
     "conversationId": "776740646"
    },
    {
     "slug": "nanny",
     "title": "Nanny",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/11/nanny-poster.png",
+    "ratio": 0.678,
     "conversationId": "777533891"
    },
    {
     "slug": "all-quiet-on-the-western-front",
     "title": "All Quiet On The Western Front",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/11/all-the-quiet-poster.png",
+    "ratio": 0.678,
     "conversationId": "777522505"
    },
    {
     "slug": "short-film-showcase-2",
     "title": "Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/12/short-film-3.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "my-policeman",
     "title": "My Policeman",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/11/policeman-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "779424810"
    },
    {
     "slug": "the-good-nurse",
     "title": "The Good Nurse",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/11/good-nurse-poster.png",
+    "ratio": 0.678,
     "conversationId": "779003995"
    }
   ]
@@ -1250,42 +1419,49 @@
     "slug": "descendant",
     "title": "Descendant",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/descedant-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "765114719"
    },
    {
     "slug": "aftershock",
     "title": "Aftershock",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/aftershock.jpg",
+    "ratio": 0.678,
     "conversationId": "766299891"
    },
    {
     "slug": "is-that-black-enough-for-you",
     "title": "Is That Black Enough For you ?!?",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/isthatblc.png",
+    "ratio": 0.678,
     "conversationId": "770003418"
    },
    {
     "slug": "sr",
     "title": "Sr",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/sr.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "argentina-1985",
     "title": "Argentina 1985",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/argentina.jpg",
+    "ratio": 0.678,
     "conversationId": "772650399"
    },
    {
     "slug": "louis-armstrong-black-blues",
     "title": "Louis Armstrong Black & Blues",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/09/louis-armstrong.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "catherine-called-birdy",
     "title": "Catherine Called Birdy",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/cath.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -1297,36 +1473,42 @@
     "slug": "the-story-wont-die",
     "title": "The Story Won't Die",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/story-wont-die-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "mija",
     "title": "Mija",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/mija-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "wild-honey",
     "title": "Wild Honey",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/wild-honey-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "a-magical-substance-flows-into-me",
     "title": "A Magical Substance Flows Into Me",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/magical-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-sweet-france-of-rachid-taha",
     "title": "The Sweet France of Rachid Taha",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/rashid-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "half-moon",
     "title": "Half Moon",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/half-moon-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -1338,24 +1520,28 @@
     "slug": "sidney",
     "title": "Sidney",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/10/sidney-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "in-her-hands",
     "title": "In Her Hands",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/09/inherhands.png",
+    "ratio": 0.678,
     "conversationId": "758141859"
    },
    {
     "slug": "good-night-oppy",
     "title": "Good Night Oppy",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/09/oppy.png",
+    "ratio": 0.678,
     "conversationId": "762072691"
    },
    {
     "slug": "wildcat",
     "title": "Wildcat",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/09/wildcat.png",
+    "ratio": 0.678,
     "conversationId": "762360877"
    }
   ]
@@ -1367,6 +1553,7 @@
     "slug": "thirteen-lives",
     "title": "Thirteen Lives",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/07/Thirteen-Lives.jpg",
+    "ratio": 2.278,
     "conversationId": "754927874"
    }
   ]
@@ -1378,12 +1565,14 @@
     "slug": "lucy-and-desi",
     "title": "Lucy and Desi",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/07/lucyanddecy.png",
+    "ratio": 1.778,
     "conversationId": null
    },
    {
     "slug": "dopesick",
     "title": "Dopesick",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/07/dopesick.png",
+    "ratio": 1.778,
     "conversationId": null
    }
   ]
@@ -1395,6 +1584,7 @@
     "slug": "dont-make-me-go",
     "title": "Dont Make Me Go",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/06/ezgif-3-ea44810a9a.jpg",
+    "ratio": 2.0,
     "conversationId": "727548101"
    }
   ]
@@ -1406,54 +1596,63 @@
     "slug": "abbott-elementary",
     "title": "Abbott Elementary",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/abbot.jpg",
+    "ratio": 0.678,
     "conversationId": "723465758"
    },
    {
     "slug": "live-in-front-of-a-studio-audience",
     "title": "Live In Front Of A Studio Audience",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/liveaud.jpg",
+    "ratio": 0.678,
     "conversationId": "712438156"
    },
    {
     "slug": "the-big-conn",
     "title": "The Big Conn",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/bigcon.jpg",
+    "ratio": 0.678,
     "conversationId": "712446245"
    },
    {
     "slug": "gaslit",
     "title": "Gaslit",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/gaslit.jpg",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "wecrashed",
     "title": "WeCrashed",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/wecrashed.jpg",
+    "ratio": 0.678,
     "conversationId": "717661038"
    },
    {
     "slug": "women-of-the-movement",
     "title": "Women of the Movement",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/women.jpg",
+    "ratio": 0.678,
     "conversationId": "725023763"
    },
    {
     "slug": "pen15",
     "title": "PEN15",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/pen15.jpg",
+    "ratio": 0.678,
     "conversationId": "718086384"
    },
    {
     "slug": "conversations-with-friends",
     "title": "Conversations With Friends",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/friends.jpg",
+    "ratio": 0.678,
     "conversationId": "716197847"
    },
    {
     "slug": "billy-the-kid",
     "title": "Billy The Kid",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/05/billy-1.jpg",
+    "ratio": 0.678,
     "conversationId": "719241159"
    }
   ]
@@ -1465,30 +1664,35 @@
     "slug": "a-very-british-scandal",
     "title": "A Very British Scandal",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/04/poter-1.png",
+    "ratio": 0.678,
     "conversationId": "706350951"
    },
    {
     "slug": "impeachment",
     "title": "Impeachment",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/04/poster-2.png",
+    "ratio": 0.678,
     "conversationId": "713788131"
    },
    {
     "slug": "the-hot-zone-antrax",
     "title": "The Hot Zone: Anthrax",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/04/poster-4.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-great",
     "title": "The Great",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/04/great-poster.png",
+    "ratio": 0.678,
     "conversationId": "709714770"
    },
    {
     "slug": "candy",
     "title": "Candy",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/04/candy-poster.png",
+    "ratio": 0.678,
     "conversationId": "710562205"
    }
   ]
@@ -1500,6 +1704,7 @@
     "slug": "dreaming-impossible-dreams-taiwanese-language-films-from-the-1960s",
     "title": "Dreaming Impossible Dreams Taiwanese Language Films from the 1960S",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/04/Dreaming-Impossible-Dreams.jpg",
+    "ratio": 1.775,
     "conversationId": null
    }
   ]
@@ -1511,12 +1716,14 @@
     "slug": "be-natural-the-untold-story-of-alice-guy-blache",
     "title": "Be Natural: The Untold Story of Alice Guy-Blaché",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/03/benatural.jpg",
+    "ratio": 1.503,
     "conversationId": null
    },
    {
     "slug": "dawson-city-frozen-time",
     "title": "Dawson City: Frozen Time",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/03/dawson-city.png",
+    "ratio": 1.503,
     "conversationId": null
    }
   ]
@@ -1528,54 +1735,63 @@
     "slug": "the-hand-of-god",
     "title": "The Hand of God",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/02/hand-of-god-art.png",
+    "ratio": 0.678,
     "conversationId": "681113027"
    },
    {
     "slug": "ascension",
     "title": "Ascension",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/02/ascension-art.png",
+    "ratio": 0.678,
     "conversationId": "682014779"
    },
    {
     "slug": "drive-my-car",
     "title": "Drive My Car",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/02/drive-my-car-art.png",
+    "ratio": 0.678,
     "conversationId": "685989856"
    },
    {
     "slug": "dont-look-up",
     "title": "Don't Look Up",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/02/art.jpg_0005_MV5BNTFhZDA4MzgtNDNjZS00ZmJlLTg5YWItZTZjYzlhMjU1ZDI1XkEyXkFqcGdeQXVyMTI4Mjg4MjA@._V1_-copy.png",
+    "ratio": 0.678,
     "conversationId": "685585646"
    },
    {
     "slug": "west-side-story",
     "title": "West Side Story",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/03/west-side-story-art-poster.jpg",
+    "ratio": 0.678,
     "conversationId": "688187980"
    },
    {
     "slug": "belfast",
     "title": "Belfast",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/03/belfast-art.png",
+    "ratio": 0.678,
     "conversationId": "689079438"
    },
    {
     "slug": "the-lost-daughter",
     "title": "The Lost Daughter",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/03/poster-lost-daughter.png",
+    "ratio": 0.678,
     "conversationId": "691162662"
    },
    {
     "slug": "tick-tick-boom",
     "title": "Tick Tick Boom",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/art.jpg_0002_EN-US_TTB_Main_Vertical_27x40_RGB_POST20211220-5237-1ytwpbm.png",
+    "ratio": 0.678,
     "conversationId": "667551871"
    },
    {
     "slug": "the-power-of-the-dog",
     "title": "The Power of the Dog",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/power-of-dog.png",
+    "ratio": 0.678,
     "conversationId": "671336963"
    }
   ]
@@ -1587,6 +1803,7 @@
     "slug": "all-the-old-knives",
     "title": "All The Old Knives",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/03/poster.jpg",
+    "ratio": 1.961,
     "conversationId": "694681413"
    }
   ]
@@ -1598,36 +1815,42 @@
     "slug": "prayers-for-the-stolen",
     "title": "Prayers for the Stolen",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/art.jpg_0006_PRAYERS-FOR-THE-STOLEN_POSTER.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "elena",
     "title": "Elena",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/elena-poster-art.png",
+    "ratio": 0.678,
     "conversationId": "776740646"
    },
    {
     "slug": "oaxacalifornia-the-return",
     "title": "Oaxacalifornia the Return",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/art.jpg_0004_01_OAXA-poster-test6.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "the-infiltrators",
     "title": "The Infiltrators",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/infiltrators-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "summertime",
     "title": "Summertime",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/art.jpg_0005_MV5BNTFhZDA4MzgtNDNjZS00ZmJlLTg5YWItZTZjYzlhMjU1ZDI1XkEyXkFqcGdeQXVyMTI4Mjg4MjA@._V1_.png",
+    "ratio": 0.678,
     "conversationId": null
    },
    {
     "slug": "short-selections-and-post-screening-conversations",
     "title": "Short Selections and Post-Screening Conversation",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/03/I-am-shot-movies-web.jpg",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -1639,24 +1862,28 @@
     "slug": "tick-tick-boom",
     "title": "Tick Tick Boom",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/art.jpg_0002_EN-US_TTB_Main_Vertical_27x40_RGB_POST20211220-5237-1ytwpbm.png",
+    "ratio": 0.678,
     "conversationId": "667551871"
    },
    {
     "slug": "the-power-of-the-dog",
     "title": "The Power of the Dog",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/power-of-dog.png",
+    "ratio": 0.678,
     "conversationId": "671336963"
    },
    {
     "slug": "procession",
     "title": "Procession",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/art.jpg_0000_EN-US_Procession_27x40_RGB_US_POST20211027-4637-1j7mc87.png",
+    "ratio": 0.678,
     "conversationId": "672468141"
    },
    {
     "slug": "short-film-showcase",
     "title": "Short Film Showcase",
     "poster": "https://viewslipstream.com/wp-content/uploads/2022/01/10-shows-web-poster.png",
+    "ratio": 0.678,
     "conversationId": null
    }
   ]
@@ -1668,54 +1895,63 @@
     "slug": "mr-soul",
     "title": "Mr Soul",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/mr-soul.jpg",
+    "ratio": 0.677,
     "conversationId": "642847965"
    },
    {
     "slug": "summer-of-soul",
     "title": "Summer of Soul",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/summer-of-soul.jpg",
+    "ratio": 0.677,
     "conversationId": "652088211"
    },
    {
     "slug": "homeroom",
     "title": "Homeroom",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/homeroom.jpg",
+    "ratio": 0.677,
     "conversationId": "646235277"
    },
    {
     "slug": "miss-juneteenth",
     "title": "Miss Juneteenth",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/ms-juneetendh.jpg",
+    "ratio": 0.677,
     "conversationId": "646244011"
    },
    {
     "slug": "my-name-is-pauli-murray",
     "title": "My Name Is Pauli Murray",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/maray.jpg",
+    "ratio": 0.677,
     "conversationId": "647959200"
    },
    {
     "slug": "the-harder-they-fall",
     "title": "The Harder They Fall",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/harder-we-fall.jpg",
+    "ratio": 0.677,
     "conversationId": "651376616"
    },
    {
     "slug": "passing",
     "title": "Passing",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/passing.jpg",
+    "ratio": 0.677,
     "conversationId": "633311682"
    },
    {
     "slug": "who-we-are-a-chronicle-of-race-in-america",
     "title": "Who We Are: A Chronicle of Race in America",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/who-we-are.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "respect",
     "title": "Respect",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/respect.jpg",
+    "ratio": 0.677,
     "conversationId": "651391874"
    }
   ]
@@ -1727,36 +1963,42 @@
     "slug": "the-electrical-life-of-louis-wain",
     "title": "The Electrical Life of Louis Wain",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/titleart_0003_Copy-of-LOUI-evergreen-1-1.jpg",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "coda",
     "title": "Coda",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/titleart_0004_CodaMoviePoster.jpg",
+    "ratio": 0.677,
     "conversationId": "657656057"
    },
    {
     "slug": "being-the-ricardos",
     "title": "Being the Ricardos",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/titleart_0002_BeingTheRicardos_KeyArt_US_PayoffArt_rgb.jpg",
+    "ratio": 0.677,
     "conversationId": "667990490"
    },
    {
     "slug": "the-tender-bar",
     "title": "The Tender Bar",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/titleart_0001_Updated-TTB-Key-Art_rgb.jpg",
+    "ratio": 0.677,
     "conversationId": "660804863"
    },
    {
     "slug": "becoming-cousteau",
     "title": "Becoming Cousteau",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/12/titleart_0001_Updated-TTB-Key-Art_rgb.png",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "taste-the-nation",
     "title": "Taste the Nation",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/taste-the-nation-1.jpg",
+    "ratio": 1.826,
     "conversationId": "653248742"
    }
   ]
@@ -1768,48 +2010,56 @@
     "slug": "a-broken-house",
     "title": "A Broken House",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/0001_ABH_Akiko_2_FINAL.jpg",
+    "ratio": 0.677,
     "conversationId": "642420413"
    },
    {
     "slug": "a-cop-movie",
     "title": "A Cop Movie",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/0000_MV5BZjZmYzAwZDYtMTAyMC00Yjg4LTg3NTUtNDEwMGNmMjNiMWEzXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_.jpg",
+    "ratio": 0.677,
     "conversationId": "645074890"
    },
    {
     "slug": "try-harder",
     "title": "Try Harder",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/0002_tryharder.jpg",
+    "ratio": 0.677,
     "conversationId": "647017295"
    },
    {
     "slug": "lead-me-home-and-found",
     "title": "Lead me Home and Found",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/lead-me-home.png",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "lead-me-home-and-found",
     "title": "Lead me Home and Found",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/found-art.png",
+    "ratio": 0.677,
     "conversationId": null
    },
    {
     "slug": "lfg",
     "title": "LFG",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/11/0004_Screen-Shot-2021-11-02-at-13.48.01.jpg",
+    "ratio": 0.677,
     "conversationId": "649203005"
    },
    {
     "slug": "love-death-robots-volume-2",
     "title": "Love Death Robots Volume 2",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/10/TQGemmy.png",
+    "ratio": 1.78,
     "conversationId": null
    },
    {
     "slug": "the-queens-gambit",
     "title": "The Queens Gambit",
     "poster": "https://viewslipstream.com/wp-content/uploads/2021/08/TQGemmy.jpg",
+    "ratio": 1.78,
     "conversationId": "585099570"
    }
   ]

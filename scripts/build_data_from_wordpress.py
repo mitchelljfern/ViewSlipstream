@@ -177,7 +177,11 @@ for g in load("previous.json"):
         slug = it["href"].rstrip("/").split("/")[-1]
         meta = slugmap.get(slug, {})
         t = TITLE_FIX.get(slug) or smart_title(meta.get("title") or slug.replace("-", " ").upper())
-        items.append({"slug": slug, "title": t, "poster": it["poster"], "conversationId": conv_for(t, slug)})
+        try:
+            ratio = round(int(it.get("w") or 0) / int(it.get("h") or 0), 3)
+        except (ValueError, ZeroDivisionError):
+            ratio = 0.667
+        items.append({"slug": slug, "title": t, "poster": it["poster"], "ratio": ratio, "conversationId": conv_for(t, slug)})
     archive_groups.append({"title": g["title"], "items": items})
 
 def clean_conv_title(t):

@@ -4,6 +4,7 @@ import "./globals.css";
 import { PreviewProvider, REVIEW_MODE } from "@/components/Preview";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import BottomNav from "@/components/BottomNav";
 import ReviewBar, { Toast } from "@/components/ReviewBar";
 import { allShows } from "@/lib/data";
 import { currentShow } from "@/lib/time";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SiteHeader />
           <main id="main">{children}</main>
           <SiteFooter />
+          <BottomNav />
           <Toast />
           <ReviewBar />
         </PreviewProvider>
