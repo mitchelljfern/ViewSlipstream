@@ -8,6 +8,7 @@ import Rail, { type RailItem } from "./Rail";
 import CategoryBrowser, { slugId, splitGroupTitle, type Category } from "./CategoryBrowser";
 import { IconCalendar, IconChevron, IconGift, IconMic, IconPin, IconPlay } from "./Icons";
 import Countdown, { endLabel, startLabel } from "./Countdown";
+import { FeatureCarousel, FeatureTabs, type FeatureItem } from "./HomeFeature";
 
 const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway: "Giveaway", live: "Live Stream", paid: "Paid" } as const;
 
@@ -18,7 +19,19 @@ export default function HomeView({ groups, conversations, allShows }: {
   const lead = allShows.find((s) => s.slug === ctx.leadSlug) ?? allShows[0];
   const phase = ctx.phaseFor(lead);
   const status = ctx.rsvps[lead.slug];
-  const others = upcomingShows(allShows, ctx.now, lead.slug);
+  const upcoming = upcomingShows(allShows, ctx.now, lead.slug);
+  // The hero card features the lead plus up to three more open shows, live ones first.
+  // Review "Demo" stands in recent past shows (as live / upcoming) so multiples can be seen.
+  let featured: FeatureItem[] = [{ show: lead, phase }, ...upcoming.slice(0, 3).map((s) => ({ show: s, phase: phaseOf(s, ctx.now) }))];
+  if (ctx.heroDemo) {
+    const past = allShows.filter((s) => s.slug !== lead.slug && !upcoming.includes(s)).sort((a, b) => (b.startsAt ?? "").localeCompare(a.startsAt ?? ""));
+    const liveOne = past.find((s) => s.kind !== "in-person"), nextOne = past.find((s) => s !== liveOne);
+    const extra: FeatureItem[] = [...(liveOne ? [{ show: liveOne, phase: "live" as const }] : []), ...(ctx.heroDemo === 3 && nextOne ? [{ show: nextOne, phase: "upcoming" as const }] : [])];
+    featured = [...featured.slice(0, 1), ...extra].slice(0, 4);
+  }
+  featured.sort((a, b) => Number(b.phase === "live") - Number(a.phase === "live"));
+  const newDesign = ctx.hero !== "original";
+  const others = newDesign ? upcoming.filter((s) => !featured.some((f) => f.show.slug === s.slug)) : upcoming;
   const watchable = phase === "live" && !!status && !!ctx.guest && lead.kind !== "in-person";
   // Giveaways: the open one if there is one, otherwise the newsletter (that's where the next one is announced).
   const openGiveaway = allShows.find((s) => s.kind === "giveaway" && ctx.phaseFor(s) !== "closed");
@@ -73,6 +86,7 @@ export default function HomeView({ groups, conversations, allShows }: {
             <Link href={giveawayHref}><IconGift size={16} />Giveaways</Link>
           </nav>
         </div>
+        {ctx.hero === "a" ? <FeatureTabs items={featured} /> : ctx.hero === "b" ? <FeatureCarousel items={featured} /> : (
         <div className="wrap home-hero">
           <div className="stack g14">
             <div className="row between g8">
@@ -101,6 +115,7 @@ export default function HomeView({ groups, conversations, allShows }: {
             <VideoFacade embed={youtubeEmbed(lead.trailerYoutubeId)} thumbnail={youtubeThumb(lead.trailerYoutubeId)} label={`${lead.title} trailer`} caption="Watch the trailer" />
           ) : null}
         </div>
+        )}
       </section>
 
       {others.length ? (
