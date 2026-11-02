@@ -20,6 +20,15 @@ The new Slipstream site: screenings people RSVP to, a password-protected DaCast 
 | Current live site (WordPress, don't change) | https://viewslipstream.com |
 | Production (not live yet, blocked until launch) | https://viewslipstream.netlify.app |
 
+## One-time setup (Mitchell)
+
+These need an owner login, so they're not done yet:
+
+1. **Let Claude push to GitHub.** Add `mitchelljfern/ViewSlipstream` (and `mitchelljfern/SU-Dashboard`) as sources for the Claude session. The first push sends both `main` and `staging` (each has the launch guard).
+2. **Connect Netlify to GitHub.** Netlify > viewslipstream > Project configuration > Build & deploy > Link repository > GitHub > `mitchelljfern/ViewSlipstream`. Production branch: `main`. Branch deploys: "Let me add individual branches" > `staging`. Deploy previews: any pull request. Build settings come from `netlify.toml`, so leave them blank.
+3. **Give the Slipstream team access.** GitHub > ViewSlipstream > Settings > Collaborators > add their GitHub usernames with Write access. Share the staging password with them directly, not in the repo.
+4. If a Slipstream team push ever shows "Pending approval" in Netlify, approve it once from the Deploys page (Netlify asks for this on private repos with people outside the team).
+
 ## How to review
 
 1. Open the staging site and enter the password.
