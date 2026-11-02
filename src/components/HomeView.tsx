@@ -7,6 +7,7 @@ import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
 import Rail, { type RailItem } from "./Rail";
 import CategoryBrowser, { slugId, splitGroupTitle, type Category } from "./CategoryBrowser";
 import { IconCalendar, IconChevron, IconMic, IconPin, IconPlay } from "./Icons";
+import Countdown, { endLabel, startLabel } from "./Countdown";
 
 const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway: "Giveaway", live: "Live Stream", paid: "Paid" } as const;
 
@@ -75,6 +76,8 @@ export default function HomeView({ groups, conversations, allShows }: {
               {lead.venue ? <div className="row g10 muted"><IconPin size={18} /><span>{lead.venue.name}</span></div> : null}
               {lead.conversationLine ? <div className="row g10 muted" style={{ alignItems: "flex-start" }}><IconMic size={18} /><span>{lead.conversationLine.replace(/^the (screening|documentary) will be followed by a /i, "Followed by a ")}</span></div> : null}
             </div>
+            {phase === "upcoming" && lead.startsAt ? <Countdown to={lead.startsAt} label={startLabel(lead.kind)} />
+              : phase === "live" && lead.endsAt && lead.kind !== "in-person" ? <Countdown to={lead.endsAt} label={endLabel(lead.kind)} /> : null}
             <div className="stack g10" style={{ marginTop: 4 }}>
               {watchable ? <Link href={`/${lead.slug}/#player`} className="btn btn-primary"><IconPlay size={18} />Watch Now</Link>
                 : status ? <Link href={`/${lead.slug}/`} className="btn btn-secondary">You're In · View Details</Link>

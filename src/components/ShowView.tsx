@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Conversation, Show } from "@/lib/types";
 import { clock, countdown, longDay, minutes, whenLine } from "@/lib/time";
+import Countdown, { startLabel } from "./Countdown";
 import { icsHref } from "@/lib/ics";
 import { usePreview } from "./Preview";
 import RsvpPanel from "./RsvpPanel";
@@ -125,6 +126,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
               {chips}
               <h1 className="h1">{show.title}</h1>
               {facts}
+              {phase === "upcoming" && show.startsAt ? <Countdown to={show.startsAt} label={startLabel(show.kind)} /> : null}
               {open && !show.atCapacity && !status ? (
                 <a href="#rsvp" className="btn btn-primary">{show.kind === "giveaway" ? "Enter the giveaway" : show.kind === "paid" ? `Get a ticket · $${show.price}` : show.kind === "in-person" ? "RSVP · save my seat" : "RSVP · free"}</a>
               ) : null}
