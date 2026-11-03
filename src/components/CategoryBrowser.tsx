@@ -2,11 +2,12 @@
 /**
  * Titles grouped by month or series. Each group gets a real heading (the
  * month or series name, big), what kind of group it is, how many titles and
- * the dates it covers, then a swipeable row. On the home page a sticky jump
+ * the dates it covers, then a full-width grid (TitleGrid). On the home page a sticky jump
  * bar follows you down and lights up the group you're in.
  */
 import { useEffect, useRef, useState } from "react";
-import Rail, { type RailItem } from "./Rail";
+import type { RailItem } from "./Rail";
+import TitleGrid from "./TitleGrid";
 
 export interface Category {
   id: string;
@@ -66,7 +67,7 @@ export default function CategoryBrowser({ categories, jumpBar = false }: { categ
             <div className="row g10 wrap-row"><span className="eyebrow cat-kicker">{c.kicker}</span><span className="cat-meta">{c.meta}</span></div>
             <h3 id={`${c.id}-h`} className="cat-title">{c.title}</h3>
           </header>
-          <Rail items={c.items} label={c.title} />
+          <TitleGrid items={c.items} label={c.title} />
         </section>
       ))}
     </div>
@@ -102,7 +103,7 @@ function TabbedCategory({ c }: { c: Category }) {
       </div>
       <div id={`${c.id}-panel`} role="tabpanel" aria-labelledby={`${c.id}-tab-${cur.key}`} className="stack g10">
         <span className="cat-meta">{cur.meta}</span>
-        <Rail key={cur.key} items={cur.items} label={`${cur.label} screenings`} />
+        <TitleGrid key={cur.key} items={cur.items} label={`${cur.label} screenings`} />
       </div>
     </section>
   );

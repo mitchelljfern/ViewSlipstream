@@ -26,6 +26,8 @@ export default function HomeView({ groups, conversations, allShows }: {
     const p = ctx.phaseFor(s);
     return {
       href: `/${s.slug}/`, title: s.title, image: s.poster, ratio: s.posterRatio,
+      // Horizontal cards: the poster when it is already landscape, otherwise the key art.
+      wideImage: s.posterRatio > 1.2 ? s.poster : s.heroImage ?? s.poster,
       meta: `${KIND[s.kind]}${s.startsAt ? ` · ${shortWhen(s.startsAt).split(" · ")[0]}` : ""}`,
       badge: p === "live" && s.kind !== "in-person" ? { label: s.kind === "giveaway" ? "Entries Open" : "Live", tone: "live" }
         : p === "upcoming" ? { label: "RSVP Open", tone: "open" } : null,

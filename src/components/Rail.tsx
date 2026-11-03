@@ -15,6 +15,8 @@ export interface RailItem {
   image: string;
   /** width / height of the image; > 0.9 is treated as landscape */
   ratio?: number;
+  /** Landscape art for horizontal cards (TitleGrid with 1 or 2 titles). */
+  wideImage?: string;
   meta?: string;
   badge?: { label: string; tone: "live" | "open" | "plain" } | null;
 }

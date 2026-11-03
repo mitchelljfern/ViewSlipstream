@@ -1,6 +1,7 @@
 "use client";
 /**
- * What the three transactional emails look like. Phase 2 turns these into
+ * What the transactional emails look like (three per RSVP, plus the waiting
+ * list email for full in-person screenings). Phase 2 turns these into
  * real templates (Resend), with the same copy and the show's details merged in.
  */
 import Link from "next/link";
@@ -9,20 +10,25 @@ import { usePreview } from "./Preview";
 import { allShows, getConversation } from "@/lib/data";
 import { clock, longDay } from "@/lib/time";
 
-type T = "rsvp" | "live" | "thanks";
+export type EmailType = "rsvp" | "live" | "thanks" | "waitlist";
+type T = EmailType;
 
 export default function EmailPreview({ type }: { type: T }) {
   const ctx = usePreview();
   const params = useSearchParams();
   const show = allShows().find((s) => s.slug === (params.get("show") ?? ctx.leadSlug)) ?? allShows()[0];
-  const name = ctx.guest?.first ?? "Alex";
+  const name = ctx.who?.first ?? "Alex";
+  // In-person shows: how many seats this RSVP holds (review build: the last RSVP's choice, else the show's limit).
+  const seatCount = show.kind === "in-person" ? ctx.seats[show.slug] ?? Math.max(1, show.maxSeats || 1) : 1;
+  const seatWord = seatCount > 1 ? `${seatCount} seats` : "seat";
   const conv = getConversation(show.conversationId);
   const pw = `${show.slug.split("-").find((w) => w.length > 3)?.toUpperCase() ?? "SHOW"}-${(show.startsAt ?? "2026").slice(0, 4)}`;
   const window = show.startsAt && show.endsAt ? `${longDay(show.startsAt)} at ${clock(show.startsAt)} through ${longDay(show.endsAt)} at ${clock(show.endsAt)}, Pacific time` : show.startsAt ? `${longDay(show.startsAt)} at ${clock(show.startsAt)}${show.venue ? `, ${show.venue.name}` : ""}` : "";
   const next = allShows().find((s) => s.slug !== show.slug && ctx.phaseFor(s) !== "closed");
 
-  const subject = type === "rsvp" ? `You're in: ${show.title} on Slipstream` : type === "live" ? `It's showtime: ${show.title} is streaming now` : `Thank you for watching ${show.title}`;
-  const label = type === "rsvp" ? "RSVP confirmed" : type === "live" ? "Now showing" : "Thank you";
+  const subject = type === "rsvp" ? `You're in: ${show.title} on Slipstream` : type === "live" ? `It's showtime: ${show.title} is streaming now`
+    : type === "waitlist" ? `You're on the waiting list: ${show.title}` : `Thank you for watching ${show.title}`;
+  const label = type === "rsvp" ? "RSVP confirmed" : type === "live" ? "Now showing" : type === "waitlist" ? "Waiting list" : "Thank you";
 
   const btn: React.CSSProperties = { display: "flex", alignItems: "center", justifyContent: "center", minHeight: 50, borderRadius: 12, background: "#1E73BE", color: "#fff", fontWeight: 600, fontSize: 16, textDecoration: "none" };
   const box: React.CSSProperties = { border: "1px solid #E3E6EA", borderRadius: 12, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 6, fontSize: 14, color: "#333" };
@@ -34,6 +40,7 @@ export default function EmailPreview({ type }: { type: T }) {
         {(["rsvp", "live", "thanks"] as T[]).map((t, i) => (
           <Link key={t} href={`/emails/${t}/?show=${show.slug}`} className="filter" aria-pressed={t === type}>{i + 1}. {t === "rsvp" ? "Confirmation" : t === "live" ? "It's showtime" : "Thank you"}</Link>
         ))}
+        <Link href={`/emails/waitlist/?show=${show.slug}`} className="filter" aria-pressed={type === "waitlist"}>Waiting list (in person)</Link>
       </div>
       <p className="muted small" style={{ textAlign: "center" }}>Subject: <b style={{ color: "#fff", fontWeight: 600 }}>{subject}</b></p>
       <article style={{ width: "100%", maxWidth: 600, background: "#fff", color: "#141414", borderRadius: 16, overflow: "hidden" }}>
@@ -46,10 +53,20 @@ export default function EmailPreview({ type }: { type: T }) {
           {type === "rsvp" ? (
             <>
               <h1 style={{ margin: 0, font: "600 26px/1.15 var(--font-display)", letterSpacing: "-.02em", color: "#141414" }}>You're in, {name}.</h1>
-              <P>Your seat for <strong>{show.title}</strong> is saved. {window ? `It ${show.kind === "in-person" ? "screens" : "streams"} ${window}.` : ""}</P>
-              <div style={box}><b style={{ color: "#141414" }}>What happens next</b><span>{show.kind === "in-person" ? "Bring this email to check in. We'll send a reminder the day before." : "We'll email you the moment it goes live, with your viewing link and password. Nothing to do until then."}</span></div>
+              <P>Your {seatWord} for <strong>{show.title}</strong> {seatCount > 1 ? "are" : "is"} saved. {window ? `It ${show.kind === "in-person" ? "screens" : "streams"} ${window}.` : ""}</P>
+              <div style={box}><b style={{ color: "#141414" }}>What happens next</b><span>{show.kind === "in-person" ? `Bring this email to check in${seatCount > 1 ? ` for all ${seatCount} seats` : ""}. We'll send a reminder the day before.` : "We'll email you the moment it goes live, with your viewing link and password. Nothing to do until then."}</span></div>
               <a href="#" style={btn}>Add to calendar</a>
-              <P><span style={{ fontSize: 13, color: "#6B7280" }}>Can't make it? <a href="#" style={{ color: "#1E73BE" }}>Release your seat</a> so someone else can have it.</span></P>
+              <div style={{ ...box, background: "#F5F7FA" }}><b style={{ color: "#141414" }}>Want one-tap RSVPs next time?</b>
+                <span>Create a free Slipstream account. Your name and email are already in, so you only pick a password. Optional: this RSVP works either way.</span>
+                <a href="#" style={{ color: "#1E73BE", fontWeight: 600 }}>Create my free account</a></div>
+              <P><span style={{ fontSize: 13, color: "#6B7280" }}>Can't make it? <a href="#" style={{ color: "#1E73BE" }}>Release your {seatWord}</a> so someone else can have {seatCount > 1 ? "them" : "it"}.</span></P>
+            </>
+          ) : type === "waitlist" ? (
+            <>
+              <h1 style={{ margin: 0, font: "600 26px/1.15 var(--font-display)", letterSpacing: "-.02em", color: "#141414" }}>You're on the waiting list, {name}.</h1>
+              <P><strong>{show.title}</strong> is full right now{window ? ` (${window})` : ""}. You're on the waiting list for {seatCount > 1 ? `${seatCount} seats` : "1 seat"}.</P>
+              <div style={box}><b style={{ color: "#141414" }}>What happens next</b><span>If {seatCount > 1 ? "seats open" : "a seat opens"} up, we'll email you right away with your confirmation. Nothing to do until then.</span></div>
+              <P><span style={{ fontSize: 13, color: "#6B7280" }}>Plans changed? <a href="#" style={{ color: "#1E73BE" }}>Leave the waiting list</a>.</span></P>
             </>
           ) : type === "live" ? (
             <>

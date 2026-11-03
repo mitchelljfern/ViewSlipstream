@@ -259,6 +259,9 @@ main { padding-top: var(--header-h); }
 .fact { display: flex; gap: 12px; align-items: flex-start; }
 .fact svg { color: var(--link); flex: 0 0 auto; margin-top: 2px; }
 .fact b { font-weight: 600; display: block; }
+/* Venue: name and address, then Get Directions on its own line below. */
+.fact-venue { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; min-width: 0; }
+.fact-venue .btn { min-height: 44px; }
 
 .steps { display: flex; flex-direction: column; }
 .step { display: flex; gap: 14px; }
@@ -530,3 +533,39 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 @media (min-width: 640px) { .nl-card { left: auto; width: 360px; right: 16px; } .nl-card p { display: block; } .nl-card .h3 { font-size: 18px; } }
 @media (min-width: 960px) { .nl-card { right: 20px; bottom: 68px; } }
 @media (prefers-reduced-motion: reduce) { .nl-card { animation: none; } .theme-toggle svg { transition: none; } }
+
+/* Add to calendar: the button opens a list of calendars in place, full width below its row. */
+.cal-link { min-height: 44px; padding: 0 4px; margin-left: 4px; align-self: center; background: none; border: 0; color: var(--link); font: 600 14px var(--font-body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cal-link:hover { color: var(--link-hover); }
+.cal-menu { order: 1; grid-column: 1 / -1; flex: 1 0 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.cal-menu a { display: flex; align-items: center; min-height: 48px; padding: 0 16px; border-radius: 12px; font: 600 15px var(--font-body); text-decoration: none; }
+.cal-menu-page a { background: rgba(var(--fg-rgb), 0.08); border: 1px solid rgba(var(--fg-rgb), 0.16); color: var(--text); }
+.cal-menu-page a:hover { background: rgba(var(--fg-rgb), 0.14); color: var(--text); }
+.cal-menu-deep a { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); color: #fff; }
+.cal-menu-deep a:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+/* Home page months and series: every row fills the full width (TitleGrid). */
+.tgrid { display: flex; flex-direction: column; gap: 22px; }
+.tgrid-row { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 16px; }
+.tcard { display: flex; flex-direction: column; gap: 8px; min-width: 0; color: var(--text); }
+.tcard:hover { color: var(--text); }
+.tcard-art { position: relative; aspect-ratio: var(--ar-tall); border-radius: 14px; overflow: hidden; background: var(--well); border: 1px solid rgba(var(--fg-rgb), 0.08); transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.row-wide .tcard-art { aspect-ratio: var(--ar-wide); }
+.tcard-art picture { display: contents; }
+.tcard-art img { width: 100%; height: 100%; object-fit: cover; }
+.tcard:hover .tcard-art, .tcard:focus-visible .tcard-art { transform: translateY(-4px); border-color: rgba(var(--fg-rgb), 0.32); box-shadow: var(--shadow-xl); }
+.row-wide .tcard-title { font-size: clamp(15px, 1.2vw, 20px); }
+/* Tablets and phones: a poster group is one swipeable row of posters, like the rails. */
+@media (max-width: 959px) {
+  .tgrid.is-tall { flex-direction: row; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--gutter); padding: 6px var(--gutter) 8px; margin: 0 calc(var(--gutter) * -1); scrollbar-width: none; }
+  .tgrid.is-tall::-webkit-scrollbar { display: none; }
+  .tgrid.is-tall .tgrid-row { display: contents; }
+  .tgrid.is-tall .tcard { flex: 0 0 auto; width: clamp(150px, 40vw, 220px); scroll-snap-align: start; }
+  .tgrid.is-tall .tcard-art { aspect-ratio: var(--ar-tall); }
+  .tgrid.is-tall .tcard-title { font-size: 14px; }
+}
+/* Phones: horizontal cards stack, one per row. */
+@media (max-width: 639px) {
+  .tgrid.is-wide .tgrid-row { grid-template-columns: minmax(0, 1fr); }
+  .tgrid.is-wide .tcard-art { aspect-ratio: 16 / 9; }
+}
