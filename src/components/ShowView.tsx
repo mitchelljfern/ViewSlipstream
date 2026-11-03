@@ -59,8 +59,8 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
           <span className="muted small">{show.kind === "streaming" ? "Pacific time · watch any time in the window" : show.kind === "in-person" ? "Pacific time" : show.kind === "giveaway" ? `Winners drawn ${show.giveaway?.drawOn ?? "after entries close"}` : "Pacific time"}</span></div></div>
       ) : null}
       {show.venue ? (
-        <div className="fact"><IconPin /><div><b>{show.venue.name}</b><span className="muted small">{show.venue.address}</span>
-          <a className="btn btn-glass btn-sm" style={{ marginTop: 8 }} href={`https://maps.google.com/?q=${encodeURIComponent(`${show.venue.name}, ${show.venue.address}`)}`} target="_blank" rel="noreferrer">Get Directions</a></div></div>
+        <div className="fact"><IconPin /><div className="fact-venue"><div><b>{show.venue.name}</b><span className="muted small">{show.venue.address}</span></div>
+          <a className="btn btn-glass btn-sm" href={`https://maps.google.com/?q=${encodeURIComponent(`${show.venue.name}, ${show.venue.address}`)}`} target="_blank" rel="noreferrer">Get Directions</a></div></div>
       ) : null}
       {show.conversationLine ? (
         <div className="fact"><IconMic /><div><b>Conversation after the {show.kind === "giveaway" ? "release" : "film"}</b><span className="muted small">{show.conversationLine.replace(/^the screening will be followed by a conversation with\s*/i, "With ").replace(/^the documentary will be followed by a conversation with\s*/i, "With ")}</span></div></div>
