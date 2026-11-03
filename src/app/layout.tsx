@@ -33,7 +33,8 @@ export const metadata: Metadata = {
   title: { default: DEFAULT_TITLE, template: "%s | Slipstream" },
   // The review build must never be indexed.
   robots: REVIEW_MODE ? { index: false, follow: false } : undefined,
-  icons: { icon: "/favicon.svg" },
+  // A big white S on black, drawn from the logo's typeface. PNGs for browsers and home screens that skip SVG.
+  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/icon-32.png", sizes: "32x32", type: "image/png" }], apple: "/apple-icon.png" },
 };
 
 export const viewport: Viewport = { themeColor: "#000000", width: "device-width", initialScale: 1, viewportFit: "cover" };
