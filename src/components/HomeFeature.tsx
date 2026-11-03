@@ -56,7 +56,7 @@ export function FeatureBody({ item }: { item: FeatureItem }) {
   const ctx = usePreview();
   const { show, phase } = item;
   const status = ctx.rsvps[show.slug];
-  const watchable = phase === "live" && !!status && !!ctx.guest && show.kind !== "in-person";
+  const watchable = phase === "live" && !!status && status !== "waitlisted" && !!ctx.who && show.kind !== "in-person";
   const media = show.trailerYoutubeId
     ? <VideoFacade embed={youtubeEmbed(show.trailerYoutubeId)} thumbnail={youtubeThumb(show.trailerYoutubeId)} label={`${show.title} trailer`} caption="Watch the trailer" />
     : show.heroImage ? <div className="facade" style={{ cursor: "default" }}><img src={show.heroImage} alt="" loading="lazy" /></div> : null;
@@ -80,7 +80,7 @@ export function FeatureBody({ item }: { item: FeatureItem }) {
           : phase === "live" && show.endsAt && show.kind !== "in-person" ? <Countdown to={show.endsAt} label={endLabel(show.kind)} /> : null}
         <div className="stack g10" style={{ marginTop: 4 }}>
           {watchable ? <Link href={`/${show.slug}/#player`} className="btn btn-primary"><IconPlay size={18} />Watch Now</Link>
-            : status ? <Link href={`/${show.slug}/`} className="btn btn-secondary">You&apos;re In · View Details</Link>
+            : status ? <Link href={`/${show.slug}/`} className="btn btn-secondary">{status === "waitlisted" ? "On the Waiting List · View Details" : <>You&apos;re In · View Details</>}</Link>
             : phase !== "closed" && !show.atCapacity ? <Link href={`/${show.slug}/#rsvp`} className="btn btn-primary">{show.kind === "giveaway" ? "Enter the Giveaway" : show.kind === "in-person" ? "RSVP · Limited Seats" : "RSVP · Free"}</Link>
             : <Link href={`/${show.slug}/`} className="btn btn-secondary">View the Show</Link>}
         </div>

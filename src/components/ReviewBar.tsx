@@ -24,8 +24,8 @@ export default function ReviewBar() {
           <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Staging only. Nothing here is saved anywhere but this browser, and no emails are sent.</p>
           <div className="stack g6"><span className="lbl">Viewing as</span>
             <div className="opts">
-              <button aria-pressed={!ctx.guest} onClick={() => ctx.signOut()}>Guest</button>
-              <button aria-pressed={!!ctx.guest} onClick={() => ctx.signIn(ctx.guest ?? { first: "Alex", last: "Rivera", email: "alex@example.com" })}>Signed in</button>
+              <button aria-pressed={!ctx.guest} onClick={() => ctx.signOut()}>No account</button>
+              <button aria-pressed={!!ctx.guest} onClick={() => ctx.signIn(ctx.who ?? { first: "Alex", last: "Rivera", email: "alex@example.com" })}>Signed in</button>
             </div>
           </div>
           {lead ? (
@@ -37,11 +37,11 @@ export default function ReviewBar() {
             <div className="stack g6"><span className="lbl">RSVP for {lead.title}</span>
               <div className="opts">
                 <button aria-pressed={!ctx.rsvps[lead.slug]} onClick={() => ctx.cancel(lead.slug)}>Not RSVP'd</button>
-                <button aria-pressed={!!ctx.rsvps[lead.slug]} onClick={() => { if (!ctx.guest) ctx.signIn({ first: "Alex", last: "Rivera", email: "alex@example.com" }); ctx.rsvp(lead.slug, "confirmed"); }}>RSVP'd</button>
+                <button aria-pressed={!!ctx.rsvps[lead.slug]} onClick={() => { if (ctx.guest) ctx.rsvp(lead.slug, "confirmed"); else ctx.rsvpAsGuest(lead.slug, "confirmed", ctx.who ?? { first: "Alex", last: "Rivera", email: "alex@example.com" }); }}>RSVP'd</button>
               </div>
             </div>
           ) : null}
-          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Tip: Signed in + RSVP'd + During shows the screening room with the player and password.</p>
+          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Tip: RSVP'd + During shows the screening room with the player and password. An account is optional. In-person seats and the waiting list are on the All screens page.</p>
           <div className="row g12 wrap-row" style={{ fontSize: 13 }}>
             <Link href="/review/" onClick={() => setOpen(false)}>All screens and states</Link>
             <button style={{ background: "none", border: 0, padding: 0, color: "#b42318", fontWeight: 600, cursor: "pointer" }} onClick={() => { ctx.reset(); ctx.say("Review session reset"); }}>Reset</button>

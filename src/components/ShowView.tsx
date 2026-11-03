@@ -25,8 +25,13 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
   const ctx = usePreview();
   const phase = ctx.phaseFor(show);
   const status = ctx.rsvps[show.slug];
-  const watching = !!ctx.guest && !!status && phase === "live" && (show.kind === "streaming" || show.kind === "paid" || show.kind === "live");
+  // Anyone with an RSVP gets in: an account is optional. On the live site a guest
+  // arrives through the signed link in the "It's showtime" email.
+  const watching = !!ctx.who && !!status && status !== "waitlisted" && phase === "live" && (show.kind === "streaming" || show.kind === "paid" || show.kind === "live");
   const open = phase !== "closed" && !(show.kind === "in-person" && phase === "live");
+  // In-person shows that are full still take names, for the waiting list.
+  const waitlistOpen = show.kind === "in-person" && show.atCapacity;
+  const canRsvp = open && !status && (!show.atCapacity || waitlistOpen);
   const [copied, setCopied] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const [playerNote, setPlayerNote] = useState(false);
@@ -47,8 +52,8 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
       <span className="chip chip-outline">{KIND_LABEL[show.kind]}</span>
       {show.kind === "paid" ? <span className="chip chip-blue">${show.price}</span>
         : open && !show.atCapacity && show.kind !== "giveaway" ? <span className="chip chip-blue">Free with RSVP</span> : null}
-      {status ? <span className="chip chip-outline">{show.kind === "giveaway" ? "Entered" : "You're in"}</span> : null}
-      {show.atCapacity && !status && open ? <span className="chip chip-outline">At capacity</span> : null}
+      {status ? <span className="chip chip-outline">{status === "waitlisted" ? "On the waiting list" : show.kind === "giveaway" ? "Entered" : "You're in"}</span> : null}
+      {show.atCapacity && !status && open ? <span className="chip chip-outline">{waitlistOpen ? "Full · waiting list open" : "At capacity"}</span> : null}
     </div>
   );
 
@@ -70,10 +75,10 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
 
   return (
     <>
-      {open && !status && !show.atCapacity ? (
+      {canRsvp ? (
         <a href="#rsvp" className="strip">
-          <span>{show.kind === "giveaway" ? "Entries are open" : show.kind === "in-person" ? "RSVP is open · limited seats" : "RSVP is open"}</span>
-          <span className="row g4">{show.kind === "giveaway" ? "Enter now" : "Jump to RSVP"}<IconDown size={16} /></span>
+          <span>{waitlistOpen ? "This screening is full · waiting list open" : show.kind === "giveaway" ? "Entries are open" : show.kind === "in-person" ? "RSVP is open · limited seats" : "RSVP is open"}</span>
+          <span className="row g4">{waitlistOpen ? "Join the list" : show.kind === "giveaway" ? "Enter now" : "Jump to RSVP"}<IconDown size={16} /></span>
         </a>
       ) : null}
 
@@ -118,7 +123,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
           </div>
         </section>
       ) : (
-        <section className={`hero${open && !status && !show.atCapacity ? "" : " bleed-top"}`}>
+        <section className={`hero${canRsvp ? "" : " bleed-top"}`}>
           {show.heroImage ? <div className="hero-bg"><img src={show.heroImage} alt="" /></div> : null}
           <div className="wrap show-hero">
             <div className="stack g16">
@@ -127,8 +132,8 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
               <h1 className="h1">{show.title}</h1>
               {facts}
               {phase === "upcoming" && show.startsAt ? <Countdown to={show.startsAt} label={startLabel(show.kind)} /> : null}
-              {open && !show.atCapacity && !status ? (
-                <a href="#rsvp" className="btn btn-primary">{show.kind === "giveaway" ? "Enter the giveaway" : show.kind === "paid" ? `Get a ticket · $${show.price}` : show.kind === "in-person" ? "RSVP · save my seat" : "RSVP · free"}</a>
+              {canRsvp ? (
+                <a href="#rsvp" className="btn btn-primary">{waitlistOpen ? "Join the waiting list" : show.kind === "giveaway" ? "Enter the giveaway" : show.kind === "paid" ? `Get a ticket · $${show.price}` : show.kind === "in-person" ? (show.maxSeats > 1 ? "RSVP · save your seats" : "RSVP · save my seat") : "RSVP · free"}</a>
               ) : null}
             </div>
             {show.trailerYoutubeId ? (
@@ -170,7 +175,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
               <h2 id="after-h" className="h3">What happens after you RSVP</h2>
               <div className="steps">
                 {[
-                  ["Confirmation email, right away", "Your seat is saved and the date goes on your calendar with one tap."],
+                  ["Confirmation email, right away", "No account needed: just your name and email. Your seat is saved and the date goes on your calendar with one tap."],
                   [show.kind === "in-person" ? "Check-in details before the show" : "“It's showtime” email when the show goes live", show.kind === "in-person" ? "Everything you need at the door, the day of the screening." : "With your viewing link and password."],
                   ["Thank you when it closes", "With a link to the conversation and a peek at what's next."],
                 ].map(([t, d], i, a) => (

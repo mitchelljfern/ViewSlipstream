@@ -20,18 +20,24 @@ export default function ReviewIndex() {
     [`Giveaway: ${giveaway.title}`, `/${giveaway.slug}/`], ["Sign in / create account", "/sign-in/"], ["Account", "/account/"],
     ["In Conversation (all videos)", "/in-conversation/"], ["Previous titles", "/previous-titles/"],
     ["Email 1: confirmation", `/emails/rsvp/?show=${lead.slug}`], ["Email 2: it's showtime", `/emails/live/?show=${lead.slug}`], ["Email 3: thank you", `/emails/thanks/?show=${lead.slug}`],
+    ["Email: waiting list (in person)", `/emails/waitlist/?show=${inPerson.slug}`],
     ["404 page", "/this-page-does-not-exist/"],
   ];
+  const open = { ...inPerson, atCapacity: false };
   const states: [string, React.ReactNode][] = [
-    ["Open, signed out (RSVP creates the account)", <RsvpPanel key="1" show={lead} forced={{ phase: "upcoming", signedIn: false }} />],
+    ["Open, no account (name and email only)", <RsvpPanel key="1" show={lead} forced={{ phase: "upcoming", signedIn: false }} />],
+    ["Just RSVP'd without an account (optional account offer)", <RsvpPanel key="1b" show={lead} forced={{ phase: "upcoming", status: "confirmed", guestRsvp: true }} />],
     ["Open, signed in (one tap)", <RsvpPanel key="2" show={lead} forced={{ phase: "upcoming", signedIn: true }} />],
-    ["In person with seats", <RsvpPanel key="3" show={{ ...inPerson, atCapacity: false }} forced={{ phase: "upcoming", signedIn: true }} />],
+    ["In person: pick seats", <RsvpPanel key="3" show={open} forced={{ phase: "upcoming", signedIn: false }} />],
+    ["In person: 2 seats confirmed", <RsvpPanel key="3b" show={open} forced={{ phase: "upcoming", signedIn: true, status: "confirmed", seats: 2 }} />],
+    ["In person, full: join the waiting list", <RsvpPanel key="3c" show={full} forced={{ phase: "upcoming", signedIn: false }} />],
+    ["In person: on the waiting list", <RsvpPanel key="3d" show={full} forced={{ phase: "upcoming", signedIn: true, status: "waitlisted", seats: 2 }} />],
     ["Confirmed", <RsvpPanel key="4" show={lead} forced={{ phase: "upcoming", signedIn: true, status: "confirmed" }} />],
     ["Live and RSVP'd", <RsvpPanel key="5" show={lead} forced={{ phase: "live", signedIn: true, status: "confirmed" }} />],
     ["Giveaway", <RsvpPanel key="6" show={giveaway} forced={{ phase: "live", signedIn: true }} />],
     ["Paid show (Stripe)", <RsvpPanel key="7" show={paid} forced={{ phase: "upcoming", signedIn: true }} />],
     ["Live stream (YouTube Live)", <RsvpPanel key="8" show={live} forced={{ phase: "upcoming", signedIn: true }} />],
-    ["At capacity", <RsvpPanel key="9" show={full} forced={{ phase: "upcoming", signedIn: true }} />],
+    ["Streaming at capacity", <RsvpPanel key="9" show={{ ...lead, atCapacity: true }} forced={{ phase: "upcoming", signedIn: true }} />],
     ["Closed", <RsvpPanel key="10" show={lead} forced={{ phase: "closed", signedIn: true }} />],
   ];
   return (
@@ -39,12 +45,22 @@ export default function ReviewIndex() {
       <div className="stack g10" style={{ maxWidth: 760 }}>
         <span className="eyebrow">Review build</span>
         <h1 className="h1">Every screen and state</h1>
-        <p className="muted">Use the Review button (bottom right) to switch between guest and signed in, and to pretend it's before, during or after {lead.title}. Nothing is saved anywhere but your browser, and no emails are sent.</p>
+        <p className="muted">Use the Review button (bottom right) to switch between no account and signed in, and to pretend it's before, during or after {lead.title}. Nobody needs an account to RSVP: a name and email is enough, and the free account is offered afterwards. Nothing is saved anywhere but your browser, and no emails are sent.</p>
       </div>
       <section className="stack g12">
         <h2 className="h2">Screens</h2>
         <div className="auto-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(260px, 100%), 1fr))", gap: 10 }}>
           {screens.map(([t, h]) => <Link key={h} href={h} className="card" style={{ padding: "14px 16px", color: "var(--text)", fontWeight: 600 }}>{t}</Link>)}
+        </div>
+      </section>
+      <section className="stack g12">
+        <div className="stack g6">
+          <h2 className="h2">Try an in-person RSVP</h2>
+          <p className="muted" style={{ maxWidth: 760 }}>No in-person screening is coming up right now, so here are two working samples using {inPerson.title}. RSVP with just a name and email, pick 1 or 2 seats, or join the waiting list when it's full. Nothing is sent.</p>
+        </div>
+        <div className="auto-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))", gap: 24, alignItems: "start" }}>
+          <div className="stack g10"><span className="eyebrow" style={{ color: "var(--link)" }}>Seats available</span><RsvpPanel show={open} demoPhase="upcoming" rsvpKey="demo-in-person" /></div>
+          <div className="stack g10"><span className="eyebrow" style={{ color: "var(--link)" }}>Full: waiting list</span><RsvpPanel show={full} demoPhase="upcoming" rsvpKey="demo-in-person-full" /></div>
         </div>
       </section>
       <section className="stack g12">

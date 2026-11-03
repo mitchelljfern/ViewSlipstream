@@ -9,11 +9,27 @@ export default function AccountView() {
   const ctx = usePreview();
   if (!ctx.ready) return <div className="wrap section" />;
   if (!ctx.guest) {
+    // RSVP'd without an account: their name and email are on file, so a password is all it takes.
+    const c = ctx.contact;
     return (
       <div className="wrap section stack g16" style={{ maxWidth: 520 }}>
         <h1 className="h1" style={{ fontSize: 36 }}>Your account</h1>
-        <p className="muted">Sign in to see your RSVPs, your viewing links and your email settings.</p>
-        <Link href="/sign-in/?next=/account/" className="btn btn-primary">Sign in</Link>
+        {c ? (
+          <>
+            <p className="muted">You RSVP'd as {c.first} {c.last} ({c.email}) without an account. That's fine: your RSVPs and emails work either way. Set a password to see them all here and RSVP in one tap next time.</p>
+            <form className="stack g12" onSubmit={(e) => { e.preventDefault(); ctx.createAccount(); ctx.say("Account created. You're signed in."); }}>
+              <label className="label" htmlFor="acct-pw">Create a password</label>
+              <input id="acct-pw" type="password" className="input" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
+              <button className="btn btn-primary">Create free account</button>
+            </form>
+            <Link href="/sign-in/?next=/account/" className="small" style={{ textAlign: "center" }}>Already have an account? Sign in</Link>
+          </>
+        ) : (
+          <>
+            <p className="muted">Sign in to see your RSVPs, your viewing links and your email settings. You don't need an account to RSVP.</p>
+            <Link href="/sign-in/?next=/account/" className="btn btn-primary">Sign in</Link>
+          </>
+        )}
       </div>
     );
   }
@@ -34,13 +50,13 @@ export default function AccountView() {
             <div className="card list-rows" style={{ overflow: "hidden" }}>
               {mine.map((s) => {
                 const p = ctx.phaseFor(s);
-                const live = p === "live" && s.kind !== "in-person" && s.kind !== "giveaway";
+                const live = p === "live" && s.kind !== "in-person" && s.kind !== "giveaway" && ctx.rsvps[s.slug] !== "waitlisted";
                 return (
                   <Link key={s.slug} href={`/${s.slug}/${live ? "#player" : ""}`} className="list-row" style={live ? { background: "rgba(30,115,190,.12)" } : undefined}>
                     <img src={s.poster} alt="" style={{ width: 56, height: 84, objectFit: "cover", borderRadius: 8, flex: "0 0 auto" }} />
                     <div className="stack g4" style={{ flex: 1, minWidth: 0 }}>
                       {live ? <span className="chip chip-white" style={{ alignSelf: "flex-start" }}><span className="live-dot" />Now showing</span>
-                        : <span className="chip chip-outline" style={{ alignSelf: "flex-start" }}>{s.kind === "giveaway" ? "Entered" : p === "closed" ? "Closed" : s.kind === "in-person" ? "In person · confirmed" : "Confirmed"}</span>}
+                        : <span className="chip chip-outline" style={{ alignSelf: "flex-start" }}>{rsvpLabel(s.kind, p, ctx.rsvps[s.slug], ctx.seats[s.slug] ?? 1)}</span>}
                       <b style={{ fontWeight: 600, lineHeight: 1.3 }}>{s.title}</b>
                       <span className="muted small">{live && s.endsAt ? `Available until ${monthDay(s.endsAt)} · ${clock(s.endsAt)}` : s.startsAt ? shortWhen(s.startsAt) : ""}{s.venue ? ` · ${s.venue.name}` : ""}</span>
                     </div>
@@ -79,4 +95,12 @@ export default function AccountView() {
       </div>
     </div>
   );
+}
+
+function rsvpLabel(kind: string, phase: string, status: string | undefined, seats: number) {
+  if (kind === "giveaway") return "Entered";
+  if (phase === "closed") return "Closed";
+  const n = seats > 1 ? ` · ${seats} seats` : "";
+  if (status === "waitlisted") return `Waiting list${n}`;
+  return kind === "in-person" ? `In person · confirmed${n}` : "Confirmed";
 }
