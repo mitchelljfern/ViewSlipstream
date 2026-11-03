@@ -617,22 +617,30 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
   .conv-grid .facade .play svg { width: 18px; height: 18px; }
 }
 
-/* Start and end date boxes (DatePills): the same corner radius as the buttons. */
-.date-pills { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.date-pill { display: flex; flex-direction: column; gap: 4px; padding: 10px 14px; border-radius: 14px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--line-strong); min-width: 0; }
-.date-pill-label { display: inline-flex; align-items: center; gap: 6px; font: 600 11px/1 var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+/* Start and end date boxes (DatePills): the same corner radius as the buttons.
+   Dates never wrap; narrow boxes switch to the short form without the weekday. */
+.date-pills { container-type: inline-size; width: 100%; }
+.date-pills-row { display: flex; align-items: stretch; gap: 8px; }
+.date-pill { display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 10px 14px; border-radius: 14px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--line-strong); min-width: 0; }
+.date-pill-label { font: 600 11px/1 var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 .date-pill b { font: 600 15px/1.2 var(--font-body); white-space: nowrap; }
-.date-pills-arrow { color: var(--muted); font-size: 16px; }
-/* Phones: the two boxes sit side by side and share the width. */
-@media (max-width: 639px) {
-  .date-pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
-  .date-pills-arrow { display: none; }
-  .date-pill { padding: 10px 12px; }
-  .date-pill b { white-space: normal; font-size: 14px; }
-}
+.date-pills-arrow { align-self: center; color: var(--muted); font-size: 16px; }
+.dp-short { display: none; }
 .date-pills.is-sm .date-pill { padding: 8px 12px; border-radius: 12px; }
 .date-pills.is-sm .date-pill b { font-size: 14px; }
 @media (min-width: 1800px) { .date-pill b { font-size: 17px; } .date-pill { padding: 12px 16px; } }
+/* Not room for both full dates: share the width evenly and use the short form. */
+@container (max-width: 470px) {
+  .date-pills-row .date-pill { flex: 1 1 0; }
+  .date-pills-arrow { display: none; }
+  .dp-long { display: none; }
+  .dp-short { display: inline; }
+}
+@container (max-width: 300px) {
+  .date-pill { padding: 9px 10px; }
+  .date-pill b { font-size: 13px; }
+  .dp-tz { display: none; }
+}
 
 /* Every title is a card: art on top, title and details underneath, inside one box.
    The whole card lifts on hover and dips on tap. */
