@@ -555,6 +555,23 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 .tcard-art img { width: 100%; height: 100%; object-fit: cover; }
 .tcard:hover .tcard-art, .tcard:focus-visible .tcard-art { transform: translateY(-4px); border-color: rgba(var(--fg-rgb), 0.32); box-shadow: var(--shadow-xl); }
 .row-wide .tcard-title { font-size: clamp(15px, 1.2vw, 20px); }
+/* A month or series with one title: on desktop, a card with the art on the left and the details on the right. */
+.tcard-info { display: none; }
+@media (min-width: 960px) {
+  .tgrid.is-solo .tcard {
+    display: grid; grid-template-columns: minmax(0, clamp(520px, 56%, 1240px)) minmax(0, 1fr); align-items: center; gap: clamp(24px, 3vw, 56px);
+    padding: 14px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .tgrid.is-solo .tcard:hover, .tgrid.is-solo .tcard:focus-visible { border-color: rgba(var(--fg-rgb), 0.28); box-shadow: var(--shadow-xl); }
+  .tgrid.is-solo .tcard:hover .tcard-art, .tgrid.is-solo .tcard:focus-visible .tcard-art { transform: none; box-shadow: none; }
+  .tgrid.is-solo .tcard-art { aspect-ratio: var(--ar-wide); border-radius: 12px; }
+  .tgrid.is-solo .tcard > .tcard-title, .tgrid.is-solo .tcard > .rail-meta { display: none; }
+  .tgrid.is-solo .tcard-info { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-right: clamp(8px, 2vw, 40px); max-width: 68ch; }
+  .tcard-when { font-weight: 600; font-size: clamp(15px, 1vw, 18px); line-height: 1.45; }
+  .tcard-about { font-size: clamp(15px, 0.95vw, 17px); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .tcard-cta { margin-top: 6px; }
+}
 /* Tablets and phones: a poster group is one swipeable row of posters, like the rails. */
 @media (max-width: 959px) {
   .tgrid.is-tall { flex-direction: row; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--gutter); padding: 6px var(--gutter) 8px; margin: 0 calc(var(--gutter) * -1); scrollbar-width: none; }
