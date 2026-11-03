@@ -1,17 +1,17 @@
 "use client";
+import PasswordInput from "./PasswordInput";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { usePreview } from "./Preview";
 import { allShows } from "@/lib/data";
-import { IconEye, IconMail } from "./Icons";
+import { IconMail } from "./Icons";
 
 export default function SignInView() {
   const ctx = usePreview();
   const params = useSearchParams();
   const router = useRouter();
   const [mode, setMode] = useState<"in" | "create">(params.get("mode") === "create" ? "create" : "in");
-  const [showPw, setShowPw] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
   const next = params.get("next");
   const nextShow = next ? allShows().find((s) => next.includes(`/${s.slug}/`)) : undefined;
@@ -53,10 +53,7 @@ export default function SignInView() {
           <div className="field">
             <div className="row between"><label className="label" htmlFor="pw">{mode === "create" ? "Create a password" : "Password"}</label>
               {mode === "in" ? <button type="button" className="small" style={{ background: "none", border: 0, color: "var(--link)", fontWeight: 600, cursor: "pointer" }} onClick={() => ctx.say("Review build: a reset link would be emailed here.")}>Forgot?</button> : null}</div>
-            <div style={{ position: "relative" }}>
-              <input id="pw" name="password" type={showPw ? "text" : "password"} className="input" style={{ paddingRight: 52 }} autoComplete={mode === "create" ? "new-password" : "current-password"} minLength={mode === "create" ? 8 : undefined} required />
-              <button type="button" className="icon-btn" aria-label={showPw ? "Hide password" : "Show password"} onClick={() => setShowPw((v) => !v)} style={{ position: "absolute", right: 4, top: 4, color: "var(--muted)" }}><IconEye size={20} /></button>
-            </div>
+            <PasswordInput id="pw" name="password" autoComplete={mode === "create" ? "new-password" : "current-password"} minLength={mode === "create" ? 8 : undefined} required />
           </div>
           {mode === "in" ? <label className="check"><input type="checkbox" defaultChecked />Keep me signed in on this device</label> : null}
           <button className="btn btn-primary">{mode === "in" ? "Sign in" : "Create account"}</button>

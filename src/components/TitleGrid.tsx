@@ -10,12 +10,17 @@
  *              of horizontal cards, same rule as above (6 = 4 + 2, 7 = 5 + 2,
  *              8 = 5 + 3, 11 = 5 + 4 + 2)
  *
+ * On desktop a month or series with a single title is a card instead: the
+ * art on the left, the screening details on the right. Phones keep the big
+ * horizontal card.
+ *
  * Horizontal cards use landscape art (the show's key art when its poster is
  * vertical). On tablets and phones a poster row becomes one swipeable row, and
  * horizontal cards stack on phones.
  */
 import Link from "next/link";
 import type { RailItem } from "./Rail";
+import DatePills from "./DatePills";
 
 export const MAX_PER_ROW = 5;
 
@@ -45,6 +50,7 @@ export default function TitleGrid({ items, label }: { items: RailItem[]; label: 
   // A month or series of 1 or 2 is all horizontal cards; anything bigger is a
   // poster group (on tablets and phones it becomes one swipeable row of posters).
   const allWide = rows.length === 1 && rows[0].wide;
+  const solo = items.length === 1;
   // Poster rows keep the posters' own shape (2:3 for series art, 4:5 for the
   // in-person one-sheets) so nothing gets cropped hard.
   const ratios = items.map((i) => i.ratio ?? 0.667).sort((a, b) => a - b);
@@ -52,7 +58,7 @@ export default function TitleGrid({ items, label }: { items: RailItem[]; label: 
   const wideAr = items.length === 1 ? 2.4 : 16 / 9;
 
   return (
-    <div className={`tgrid ${allWide ? "is-wide" : "is-tall"}`} role="list" aria-label={label}
+    <div className={`tgrid ${allWide ? "is-wide" : "is-tall"}${solo ? " is-solo" : ""}`} role="list" aria-label={label}
       style={{ "--ar-tall": tall, "--ar-wide": wideAr } as React.CSSProperties}>
       {rows.map((row, r) => (
         <div key={r} className={`tgrid-row${row.wide ? " row-wide" : ""}`} style={{ "--cols": row.items.length } as React.CSSProperties}>
@@ -74,6 +80,16 @@ export default function TitleGrid({ items, label }: { items: RailItem[]; label: 
               </div>
               <span className="rail-title tcard-title">{it.title}</span>
               {it.meta ? <span className="rail-meta">{it.meta}</span> : null}
+              {solo && it.detail ? (
+                <div className="tcard-info">
+                  <span className="eyebrow">{it.detail.kind}</span>
+                  <h3 className="h2">{it.title}</h3>
+                  {it.detail.dates ? <DatePills show={it.detail.dates} size="sm" /> : null}
+                  {it.detail.where ? <p className="tcard-when">{it.detail.where}</p> : null}
+                  {it.detail.about ? <p className="tcard-about muted">{it.detail.about}</p> : null}
+                  <span className="btn btn-primary tcard-cta">{it.detail.cta}</span>
+                </div>
+              ) : null}
             </Link>
           ))}
         </div>

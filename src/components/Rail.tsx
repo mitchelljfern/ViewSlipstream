@@ -6,6 +6,7 @@
  * overflows; phones just swipe.
  */
 import Link from "next/link";
+import type { Show } from "@/lib/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IconBack, IconChevron } from "./Icons";
 
@@ -19,6 +20,8 @@ export interface RailItem {
   wideImage?: string;
   meta?: string;
   badge?: { label: string; tone: "live" | "open" | "plain" } | null;
+  /** Shown beside the art when a month or series has just one title (desktop). */
+  detail?: { kind: string; dates?: Pick<Show, "kind" | "startsAt" | "endsAt">; where?: string; about?: string; cta: string };
 }
 
 export default function Rail({ items, label }: { items: RailItem[]; label: string }) {

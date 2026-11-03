@@ -6,23 +6,24 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type { Phase, Show } from "@/lib/types";
-import { monthDay, whenLine } from "@/lib/time";
+import { monthDay } from "@/lib/time";
+import DatePills from "./DatePills";
 import { usePreview } from "./Preview";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
-import { IconCalendar, IconMic, IconPin, IconPlay } from "./Icons";
+import { IconMic, IconPin, IconPlay } from "./Icons";
 import Countdown, { endLabel, startLabel } from "./Countdown";
 
 export const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway: "Giveaway", live: "Live Stream", paid: "Paid" } as const;
 
 export type FeatureItem = { show: Show; phase: Phase };
 
-/** Most tabs the hero shows. Four fit one row on desktop; the rest stay in the Upcoming rail. */
+/** The hero always shows four tabs: they fill one row on desktop. Open shows that don't fit stay in the Upcoming rail. */
 export const MAX_FEATURED = 4;
-const MIN_FEATURED = 2;
+const MIN_FEATURED = MAX_FEATURED;
 
 /**
- * Which shows get a tab: live ones first, then upcoming soonest first. If that
- * makes fewer than two, the most recent past shows fill in, newest first.
+ * Which shows get a tab: live ones first, then upcoming soonest first, then
+ * the most recent past shows fill the rest, newest first.
  */
 export function pickFeatured(shows: Show[], phaseFor: (s: Show) => Phase): FeatureItem[] {
   const items = shows.map((show) => ({ show, phase: phaseFor(show) }));
@@ -71,8 +72,8 @@ export function FeatureBody({ item }: { item: FeatureItem }) {
           </div>
         </div>
         <h1 className="h1 feature-title">{show.title}</h1>
-        <div className="stack g8" style={{ fontSize: 15 }}>
-          {show.startsAt ? <div className="row g10"><IconCalendar size={18} /><span>{whenLine(show)}</span></div> : null}
+        <div className="stack g10" style={{ fontSize: 15 }}>
+          <DatePills show={show} />
           {show.venue ? <div className="row g10 muted"><IconPin size={18} /><span>{show.venue.name}</span></div> : null}
           {show.conversationLine ? <div className="row g10 muted" style={{ alignItems: "flex-start" }}><IconMic size={18} /><span>{show.conversationLine.replace(/^the (screening|documentary) will be followed by a /i, "Followed by a ")}</span></div> : null}
         </div>
@@ -102,11 +103,11 @@ export function FeatureTabs({ items }: { items: FeatureItem[] }) {
           <div className="feature-tabs" role="tablist" aria-label="On Slipstream">
             {items.map((it, n) => (
               <button key={it.show.slug} ref={(el) => { tabs.current[n] = el; }} role="tab" id={`ft-${n}`} aria-controls="ft-panel"
-                aria-selected={n === i} tabIndex={n === i ? 0 : -1} className="feature-tab" onClick={() => setActive(n)}
+                aria-selected={n === i} tabIndex={n === i ? 0 : -1} className={`feature-tab${it.phase === "closed" ? " is-past" : ""}`} onClick={() => setActive(n)}
                 onKeyDown={(e) => { if (e.key === "ArrowRight") go(n + 1); if (e.key === "ArrowLeft") go(n - 1); }}>
-                <span className="feature-tab-thumb">{it.show.heroImage ? <img src={it.show.heroImage} alt="" /> : null}</span>
+                <span className="feature-tab-thumb">{it.show.heroImage ?? it.show.poster ? <img src={it.show.heroImage ?? it.show.poster} alt="" /> : null}</span>
                 <span className="stack g4" style={{ minWidth: 0 }}>
-                  <span className={`feature-tab-status${isLive(it) ? " is-live" : ""}`}>{isLive(it) ? <span className="live-dot" /> : null}{statusLabel(it)}</span>
+                  <span className={`feature-tab-status${isLive(it) ? " is-live" : it.phase === "upcoming" ? " is-next" : ""}`}>{isLive(it) ? <span className="live-dot" /> : null}{statusLabel(it)}<span className="feature-tab-kind"> · {KIND[it.show.kind]}</span></span>
                   <span className="feature-tab-title">{it.show.title}</span>
                 </span>
               </button>

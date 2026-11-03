@@ -31,6 +31,10 @@ export default function HomeView({ groups, conversations, allShows }: {
       meta: `${KIND[s.kind]}${s.startsAt ? ` · ${shortWhen(s.startsAt).split(" · ")[0]}` : ""}`,
       badge: p === "live" && s.kind !== "in-person" ? { label: s.kind === "giveaway" ? "Entries Open" : "Live", tone: "live" }
         : p === "upcoming" ? { label: "RSVP Open", tone: "open" } : null,
+      detail: {
+        kind: KIND[s.kind], dates: s, where: s.venue?.name, about: s.about[0],
+        cta: p === "upcoming" ? (s.kind === "giveaway" ? "Enter the giveaway" : "RSVP") : p === "live" && s.kind !== "in-person" ? (s.kind === "giveaway" ? "Enter now" : "Watch now") : "View details",
+      },
     };
   };
 
@@ -96,11 +100,12 @@ export default function HomeView({ groups, conversations, allShows }: {
           <div className="stack g4"><h2 className="h2">In Conversation</h2><span className="muted small">Talks with the people who made the shows</span></div>
           <Link href="/in-conversation/" className="btn btn-glass btn-sm"><IconPlay size={16} />Watch All {conversations.length} Conversations</Link>
         </div>
-        <div className="auto-grid">
-          {conversations.slice(0, 3).map((c) => (
+        {/* 4 across on desktop, 2 rows of 2 on tablets and phones. */}
+        <div className="conv-grid">
+          {conversations.slice(0, 4).map((c) => (
             <article key={c.id} className="card" style={{ overflow: "hidden" }}>
               <VideoFacade embed={c.embed} thumbnail={c.thumbnail} label={c.title} duration={minutes(c.durationSec)} rounded={false} />
-              <div style={{ padding: "12px 14px 14px" }}><p style={{ fontWeight: 600, fontSize: 15, lineHeight: 1.35 }}>{c.title}</p></div>
+              <div className="conv-grid-body"><p>{c.title}</p></div>
             </article>
           ))}
         </div>

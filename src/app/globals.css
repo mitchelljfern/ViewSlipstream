@@ -388,7 +388,24 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 .feature-tab-title { font: 600 15px/1.2 var(--font-display); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .feature-panel { animation: feature-in 0.25s ease; }
 @keyframes feature-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-@media (min-width: 960px) { .feature-tab { flex: 0 1 300px; min-width: 0; padding: 14px 20px; } }
+.feature-tab-status.is-next { color: var(--link); }
+.feature-tab-kind { display: none; }
+/* Desktop: the tabs share the full width of the card evenly, with bigger art. */
+@media (min-width: 960px) {
+  .feature-tab { flex: 1 1 0; max-width: none; min-width: 0; padding: 14px 16px; gap: 14px; min-height: 92px; }
+  .feature-tab-thumb { width: 64px; }
+  .feature-tab-status { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .feature-tab-status .live-dot { display: inline-block; margin-right: 6px; vertical-align: middle; }
+  .feature-tab-title { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .feature-tab.is-past .feature-tab-thumb img { opacity: 0.7; filter: saturate(0.8); transition: opacity 0.15s ease, filter 0.15s ease; }
+  .feature-tab.is-past:hover .feature-tab-thumb img, .feature-tab.is-past[aria-selected="true"] .feature-tab-thumb img { opacity: 1; filter: none; }
+  .feature-tab-title { font-size: clamp(15px, 1vw, 18px); }
+}
+@media (min-width: 1280px) {
+  .feature-tab { padding: 16px 22px; gap: 16px; }
+  .feature-tab-thumb { width: clamp(84px, 6.5vw, 128px); }
+}
+@media (min-width: 1600px) { .feature-tab-kind { display: inline; color: var(--muted); } }
 
 @media (prefers-reduced-motion: reduce) { .feature-panel { animation: none; } }
 
@@ -555,6 +572,23 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 .tcard-art img { width: 100%; height: 100%; object-fit: cover; }
 .tcard:hover .tcard-art, .tcard:focus-visible .tcard-art { transform: translateY(-4px); border-color: rgba(var(--fg-rgb), 0.32); box-shadow: var(--shadow-xl); }
 .row-wide .tcard-title { font-size: clamp(15px, 1.2vw, 20px); }
+/* A month or series with one title: on desktop, a card with the art on the left and the details on the right. */
+.tcard-info { display: none; }
+@media (min-width: 960px) {
+  .tgrid.is-solo .tcard {
+    display: grid; grid-template-columns: minmax(0, clamp(520px, 56%, 1240px)) minmax(0, 1fr); align-items: center; gap: clamp(24px, 3vw, 56px);
+    padding: 14px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .tgrid.is-solo .tcard:hover, .tgrid.is-solo .tcard:focus-visible { border-color: rgba(var(--fg-rgb), 0.28); box-shadow: var(--shadow-xl); }
+  .tgrid.is-solo .tcard:hover .tcard-art, .tgrid.is-solo .tcard:focus-visible .tcard-art { transform: none; box-shadow: none; }
+  .tgrid.is-solo .tcard-art { aspect-ratio: var(--ar-wide); border-radius: 12px; }
+  .tgrid.is-solo .tcard > .tcard-title, .tgrid.is-solo .tcard > .rail-meta { display: none; }
+  .tgrid.is-solo .tcard-info { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-right: clamp(8px, 2vw, 40px); max-width: 68ch; }
+  .tcard-when { font-weight: 600; font-size: clamp(15px, 1vw, 18px); line-height: 1.45; }
+  .tcard-about { font-size: clamp(15px, 0.95vw, 17px); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .tcard-cta { margin-top: 6px; }
+}
 /* Tablets and phones: a poster group is one swipeable row of posters, like the rails. */
 @media (max-width: 959px) {
   .tgrid.is-tall { flex-direction: row; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--gutter); padding: 6px var(--gutter) 8px; margin: 0 calc(var(--gutter) * -1); scrollbar-width: none; }
@@ -568,4 +602,59 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 @media (max-width: 639px) {
   .tgrid.is-wide .tgrid-row { grid-template-columns: minmax(0, 1fr); }
   .tgrid.is-wide .tcard-art { aspect-ratio: 16 / 9; }
+}
+
+/* Home page In Conversation: 4 across on desktop, 2 rows of 2 below that. */
+.conv-grid { display: grid; gap: 16px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.conv-grid-body { padding: 12px 14px 14px; }
+.conv-grid-body p { font-weight: 600; font-size: 15px; line-height: 1.35; }
+@media (max-width: 959px) { .conv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) {
+  .conv-grid { gap: 10px; }
+  .conv-grid-body { padding: 8px 10px 10px; }
+  .conv-grid-body p { font-size: 13px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .conv-grid .facade .play { width: 44px; height: 44px; }
+  .conv-grid .facade .play svg { width: 18px; height: 18px; }
+}
+
+/* Start and end date boxes (DatePills): the same corner radius as the buttons. */
+.date-pills { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.date-pill { display: flex; flex-direction: column; gap: 4px; padding: 10px 14px; border-radius: 14px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--line-strong); min-width: 0; }
+.date-pill-label { display: inline-flex; align-items: center; gap: 6px; font: 600 11px/1 var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.date-pill b { font: 600 15px/1.2 var(--font-body); white-space: nowrap; }
+.date-pills-arrow { color: var(--muted); font-size: 16px; }
+/* Phones: the two boxes sit side by side and share the width. */
+@media (max-width: 639px) {
+  .date-pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
+  .date-pills-arrow { display: none; }
+  .date-pill { padding: 10px 12px; }
+  .date-pill b { white-space: normal; font-size: 14px; }
+}
+.date-pills.is-sm .date-pill { padding: 8px 12px; border-radius: 12px; }
+.date-pills.is-sm .date-pill b { font-size: 14px; }
+@media (min-width: 1800px) { .date-pill b { font-size: 17px; } .date-pill { padding: 12px 16px; } }
+
+/* Every title is a card: art on top, title and details underneath, inside one box.
+   The whole card lifts on hover and dips on tap. */
+.tcard, .rail-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 8px 12px; gap: 6px;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.tcard > .tcard-title, .tcard > .rail-meta, .rail-card > .rail-title, .rail-card > .rail-meta { padding: 0 6px; }
+.tcard > .tcard-title, .rail-card > .rail-title { margin-top: 4px; }
+.tcard-art, .rail-art { border-radius: 10px; border: 0; }
+.tcard:hover, .tcard:focus-visible, .rail-card:hover, .rail-card:focus-visible { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: var(--shadow-xl); }
+.tcard:hover .tcard-art, .tcard:focus-visible .tcard-art, .rail-card:hover .rail-art, .rail-card:focus-visible .rail-art { transform: none; box-shadow: none; }
+.tcard:active, .rail-card:active { transform: translateY(-1px) scale(0.985); transition-duration: 0.1s; }
+.tcard-art img, .rail-art img { transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+.tcard:hover .tcard-art img, .rail-card:hover .rail-art img { transform: scale(1.04); }
+.rail-card { width: calc(var(--rail-h) * 2 / 3 + 18px); }
+.rail-card.is-wide { width: min(calc(var(--rail-h) * 16 / 9 + 18px), 86vw); }
+@media (prefers-reduced-motion: reduce) {
+  .tcard, .rail-card, .tcard-art img, .rail-art img { transition: none; }
+  .tcard:hover, .rail-card:hover, .tcard:active, .rail-card:active, .tcard:hover .tcard-art img, .rail-card:hover .rail-art img { transform: none; }
+}
+@media (min-width: 960px) {
+  .tgrid.is-solo .tcard { padding: 14px; }
+  .tgrid.is-solo .tcard:hover .tcard-art img { transform: scale(1.02); }
 }
