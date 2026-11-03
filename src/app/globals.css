@@ -543,3 +543,29 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 .cal-menu-page a:hover { background: rgba(var(--fg-rgb), 0.14); color: var(--text); }
 .cal-menu-deep a { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); color: #fff; }
 .cal-menu-deep a:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+/* Home page months and series: every row fills the full width (TitleGrid). */
+.tgrid { display: flex; flex-direction: column; gap: 22px; }
+.tgrid-row { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 16px; }
+.tcard { display: flex; flex-direction: column; gap: 8px; min-width: 0; color: var(--text); }
+.tcard:hover { color: var(--text); }
+.tcard-art { position: relative; aspect-ratio: var(--ar-tall); border-radius: 14px; overflow: hidden; background: var(--well); border: 1px solid rgba(var(--fg-rgb), 0.08); transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.row-wide .tcard-art { aspect-ratio: var(--ar-wide); }
+.tcard-art picture { display: contents; }
+.tcard-art img { width: 100%; height: 100%; object-fit: cover; }
+.tcard:hover .tcard-art, .tcard:focus-visible .tcard-art { transform: translateY(-4px); border-color: rgba(var(--fg-rgb), 0.32); box-shadow: var(--shadow-xl); }
+.row-wide .tcard-title { font-size: clamp(15px, 1.2vw, 20px); }
+/* Tablets and phones: a poster group is one swipeable row of posters, like the rails. */
+@media (max-width: 959px) {
+  .tgrid.is-tall { flex-direction: row; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--gutter); padding: 6px var(--gutter) 8px; margin: 0 calc(var(--gutter) * -1); scrollbar-width: none; }
+  .tgrid.is-tall::-webkit-scrollbar { display: none; }
+  .tgrid.is-tall .tgrid-row { display: contents; }
+  .tgrid.is-tall .tcard { flex: 0 0 auto; width: clamp(150px, 40vw, 220px); scroll-snap-align: start; }
+  .tgrid.is-tall .tcard-art { aspect-ratio: var(--ar-tall); }
+  .tgrid.is-tall .tcard-title { font-size: 14px; }
+}
+/* Phones: horizontal cards stack, one per row. */
+@media (max-width: 639px) {
+  .tgrid.is-wide .tgrid-row { grid-template-columns: minmax(0, 1fr); }
+  .tgrid.is-wide .tcard-art { aspect-ratio: 16 / 9; }
+}
