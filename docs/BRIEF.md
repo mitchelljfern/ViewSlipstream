@@ -16,9 +16,9 @@ Mitchell can connect the WordPress install so Claude Code can see the theme code
 
 ## 3. The user flow that must be preserved
 
-1. Home shows the current program ("Now Showing") first, then featured titles grouped by month or series, then In Conversation, then newsletter and contact.
+1. Home shows the current program ("Now Showing") first, then featured titles grouped by month or series, then In Conversation, then newsletter and contact. Every month or series row fills the full width with no empty space: up to 5 posters per row, and a row of 1 or 2 shows uses big horizontal cards (6 = 4 + 2, 7 = 5 + 2).
 2. A show page has: a key art hero, the date window or venue line, the trailer, "About the show", and an RSVP section. Today a "SCROLL DOWN TO RSVP" band sits under the header.
-3. RSVP requires an account. If signed out, the RSVP form creates the account in the same step (first, last, email, password). If signed in, the RSVP is one tap with the account details prefilled.
+3. RSVP does not require an account (client feedback, Nov 2026). Signed out, the RSVP form is first name, last name and email; the email goes on that show's RSVP list and gets the emails below. Right after RSVPing, the card offers a free account: they only pick a password. Signed in, the RSVP is one tap with the account details prefilled. In-person shows let a guest book more than one seat per email (the show sets the limit, usually 2) and switch to a waiting list when full; waiting list guests get a "you're on the waiting list" email and a confirmation if seats open.
 4. Three transactional emails, all required: (a) RSVP confirmation immediately, (b) "show is now live" when the window opens, containing viewing instructions and the DaCast password, (c) thank-you when the window closes.
 5. When the window is open and the user is signed in and RSVP'd, the show page shows the DaCast embed. The password is entered in the DaCast player (the client is used to this and wants to keep DaCast).
 6. After the window, the show page says "No longer available" and the In Conversation recording remains.
