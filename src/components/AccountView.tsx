@@ -4,6 +4,7 @@ import { initials, usePreview } from "./Preview";
 import { allShows } from "@/lib/data";
 import { clock, monthDay, shortWhen } from "@/lib/time";
 import { IconChevron } from "./Icons";
+import PasswordInput from "./PasswordInput";
 
 export default function AccountView() {
   const ctx = usePreview();
@@ -19,7 +20,7 @@ export default function AccountView() {
             <p className="muted">You RSVP'd as {c.first} {c.last} ({c.email}) without an account. That's fine: your RSVPs and emails work either way. Set a password to see them all here and RSVP in one tap next time.</p>
             <form className="stack g12" onSubmit={(e) => { e.preventDefault(); ctx.createAccount(); ctx.say("Account created. You're signed in."); }}>
               <label className="label" htmlFor="acct-pw">Create a password</label>
-              <input id="acct-pw" type="password" className="input" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
+              <PasswordInput id="acct-pw" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
               <button className="btn btn-primary">Create free account</button>
             </form>
             <Link href="/sign-in/?next=/account/" className="small" style={{ textAlign: "center" }}>Already have an account? Sign in</Link>

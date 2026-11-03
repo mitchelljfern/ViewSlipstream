@@ -17,6 +17,7 @@
  */
 import Link from "next/link";
 import { useState } from "react";
+import PasswordInput from "./PasswordInput";
 import type { Conversation, Phase, Show } from "@/lib/types";
 import { clock, longDay } from "@/lib/time";
 import { calEvent } from "@/lib/ics";
@@ -42,6 +43,7 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
   const [seats, setSeats] = useState(1);
   const [busy, setBusy] = useState(false);
   const [skipAccount, setSkipAccount] = useState(false);
+  const [wantAccount, setWantAccount] = useState(false);
   const isGiveaway = show.kind === "giveaway";
   const isPaid = show.kind === "paid";
   const inPerson = show.kind === "in-person";
@@ -88,7 +90,7 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
         act(() => { ctx.createAccount(); ctx.say("Account created. You're signed in."); });
       }}>
         <label className="label" htmlFor={fid("newpw")} style={{ color: "#fff" }}>Create a password</label>
-        <input id={fid("newpw")} name="password" type="password" className="input" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
+        <PasswordInput onDeep id={fid("newpw")} name="password" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
         <button className="btn btn-light" disabled={busy}>{busy ? "One moment…" : "Create free account"}</button>
       </form>
       <button className="small" style={{ background: "none", border: 0, color: "rgba(255,255,255,.75)", textDecoration: "underline", cursor: "pointer" }}
@@ -171,7 +173,12 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
       e.preventDefault();
       const f = new FormData(e.currentTarget);
       const g = { first: String(f.get("first") || "").trim(), last: String(f.get("last") || "").trim(), email: String(f.get("email") || "").trim() };
-      act(() => { ctx.rsvpAsGuest(key, status, g, seats); if (isPaid && status !== "waitlisted") ctx.say("On the live site, Stripe Checkout opens here."); ctx.say(toast(g.email)); });
+      act(() => {
+        ctx.rsvpAsGuest(key, status, g, seats);
+        if (isPaid && status !== "waitlisted") ctx.say("On the live site, Stripe Checkout opens here.");
+        // Ticked "Create a free account": same step, so no account offer afterwards.
+        if (wantAccount) { ctx.createAccount(); ctx.say(`${toast(g.email)} Your free account is ready.`); } else ctx.say(toast(g.email));
+      });
     }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
         <div className="field"><label className="label" htmlFor={fid("first")}>First name</label><input id={fid("first")} name="first" className="input" autoComplete="given-name" required /></div>
@@ -179,6 +186,19 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
       </div>
       <div className="field"><label className="label" htmlFor={fid("email")}>Email</label><input id={fid("email")} name="email" type="email" inputMode="email" className="input" autoComplete="email" placeholder="you@example.com" required /></div>
       {SeatPicker}
+      <div className="stack g8">
+        <label className="check" htmlFor={fid("acct")}>
+          <input id={fid("acct")} type="checkbox" checked={wantAccount} onChange={(e) => setWantAccount(e.target.checked)} />
+          <span>Create a free account <span style={{ color: "rgba(255,255,255,.65)" }}>(optional)</span></span>
+        </label>
+        {wantAccount ? (
+          <div className="field">
+            <label className="label" htmlFor={fid("pw")}>Create a password</label>
+            <PasswordInput onDeep id={fid("pw")} name="password" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
+            <span className="tiny" style={{ color: "rgba(255,255,255,.65)" }}>Next time you can RSVP in one tap and see all your shows in one place.</span>
+          </div>
+        ) : null}
+      </div>
       <button className="btn btn-light" style={{ fontSize: 17 }} disabled={busy}>{busy ? "One moment…" : submitLabel}</button>
     </form>
   );
@@ -261,7 +281,7 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
       <div className="row between"><h2 id={hid} className="h2">{heading}</h2><span className="chip" style={{ background: "rgba(255,255,255,.14)", color: "#fff" }}>{badge}</span></div>
       <p>{blurb}</p>
       {guestForm(isGiveaway ? "Enter the giveaway" : isPaid ? "Continue to checkout" : verb, done, (email) => confirmMsg(email))}
-      <p className="tiny" style={{ color: "rgba(255,255,255,.7)", textAlign: "center" }}>No account or password needed.</p>
+      <p className="tiny" style={{ color: "rgba(255,255,255,.7)", textAlign: "center" }}>No account or password needed unless you want one.</p>
       {signInLink(isGiveaway ? "enter" : "RSVP")}
       <p className="tiny" style={{ color: "rgba(255,255,255,.65)", lineHeight: 1.5 }}>We never share your personal information. You'll get three emails: a confirmation now, a note when the show is live, and a thank-you when it closes.</p>
       {isGiveaway && show.giveaway ? <p className="tiny" style={{ color: "rgba(255,255,255,.65)" }}>{show.giveaway.rules}</p> : null}
