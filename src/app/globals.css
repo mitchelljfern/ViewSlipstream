@@ -616,3 +616,45 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
   .conv-grid .facade .play { width: 44px; height: 44px; }
   .conv-grid .facade .play svg { width: 18px; height: 18px; }
 }
+
+/* Start and end date boxes (DatePills): the same corner radius as the buttons. */
+.date-pills { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.date-pill { display: flex; flex-direction: column; gap: 4px; padding: 10px 14px; border-radius: 14px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--line-strong); min-width: 0; }
+.date-pill-label { display: inline-flex; align-items: center; gap: 6px; font: 600 11px/1 var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.date-pill b { font: 600 15px/1.2 var(--font-body); white-space: nowrap; }
+.date-pills-arrow { color: var(--muted); font-size: 16px; }
+/* Phones: the two boxes sit side by side and share the width. */
+@media (max-width: 639px) {
+  .date-pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
+  .date-pills-arrow { display: none; }
+  .date-pill { padding: 10px 12px; }
+  .date-pill b { white-space: normal; font-size: 14px; }
+}
+.date-pills.is-sm .date-pill { padding: 8px 12px; border-radius: 12px; }
+.date-pills.is-sm .date-pill b { font-size: 14px; }
+@media (min-width: 1800px) { .date-pill b { font-size: 17px; } .date-pill { padding: 12px 16px; } }
+
+/* Every title is a card: art on top, title and details underneath, inside one box.
+   The whole card lifts on hover and dips on tap. */
+.tcard, .rail-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 8px 12px; gap: 6px;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.tcard > .tcard-title, .tcard > .rail-meta, .rail-card > .rail-title, .rail-card > .rail-meta { padding: 0 6px; }
+.tcard > .tcard-title, .rail-card > .rail-title { margin-top: 4px; }
+.tcard-art, .rail-art { border-radius: 10px; border: 0; }
+.tcard:hover, .tcard:focus-visible, .rail-card:hover, .rail-card:focus-visible { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: var(--shadow-xl); }
+.tcard:hover .tcard-art, .tcard:focus-visible .tcard-art, .rail-card:hover .rail-art, .rail-card:focus-visible .rail-art { transform: none; box-shadow: none; }
+.tcard:active, .rail-card:active { transform: translateY(-1px) scale(0.985); transition-duration: 0.1s; }
+.tcard-art img, .rail-art img { transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+.tcard:hover .tcard-art img, .rail-card:hover .rail-art img { transform: scale(1.04); }
+.rail-card { width: calc(var(--rail-h) * 2 / 3 + 18px); }
+.rail-card.is-wide { width: min(calc(var(--rail-h) * 16 / 9 + 18px), 86vw); }
+@media (prefers-reduced-motion: reduce) {
+  .tcard, .rail-card, .tcard-art img, .rail-art img { transition: none; }
+  .tcard:hover, .rail-card:hover, .tcard:active, .rail-card:active, .tcard:hover .tcard-art img, .rail-card:hover .rail-art img { transform: none; }
+}
+@media (min-width: 960px) {
+  .tgrid.is-solo .tcard { padding: 14px; }
+  .tgrid.is-solo .tcard:hover .tcard-art img { transform: scale(1.02); }
+}

@@ -20,6 +20,7 @@
  */
 import Link from "next/link";
 import type { RailItem } from "./Rail";
+import DatePills from "./DatePills";
 
 export const MAX_PER_ROW = 5;
 
@@ -83,9 +84,8 @@ export default function TitleGrid({ items, label }: { items: RailItem[]; label: 
                 <div className="tcard-info">
                   <span className="eyebrow">{it.detail.kind}</span>
                   <h3 className="h2">{it.title}</h3>
-                  {it.detail.when || it.detail.where ? (
-                    <p className="tcard-when">{it.detail.when}{it.detail.when && it.detail.where ? <br /> : null}{it.detail.where}</p>
-                  ) : null}
+                  {it.detail.dates ? <DatePills show={it.detail.dates} size="sm" /> : null}
+                  {it.detail.where ? <p className="tcard-when">{it.detail.where}</p> : null}
                   {it.detail.about ? <p className="tcard-about muted">{it.detail.about}</p> : null}
                   <span className="btn btn-primary tcard-cta">{it.detail.cta}</span>
                 </div>

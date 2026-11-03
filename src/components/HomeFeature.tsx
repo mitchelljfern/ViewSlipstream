@@ -6,10 +6,11 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type { Phase, Show } from "@/lib/types";
-import { monthDay, whenLine } from "@/lib/time";
+import { monthDay } from "@/lib/time";
+import DatePills from "./DatePills";
 import { usePreview } from "./Preview";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
-import { IconCalendar, IconMic, IconPin, IconPlay } from "./Icons";
+import { IconMic, IconPin, IconPlay } from "./Icons";
 import Countdown, { endLabel, startLabel } from "./Countdown";
 
 export const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway: "Giveaway", live: "Live Stream", paid: "Paid" } as const;
@@ -71,8 +72,8 @@ export function FeatureBody({ item }: { item: FeatureItem }) {
           </div>
         </div>
         <h1 className="h1 feature-title">{show.title}</h1>
-        <div className="stack g8" style={{ fontSize: 15 }}>
-          {show.startsAt ? <div className="row g10"><IconCalendar size={18} /><span>{whenLine(show)}</span></div> : null}
+        <div className="stack g10" style={{ fontSize: 15 }}>
+          <DatePills show={show} />
           {show.venue ? <div className="row g10 muted"><IconPin size={18} /><span>{show.venue.name}</span></div> : null}
           {show.conversationLine ? <div className="row g10 muted" style={{ alignItems: "flex-start" }}><IconMic size={18} /><span>{show.conversationLine.replace(/^the (screening|documentary) will be followed by a /i, "Followed by a ")}</span></div> : null}
         </div>

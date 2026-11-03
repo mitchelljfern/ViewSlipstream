@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import type { Conversation, Show } from "@/lib/types";
-import { monthDay, shortWhen, upcomingShows, minutes, whenLine } from "@/lib/time";
+import { monthDay, shortWhen, upcomingShows, minutes } from "@/lib/time";
 import { usePreview } from "./Preview";
 import VideoFacade from "./VideoFacade";
 import Rail, { type RailItem } from "./Rail";
@@ -32,7 +32,7 @@ export default function HomeView({ groups, conversations, allShows }: {
       badge: p === "live" && s.kind !== "in-person" ? { label: s.kind === "giveaway" ? "Entries Open" : "Live", tone: "live" }
         : p === "upcoming" ? { label: "RSVP Open", tone: "open" } : null,
       detail: {
-        kind: KIND[s.kind], when: whenLine(s) || undefined, where: s.venue?.name, about: s.about[0],
+        kind: KIND[s.kind], dates: s, where: s.venue?.name, about: s.about[0],
         cta: p === "upcoming" ? (s.kind === "giveaway" ? "Enter the giveaway" : "RSVP") : p === "live" && s.kind !== "in-person" ? (s.kind === "giveaway" ? "Enter now" : "Watch now") : "View details",
       },
     };
