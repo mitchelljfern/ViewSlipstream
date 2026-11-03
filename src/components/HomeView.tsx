@@ -96,11 +96,12 @@ export default function HomeView({ groups, conversations, allShows }: {
           <div className="stack g4"><h2 className="h2">In Conversation</h2><span className="muted small">Talks with the people who made the shows</span></div>
           <Link href="/in-conversation/" className="btn btn-glass btn-sm"><IconPlay size={16} />Watch All {conversations.length} Conversations</Link>
         </div>
-        <div className="auto-grid">
-          {conversations.slice(0, 3).map((c) => (
+        {/* 4 across on desktop, 2 rows of 2 on tablets and phones. */}
+        <div className="conv-grid">
+          {conversations.slice(0, 4).map((c) => (
             <article key={c.id} className="card" style={{ overflow: "hidden" }}>
               <VideoFacade embed={c.embed} thumbnail={c.thumbnail} label={c.title} duration={minutes(c.durationSec)} rounded={false} />
-              <div style={{ padding: "12px 14px 14px" }}><p style={{ fontWeight: 600, fontSize: 15, lineHeight: 1.35 }}>{c.title}</p></div>
+              <div className="conv-grid-body"><p>{c.title}</p></div>
             </article>
           ))}
         </div>

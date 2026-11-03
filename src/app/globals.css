@@ -569,3 +569,16 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
   .tgrid.is-wide .tgrid-row { grid-template-columns: minmax(0, 1fr); }
   .tgrid.is-wide .tcard-art { aspect-ratio: 16 / 9; }
 }
+
+/* Home page In Conversation: 4 across on desktop, 2 rows of 2 below that. */
+.conv-grid { display: grid; gap: 16px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.conv-grid-body { padding: 12px 14px 14px; }
+.conv-grid-body p { font-weight: 600; font-size: 15px; line-height: 1.35; }
+@media (max-width: 959px) { .conv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) {
+  .conv-grid { gap: 10px; }
+  .conv-grid-body { padding: 8px 10px 10px; }
+  .conv-grid-body p { font-size: 13px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .conv-grid .facade .play { width: 44px; height: 44px; }
+  .conv-grid .facade .play svg { width: 18px; height: 18px; }
+}
