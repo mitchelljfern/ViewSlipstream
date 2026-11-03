@@ -13,7 +13,8 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Conversation, Phase, Show } from "@/lib/types";
 import { clock, longDay } from "@/lib/time";
-import { icsHref } from "@/lib/ics";
+import { calEvent } from "@/lib/ics";
+import AddToCalendar from "./AddToCalendar";
 import { initials, usePreview, type RsvpStatus } from "./Preview";
 import { IconCheck, IconLock, IconPlay } from "./Icons";
 
@@ -60,7 +61,7 @@ export default function RsvpPanel({ show, conversation, forced }: { show: Show; 
 
   // RSVP'd
   if (status) {
-    const cal = icsHref(show, "start");
+    const cal = !!calEvent(show, "start");
     const watchNow = phase === "live" && (show.kind === "streaming" || show.kind === "paid" || show.kind === "live");
     return (
       <section id={sid} className="panel-deep stack g14" aria-labelledby={hid}>
@@ -81,7 +82,7 @@ export default function RsvpPanel({ show, conversation, forced }: { show: Show; 
           <a href="#player" className="btn btn-light"><IconPlay size={18} />Watch now</a>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-            {cal && !isGiveaway ? <a href={cal} download={`${show.slug}.ics`} className="btn btn-light" style={{ minHeight: 48, fontSize: 15 }}>Add to calendar</a> : null}
+            {cal && !isGiveaway ? <AddToCalendar show={show} className="btn btn-light" style={{ minHeight: 48, fontSize: 15, padding: "0 12px" }} tone="deep" /> : null}
             <button className="btn btn-secondary" style={{ minHeight: 48, fontSize: 15, gridColumn: cal && !isGiveaway ? undefined : "span 2" }}
               onClick={async () => {
                 const url = `${location.origin}/${show.slug}/`;

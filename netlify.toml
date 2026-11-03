@@ -41,6 +41,16 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Calendar files: served as calendar data so iPhones open "Add to Calendar".
+[[headers]]
+  for = "/:slug/calendar.ics"
+  [headers.values]
+    Content-Type = "text/calendar; charset=utf-8"
+[[headers]]
+  for = "/:slug/closes.ics"
+  [headers.values]
+    Content-Type = "text/calendar; charset=utf-8"
+
 # Old WordPress addresses keep working.
 [[redirects]]
   from = "/login/*"

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import type { Conversation, Show } from "@/lib/types";
 import { clock, countdown, longDay, minutes, whenLine } from "@/lib/time";
 import Countdown, { startLabel } from "./Countdown";
-import { icsHref } from "@/lib/ics";
+import AddToCalendar from "./AddToCalendar";
 import { usePreview } from "./Preview";
 import RsvpPanel from "./RsvpPanel";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
@@ -111,7 +111,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
                   <div className="tick"><b>{String(left.d).padStart(2, "0")}</b><small>days</small></div>
                   <div className="tick"><b>{String(left.h).padStart(2, "0")}</b><small>hours</small></div>
                   <div className="tick"><b>{String(left.m).padStart(2, "0")}</b><small>min</small></div>
-                  {icsHref(show, "end") ? <a href={icsHref(show, "end")!} download={`${show.slug}-closes.ics`} className="small" style={{ fontWeight: 600, alignSelf: "center", marginLeft: 4 }}>Add closing date to calendar</a> : null}
+                  <AddToCalendar show={show} which="end" variant="link" label="Add closing date to calendar" />
                 </div>
               </div>
             ) : null}

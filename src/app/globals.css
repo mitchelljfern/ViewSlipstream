@@ -530,3 +530,13 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 @media (min-width: 640px) { .nl-card { left: auto; width: 360px; right: 16px; } .nl-card p { display: block; } .nl-card .h3 { font-size: 18px; } }
 @media (min-width: 960px) { .nl-card { right: 20px; bottom: 68px; } }
 @media (prefers-reduced-motion: reduce) { .nl-card { animation: none; } .theme-toggle svg { transition: none; } }
+
+/* Add to calendar: the button opens a list of calendars in place, full width below its row. */
+.cal-link { min-height: 44px; padding: 0 4px; margin-left: 4px; align-self: center; background: none; border: 0; color: var(--link); font: 600 14px var(--font-body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cal-link:hover { color: var(--link-hover); }
+.cal-menu { order: 1; grid-column: 1 / -1; flex: 1 0 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.cal-menu a { display: flex; align-items: center; min-height: 48px; padding: 0 16px; border-radius: 12px; font: 600 15px var(--font-body); text-decoration: none; }
+.cal-menu-page a { background: rgba(var(--fg-rgb), 0.08); border: 1px solid rgba(var(--fg-rgb), 0.16); color: var(--text); }
+.cal-menu-page a:hover { background: rgba(var(--fg-rgb), 0.14); color: var(--text); }
+.cal-menu-deep a { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); color: #fff; }
+.cal-menu-deep a:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
