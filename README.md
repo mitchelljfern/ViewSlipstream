@@ -14,7 +14,6 @@ The new Slipstream site: screenings people RSVP to, a password-protected DaCast 
 | What | Where |
 |---|---|
 | **Staging site (review here)** | https://staging--viewslipstream.netlify.app |
-| Staging password | Ask Mitchell (it's set in Netlify under Visitor access) |
 | Every screen and RSVP state on one page | https://staging--viewslipstream.netlify.app/review/ |
 | The three emails | https://staging--viewslipstream.netlify.app/emails/ |
 | GitHub repo | https://github.com/mitchelljfern/ViewSlipstream |
@@ -23,12 +22,12 @@ The new Slipstream site: screenings people RSVP to, a password-protected DaCast 
 | Admin (Shows tab in the Client Hub) | https://dashboard.socialupgrades.com (Shows in the sidebar) |
 | Design canvas (all screens, admin, emails, style guide) | https://claude.ai/artifact/NeWnLfEuZjPmmgYnaC5eH2 |
 | Current live site (WordPress, don't change) | https://viewslipstream.com |
-| **New site, live version** (no password, not in Google yet) | https://viewslipstream.netlify.app |
+| **New site, live version** (not in Google yet) | https://viewslipstream.netlify.app |
 
 ## How it's wired
 
 - GitHub is linked to Netlify. Pushing to a branch is how you deploy; nobody uploads anything to Netlify by hand.
-- `staging` is the one shared workspace. Social Upgrades, the Slipstream team and anyone's AI assistant all push here, and the staging site rebuilds in a minute or two. It's password protected and costs no production credits.
+- `staging` is the one shared workspace. Social Upgrades, the Slipstream team and anyone's AI assistant all push here, and the staging site rebuilds in a minute or two. It has no password (nothing on it is secret yet) and costs no production credits.
 - `main` is the live site. Only Mitchell updates it. A GitHub ruleset ("Live site: Mitchell only") enforces this, so everyone else gets "push declined" if they try.
 - Any other branch builds nothing unless it has a pull request (`ignore` in `netlify.toml`), so experiments cost nothing.
 - `staging` is the default branch on GitHub, so new pull requests point at it automatically.
@@ -42,12 +41,11 @@ The new Slipstream site: screenings people RSVP to, a password-protected DaCast 
 ## Giving people access (Mitchell)
 
 - **GitHub:** ViewSlipstream > Settings > Collaborators > Add people, with **Write** access. They can push to `staging` and open pull requests, but can't touch `main`.
-- **Staging password:** share it directly, not in the repo (Netlify > Project configuration > Access & security > Visitor access).
 - If a push from someone outside the Netlify team ever shows "Pending approval" on the Deploys page, approve it once.
 
 ## How to review
 
-1. Open the staging site and enter the password.
+1. Open the staging site.
 2. Use the white **Review** button (bottom right) to switch between a guest and a signed-in viewer, mark yourself RSVP'd, and pretend it's before, during or after the current show. "Signed in + RSVP'd + During" shows the screening room with the player and the viewing password.
 3. Try it on your phone first. Most viewers will be on one.
 4. Leave feedback on the design canvas, or send it to Social Upgrades through the Client Hub.
@@ -103,7 +101,7 @@ src/app/                 pages (one folder per URL)
 src/components/          the parts: header, RSVP card, show page, video facade, review toolbar
 src/lib/data.ts          the ONLY place pages read content from (swap for Supabase in phase 2)
 src/lib/time.ts          show phases (upcoming, live, closed), dates in Pacific time
-src/data/*.json          snapshot of the live site: 19 featured shows, 250 archive titles, 148 conversations
+src/data/*.json          snapshot of the live site: 19 featured shows, 250 archive titles (202 with full pages from the WordPress export), 148 conversations
 src/app/globals.css      colors, type, buttons, chips, layout (mobile first, full width on big screens)
 scripts/                 data import from WordPress, staging deploy helper
 docs/BRIEF.md            the full redesign brief (flow, emails, show types, admin, decisions)

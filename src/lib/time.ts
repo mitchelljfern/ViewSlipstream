@@ -39,19 +39,38 @@ export function upcomingShows(shows: Show[], now: Date, exclude?: string): Show[
     .sort((a, b) => (a.startsAt ?? "").localeCompare(b.startsAt ?? ""));
 }
 
+/** "1st", "2nd", "3rd", "4th", "11th", "21st", "22nd", "23rd", ... */
+export function ordinal(n: number): string {
+  const mod100 = n % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${n}th`;
+  switch (n % 10) {
+    case 1: return `${n}st`;
+    case 2: return `${n}nd`;
+    case 3: return `${n}rd`;
+    default: return `${n}th`;
+  }
+}
+
+/** Formats in Pacific time. Day numbers always carry their ending (Nov 5th, not Nov 5). */
 const fmt = (iso: string, o: Intl.DateTimeFormatOptions) =>
-  new Intl.DateTimeFormat("en-US", { timeZone: TZ, ...o }).format(new Date(iso));
+  new Intl.DateTimeFormat("en-US", { timeZone: TZ, ...o })
+    .formatToParts(new Date(iso))
+    .map((part) => (part.type === "day" ? ordinal(Number(part.value)) : part.value))
+    .join("")
+    // Browsers put a narrow no-break space before AM/PM; Node uses a plain space.
+    // Same string on both sides, or React re-renders the page on load.
+    .replace(/[\u202f\u00a0]/g, " ");
 
 const timeOf = (iso: string) => {
   const s = fmt(iso, { hour: "numeric", minute: "2-digit" });
   return s.endsWith(":59 PM") && s.startsWith("11:") ? "midnight" : s.replace(":00", "");
 };
 
-/** "Sun, Oct 18 · 3 PM" */
+/** "Sun, Oct 18th · 3 PM" */
 export const shortWhen = (iso: string) => `${fmt(iso, { weekday: "short", month: "short", day: "numeric" })} · ${timeOf(iso)}`;
-/** "Sunday, October 18" */
+/** "Sunday, October 18th" */
 export const longDay = (iso: string) => fmt(iso, { weekday: "long", month: "long", day: "numeric" });
-/** "Oct 18" */
+/** "Oct 18th" */
 export const monthDay = (iso: string) => fmt(iso, { month: "short", day: "numeric" });
 export const clock = timeOf;
 

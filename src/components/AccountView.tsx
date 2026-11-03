@@ -69,7 +69,7 @@ export default function AccountView() {
             <h2 id="acct-h" className="h3">Account</h2>
             <div className="card list-rows" style={{ overflow: "hidden" }}>
               {["Change password", "Receipts for paid shows", "Delete my account"].map((t) => (
-                <button key={t} className="list-row" style={{ width: "100%", background: "none", border: 0, cursor: "pointer", textAlign: "left", color: t.startsWith("Delete") ? "var(--muted)" : "#fff" }}
+                <button key={t} className="list-row" style={{ width: "100%", background: "none", border: 0, cursor: "pointer", textAlign: "left", color: t.startsWith("Delete") ? "var(--muted)" : "var(--text)" }}
                   onClick={() => ctx.say("Review build: this arrives with accounts in phase 2.")}><span style={{ flex: 1, fontWeight: 600 }}>{t}</span><IconChevron size={18} /></button>
               ))}
             </div>

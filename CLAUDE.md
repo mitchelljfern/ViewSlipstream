@@ -45,4 +45,4 @@ The repo is linked to Netlify. `main` is the live site (https://viewslipstream.n
 
 ## Secrets
 
-- Never commit keys, passwords or tokens. `.env*` is git-ignored. The staging password lives in Netlify, not in this repo.
+- Never commit keys, passwords or tokens. `.env*` is git-ignored. Netlify holds anything that must stay out of the repo.

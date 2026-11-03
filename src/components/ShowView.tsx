@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Conversation, Show } from "@/lib/types";
 import { clock, countdown, longDay, minutes, whenLine } from "@/lib/time";
+import Countdown, { startLabel } from "./Countdown";
 import { icsHref } from "@/lib/ics";
 import { usePreview } from "./Preview";
 import RsvpPanel from "./RsvpPanel";
@@ -95,7 +96,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
             <div className="card stack g10" style={{ padding: "14px 16px" }}>
               <div className="row between"><b style={{ fontWeight: 600 }}>Viewing password</b><span className="muted tiny">Also in your email</span></div>
               <div className="row g8">
-                <div style={{ flex: 1, height: 48, borderRadius: 12, background: "#000", border: "1px solid var(--line-strong)", display: "flex", alignItems: "center", padding: "0 14px", font: "600 18px/1 var(--font-display)", letterSpacing: ".16em" }}>{pw}</div>
+                <div style={{ flex: 1, height: 48, borderRadius: 12, background: "var(--field-bg)", border: "1px solid var(--line-strong)", display: "flex", alignItems: "center", padding: "0 14px", font: "600 18px/1 var(--font-display)", letterSpacing: ".16em" }}>{pw}</div>
                 <button className="btn btn-secondary" style={{ minHeight: 48, padding: "0 16px", fontSize: 14 }}
                   onClick={async () => { try { await navigator.clipboard.writeText(pw); setCopied(true); setTimeout(() => setCopied(false), 1800); } catch { /* ignore */ } }}>
                   <IconCopy size={16} />{copied ? "Copied" : "Copy"}
@@ -125,6 +126,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
               {chips}
               <h1 className="h1">{show.title}</h1>
               {facts}
+              {phase === "upcoming" && show.startsAt ? <Countdown to={show.startsAt} label={startLabel(show.kind)} /> : null}
               {open && !show.atCapacity && !status ? (
                 <a href="#rsvp" className="btn btn-primary">{show.kind === "giveaway" ? "Enter the giveaway" : show.kind === "paid" ? `Get a ticket · $${show.price}` : show.kind === "in-person" ? "RSVP · save my seat" : "RSVP · free"}</a>
               ) : null}

@@ -44,7 +44,7 @@ export default function ReviewIndex() {
       <section className="stack g12">
         <h2 className="h2">Screens</h2>
         <div className="auto-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(260px, 100%), 1fr))", gap: 10 }}>
-          {screens.map(([t, h]) => <Link key={h} href={h} className="card" style={{ padding: "14px 16px", color: "#fff", fontWeight: 600 }}>{t}</Link>)}
+          {screens.map(([t, h]) => <Link key={h} href={h} className="card" style={{ padding: "14px 16px", color: "var(--text)", fontWeight: 600 }}>{t}</Link>)}
         </div>
       </section>
       <section className="stack g12">

@@ -1,17 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree, Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { PreviewProvider, REVIEW_MODE } from "@/components/Preview";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import BottomNav from "@/components/BottomNav";
 import ReviewBar, { Toast } from "@/components/ReviewBar";
+import NewsletterPrompt from "@/components/NewsletterPrompt";
+import { ThemeScript } from "@/components/Theme";
 import { allShows } from "@/lib/data";
 import { currentShow } from "@/lib/time";
 import { DEFAULT_TITLE, SITE_URL, share } from "@/lib/share";
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-outfit", display: "swap" });
-const figtree = Figtree({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-figtree", display: "swap" });
+// Fonts ship with the repo (Fontsource packages), so a build never depends on
+// reaching Google Fonts: that fetch failed on Netlify and took the deploy down.
+const outfit = localFont({
+  src: "../../node_modules/@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2",
+  weight: "100 900", variable: "--font-outfit", display: "swap",
+});
+const figtree = localFont({
+  src: [
+    { path: "../../node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2", style: "normal" },
+    { path: "../../node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-italic.woff2", style: "italic" },
+  ],
+  weight: "300 900", variable: "--font-figtree", display: "swap",
+});
 
 export const metadata: Metadata = {
   // Link previews resolve images against the site that was shared (live or staging).
@@ -29,14 +42,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const now = new Date();
   const lead = currentShow(allShows(), now);
   return (
-    <html lang="en" className={`${outfit.variable} ${figtree.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${figtree.variable}`} suppressHydrationWarning>
       <body>
+        <ThemeScript />
         <PreviewProvider buildNow={now.toISOString()} leadSlug={lead?.slug ?? null}>
           <a href="#main" className="sr-only">Skip to content</a>
           <SiteHeader />
           <main id="main">{children}</main>
           <SiteFooter />
           <BottomNav />
+          <NewsletterPrompt />
           <Toast />
           <ReviewBar />
         </PreviewProvider>

@@ -12,7 +12,7 @@ export default function Emails() {
       <p className="muted">Every RSVP gets these, in this order.</p>
       <div className="auto-grid">
         {EMAILS.map(([k, t, d], i) => (
-          <Link key={k} href={`/emails/${k}/`} className="card stack g8" style={{ padding: 20, color: "#fff" }}>
+          <Link key={k} href={`/emails/${k}/`} className="card stack g8" style={{ padding: 20, color: "var(--text)" }}>
             <span className="eyebrow">Email {i + 1}</span><b style={{ fontWeight: 600, fontSize: 18 }}>{t}</b><span className="muted small">{d}</span>
           </Link>
         ))}
