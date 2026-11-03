@@ -16,13 +16,13 @@ export const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway
 
 export type FeatureItem = { show: Show; phase: Phase };
 
-/** Most tabs the hero shows. Four fit one row on desktop; the rest stay in the Upcoming rail. */
+/** The hero always shows four tabs: they fill one row on desktop. Open shows that don't fit stay in the Upcoming rail. */
 export const MAX_FEATURED = 4;
-const MIN_FEATURED = 2;
+const MIN_FEATURED = MAX_FEATURED;
 
 /**
- * Which shows get a tab: live ones first, then upcoming soonest first. If that
- * makes fewer than two, the most recent past shows fill in, newest first.
+ * Which shows get a tab: live ones first, then upcoming soonest first, then
+ * the most recent past shows fill the rest, newest first.
  */
 export function pickFeatured(shows: Show[], phaseFor: (s: Show) => Phase): FeatureItem[] {
   const items = shows.map((show) => ({ show, phase: phaseFor(show) }));
@@ -102,11 +102,11 @@ export function FeatureTabs({ items }: { items: FeatureItem[] }) {
           <div className="feature-tabs" role="tablist" aria-label="On Slipstream">
             {items.map((it, n) => (
               <button key={it.show.slug} ref={(el) => { tabs.current[n] = el; }} role="tab" id={`ft-${n}`} aria-controls="ft-panel"
-                aria-selected={n === i} tabIndex={n === i ? 0 : -1} className="feature-tab" onClick={() => setActive(n)}
+                aria-selected={n === i} tabIndex={n === i ? 0 : -1} className={`feature-tab${it.phase === "closed" ? " is-past" : ""}`} onClick={() => setActive(n)}
                 onKeyDown={(e) => { if (e.key === "ArrowRight") go(n + 1); if (e.key === "ArrowLeft") go(n - 1); }}>
-                <span className="feature-tab-thumb">{it.show.heroImage ? <img src={it.show.heroImage} alt="" /> : null}</span>
+                <span className="feature-tab-thumb">{it.show.heroImage ?? it.show.poster ? <img src={it.show.heroImage ?? it.show.poster} alt="" /> : null}</span>
                 <span className="stack g4" style={{ minWidth: 0 }}>
-                  <span className={`feature-tab-status${isLive(it) ? " is-live" : ""}`}>{isLive(it) ? <span className="live-dot" /> : null}{statusLabel(it)}</span>
+                  <span className={`feature-tab-status${isLive(it) ? " is-live" : it.phase === "upcoming" ? " is-next" : ""}`}>{isLive(it) ? <span className="live-dot" /> : null}{statusLabel(it)}<span className="feature-tab-kind"> · {KIND[it.show.kind]}</span></span>
                   <span className="feature-tab-title">{it.show.title}</span>
                 </span>
               </button>
