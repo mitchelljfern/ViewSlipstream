@@ -666,3 +666,21 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
   .tgrid.is-solo .tcard { padding: 14px; }
   .tgrid.is-solo .tcard:hover .tcard-art img { transform: scale(1.02); }
 }
+
+/* Hero: upcoming, live or ended at a glance. Upcoming is a blue pill, live is white with a dot,
+   ended is a quiet gray pill, and ended tabs are dimmed until picked. */
+.status-badge { display: inline-flex; align-items: center; gap: 8px; min-width: 0; white-space: nowrap; }
+.status-badge-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; font: 700 10.5px/1 var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; }
+.status-badge-date { font: 600 12px/1 var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+.status-badge.is-next .status-badge-pill { background: var(--blue); color: #fff; }
+.status-badge.is-next .status-badge-date { color: var(--text); }
+.status-badge.is-live .status-badge-pill { background: #fff; color: #000; }
+.status-badge.is-live .status-badge-date { color: var(--text); }
+.status-badge.is-past .status-badge-pill { background: rgba(var(--fg-rgb), 0.1); color: var(--muted); }
+.status-badge.is-body .status-badge-pill { padding: 6px 10px; font-size: 12px; border-radius: 8px; }
+.status-badge.is-body .status-badge-date { font-size: 13px; }
+.feature-tab.is-past .feature-tab-title { color: var(--muted); }
+.feature-tab.is-past[aria-selected="true"] .feature-tab-title, .feature-tab.is-past:hover .feature-tab-title { color: var(--text); }
+.feature-tab.is-past .feature-tab-thumb img { filter: grayscale(0.6); opacity: 0.6; transition: opacity 0.15s ease, filter 0.15s ease; }
+.feature-tab.is-past:hover .feature-tab-thumb img, .feature-tab.is-past[aria-selected="true"] .feature-tab-thumb img { filter: none; opacity: 1; }
+.feature-tab.is-open .feature-tab-title { color: var(--text); }

@@ -48,8 +48,21 @@ export function statusLabel(it: FeatureItem) {
   return it.show.startsAt ? monthDay(it.show.startsAt) : "Coming Soon";
 }
 
-function eyebrow(it: FeatureItem) {
-  return it.phase === "live" ? "Now Showing" : it.phase === "upcoming" ? "Next on Slipstream" : "Most Recent";
+/** Upcoming, live or ended, as a small badge plus the date, so the state reads at a glance. */
+function StatusBadge({ it, size }: { it: FeatureItem; size: "tab" | "body" }) {
+  const { show, phase } = it;
+  const end = show.endsAt ?? show.startsAt;
+  const [tone, label, date] =
+    isLive(it) ? ["live", show.kind === "giveaway" ? "Entries open" : "Live now", show.endsAt ? `Until ${monthDay(show.endsAt)}` : ""]
+    : phase === "live" ? ["next", "Today", show.startsAt ? monthDay(show.startsAt) : ""]
+    : phase === "upcoming" ? ["next", "Upcoming", show.startsAt ? monthDay(show.startsAt) : "Coming soon"]
+    : ["past", "Ended", end ? monthDay(end) : ""];
+  return (
+    <span className={`status-badge is-${tone} is-${size}`}>
+      <span className="status-badge-pill">{tone === "live" ? <span className="live-dot" /> : null}{label}</span>
+      {date ? <span className="status-badge-date">{date}</span> : null}
+    </span>
+  );
 }
 
 /** Everything about one show: details and CTA on one side, trailer on the other. */
@@ -65,11 +78,8 @@ export function FeatureBody({ item }: { item: FeatureItem }) {
     <div className="feature-body">
       <div className="stack g14">
         <div className="row between g8">
-          <span className="eyebrow">{eyebrow(item)}</span>
-          <div className="row g6">
-            {isLive(item) ? <span className="chip chip-white"><span className="live-dot" />Live</span> : null}
-            <span className="chip chip-outline">{KIND[show.kind]}</span>
-          </div>
+          <StatusBadge it={item} size="body" />
+          <span className="chip chip-outline">{KIND[show.kind]}</span>
         </div>
         <h1 className="h1 feature-title">{show.title}</h1>
         <div className="stack g10" style={{ fontSize: 15 }}>
@@ -103,11 +113,11 @@ export function FeatureTabs({ items }: { items: FeatureItem[] }) {
           <div className="feature-tabs" role="tablist" aria-label="On Slipstream">
             {items.map((it, n) => (
               <button key={it.show.slug} ref={(el) => { tabs.current[n] = el; }} role="tab" id={`ft-${n}`} aria-controls="ft-panel"
-                aria-selected={n === i} tabIndex={n === i ? 0 : -1} className={`feature-tab${it.phase === "closed" ? " is-past" : ""}`} onClick={() => setActive(n)}
+                aria-selected={n === i} tabIndex={n === i ? 0 : -1} className={`feature-tab${it.phase === "closed" ? " is-past" : " is-open"}`} onClick={() => setActive(n)}
                 onKeyDown={(e) => { if (e.key === "ArrowRight") go(n + 1); if (e.key === "ArrowLeft") go(n - 1); }}>
                 <span className="feature-tab-thumb">{it.show.heroImage ?? it.show.poster ? <img src={it.show.heroImage ?? it.show.poster} alt="" /> : null}</span>
                 <span className="stack g4" style={{ minWidth: 0 }}>
-                  <span className={`feature-tab-status${isLive(it) ? " is-live" : it.phase === "upcoming" ? " is-next" : ""}`}>{isLive(it) ? <span className="live-dot" /> : null}{statusLabel(it)}<span className="feature-tab-kind"> · {KIND[it.show.kind]}</span></span>
+                  <StatusBadge it={it} size="tab" />
                   <span className="feature-tab-title">{it.show.title}</span>
                 </span>
               </button>
