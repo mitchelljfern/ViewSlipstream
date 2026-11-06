@@ -2,7 +2,7 @@ import Link from "next/link";
 export const metadata = { title: "Emails", robots: { index: false } };
 const EMAILS = [
   ["rsvp", "RSVP confirmation", "Sent the moment someone RSVPs."],
-  ["live", "It's showtime", "Sent when the window opens, with the viewing link and password."],
+  ["live", "It's showtime", "Sent when the window opens, with the viewing link and access code."],
   ["thanks", "Thank you", "Sent when the window closes, with the conversation and what's next."],
   ["waitlist", "Waiting list", "In-person screenings that are full: sent when someone joins the waiting list."],
 ];

@@ -70,7 +70,7 @@ export function FeatureBody({ item }: { item: FeatureItem }) {
   const ctx = usePreview();
   const { show, phase } = item;
   const status = ctx.rsvps[show.slug];
-  const watchable = phase === "live" && !!status && status !== "waitlisted" && !!ctx.who && show.kind !== "in-person";
+  const watchable = phase === "live" && !!status && status !== "waitlisted" && !!ctx.guest && show.kind !== "in-person";
   const media = show.trailerYoutubeId
     ? <VideoFacade embed={youtubeEmbed(show.trailerYoutubeId)} thumbnail={youtubeThumb(show.trailerYoutubeId)} label={`${show.title} trailer`} caption="Watch the trailer" />
     : show.heroImage ? <div className="facade" style={{ cursor: "default" }}><img src={show.heroImage} alt="" loading="lazy" /></div> : null;

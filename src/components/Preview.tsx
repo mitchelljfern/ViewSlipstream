@@ -33,8 +33,17 @@ interface Stored {
   phase: PhaseOverride;
   newsletter: boolean;
   closingReminder: boolean;
+  /**
+   * How guests get the access code, for the client to choose:
+   * on the show page and in the "It's showtime" email, the page only,
+   * or the email only (like the current site).
+   */
+  access: Access;
+  /** True once someone picks an option under Review, so a new default can still reach everyone else. */
+  accessChosen?: boolean;
 }
-const EMPTY: Stored = { guest: null, contact: null, rsvps: {}, seats: {}, phase: "auto", newsletter: true, closingReminder: true };
+export type Access = "both" | "page" | "email";
+const EMPTY: Stored = { guest: null, contact: null, rsvps: {}, seats: {}, phase: "auto", newsletter: true, closingReminder: true, access: "email" };
 const KEY = "slipstream-review-v1";
 
 interface Ctx extends Stored {
@@ -54,6 +63,7 @@ interface Ctx extends Stored {
   cancel: (slug: string) => void;
   setPhase: (p: PhaseOverride) => void;
   setPref: (k: "newsletter" | "closingReminder", v: boolean) => void;
+  setAccess: (a: Access) => void;
   reset: () => void;
   /** Phase of a show, with the review override applied to the lead show. */
   phase: PhaseOverride;
@@ -74,7 +84,11 @@ export function PreviewProvider({ buildNow, leadSlug: initialLead, children }: {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(KEY);
-      if (raw) setS({ ...EMPTY, ...JSON.parse(raw) });
+      if (raw) {
+        const saved = JSON.parse(raw);
+        // Email only is the default; keep an older saved value only if someone picked it.
+        setS({ ...EMPTY, ...saved, access: saved.accessChosen ? saved.access ?? EMPTY.access : EMPTY.access });
+      }
     } catch { /* storage blocked: start fresh */ }
     setReady(true);
     setNow(new Date());
@@ -110,6 +124,7 @@ export function PreviewProvider({ buildNow, leadSlug: initialLead, children }: {
     }),
     setPhase: (phase) => save((p) => ({ ...p, phase })),
     setPref: (k, v) => save((p) => ({ ...p, [k]: v })),
+    setAccess: (access) => save((p) => ({ ...p, access, accessChosen: true })),
     reset: () => save(() => EMPTY),
     phaseFor: (show) => (REVIEW_MODE && s.phase !== "auto" && show.slug === leadSlug ? s.phase : phaseOf(show, now)),
   }), [s, ready, now, leadSlug, toast, save, say]);

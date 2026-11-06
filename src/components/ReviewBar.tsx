@@ -6,7 +6,7 @@
  */
 import Link from "next/link";
 import { useState } from "react";
-import { REVIEW_MODE, usePreview, type PhaseOverride } from "./Preview";
+import { REVIEW_MODE, usePreview, type Access, type PhaseOverride } from "./Preview";
 import { IconClose, IconSliders } from "./Icons";
 import { allShows } from "@/lib/data";
 
@@ -41,7 +41,14 @@ export default function ReviewBar() {
               </div>
             </div>
           ) : null}
-          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Tip: RSVP'd + During shows the screening room with the player and password. An account is optional. In-person seats and the waiting list are on the All screens page.</p>
+          <div className="stack g6"><span className="lbl">Access code goes</span>
+            <div className="opts">
+              {([["email", "Email only"], ["both", "Page + email"], ["page", "Page only"]] as [Access, string][]).map(([a, l]) => (
+                <button key={a} aria-pressed={ctx.access === a} onClick={() => ctx.setAccess(a)}>{l}</button>
+              ))}
+            </div>
+          </div>
+          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Tip: Signed in + RSVP'd + During shows the screening room. Watching needs an account; RSVPing doesn't. In-person seats and the waiting list are on the All screens page.</p>
           <div className="row g12 wrap-row" style={{ fontSize: 13 }}>
             <Link href="/review/" onClick={() => setOpen(false)}>All screens and states</Link>
             <button style={{ background: "none", border: 0, padding: 0, color: "#b42318", fontWeight: 600, cursor: "pointer" }} onClick={() => { ctx.reset(); ctx.say("Review session reset"); }}>Reset</button>
