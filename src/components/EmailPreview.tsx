@@ -64,7 +64,7 @@ export default function EmailPreview({ type }: { type: T }) {
                 : "We'll email you the moment it goes live, with your viewing link and access code. Nothing to do until then."}</span></div>
               <a href="#" style={btn}>Add to calendar</a>
               <div style={{ ...box, background: "#F5F7FA" }}><b style={{ color: "#141414" }}>Want one-tap RSVPs next time?</b>
-                <span>Create a free Slipstream account. Your name and email are already in, so you only pick a password. Optional: this RSVP works either way.</span>
+                <span>{show.kind === "in-person" ? "Create a free Slipstream account. Your name and email are already in, so you only pick a password. Optional: this RSVP works either way." : "You'll need a free Slipstream account to watch. Your name and email are already in, so you only pick a password."}</span>
                 <a href="#" style={{ color: "#1E73BE", fontWeight: 600 }}>Create my free account</a></div>
               <P><span style={{ fontSize: 13, color: "#6B7280" }}>Can't make it? <a href="#" style={{ color: "#1E73BE" }}>Release your {seatWord}</a> so someone else can have {seatCount > 1 ? "them" : "it"}.</span></P>
             </>
@@ -78,7 +78,7 @@ export default function EmailPreview({ type }: { type: T }) {
           ) : type === "live" ? (
             <>
               <h1 style={{ margin: 0, font: "600 26px/1.15 var(--font-display)", letterSpacing: "-.02em", color: "#141414" }}>{show.title} is live.</h1>
-              <P>{show.endsAt ? <>Watch any time before <strong>{longDay(show.endsAt)} at {clock(show.endsAt)} PT</strong>. </> : null}The button below takes you straight to the screening room. No account or login needed.</P>
+              <P>{show.endsAt ? <>Watch any time before <strong>{longDay(show.endsAt)} at {clock(show.endsAt)} PT</strong>. </> : null}The button below takes you to the screening room. Sign in with your Slipstream account to watch. RSVP'd without one? Create it there with this email. It only takes a password.</P>
               {show.conversationLine ? <P>The film and the {show.conversationLine.replace(/^the screening will be followed by an? /i, "").replace(/\.$/, "")} are both in the screening room, and the same code works for each.</P> : null}
               <a href="#" style={btn}>Watch now</a>
               {ctx.access === "page" ? (

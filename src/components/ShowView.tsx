@@ -26,9 +26,9 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
   const ctx = usePreview();
   const phase = ctx.phaseFor(show);
   const status = ctx.rsvps[show.slug];
-  // Anyone with an RSVP gets in: an account is optional. On the live site a guest
-  // arrives through the signed link in the "It's showtime" email.
-  const watching = !!ctx.who && !!status && status !== "waitlisted" && phase === "live" && (show.kind === "streaming" || show.kind === "paid" || show.kind === "live");
+  // Watching needs a free Slipstream account (client requirement); RSVPing doesn't.
+  // A guest who RSVP'd without one is asked to sign in or set a password at showtime.
+  const watching = !!ctx.guest && !!status && status !== "waitlisted" && phase === "live" && (show.kind === "streaming" || show.kind === "paid" || show.kind === "live");
   const open = phase !== "closed" && !(show.kind === "in-person" && phase === "live");
   // In-person shows that are full still take names, for the waiting list.
   const waitlistOpen = show.kind === "in-person" && show.atCapacity;
@@ -38,7 +38,6 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
   const [playerNote, setPlayerNote] = useState(false);
   // The live page has two videos, like the current site: the film, then the filmmaker conversation.
   const [reel, setReel] = useState<"film" | "talk">("film");
-  const [getLink, setGetLink] = useState(false);
   useEffect(() => { setPlayerNote(false); }, [watching, reel]);
 
   const pw = samplePassword(show);
@@ -199,19 +198,15 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
 
         <aside className="stack g24 show-aside">
           <RsvpPanel show={show} conversation={conversation} />
-          {phase === "live" && !watching && (show.kind === "streaming" || show.kind === "paid") ? (
-            // RSVP'd on another device (or lost the email): no login, just send the link again.
+          {phase === "live" && !ctx.guest && !status && (show.kind === "streaming" || show.kind === "paid") ? (
+            // RSVP'd on another device or from an email: sign in to watch.
             <section className="card stack g10" style={{ padding: "16px 18px" }} aria-labelledby="relink-h">
               <h2 id="relink-h" className="h3" style={{ fontSize: 18 }}>Already RSVP&rsquo;d?</h2>
-              <p className="muted small">Enter the email you RSVP&rsquo;d with and we&rsquo;ll send your viewing link and access code again. No account needed.</p>
-              {getLink ? (
-                <p className="small row g8"><IconMail size={16} />Sent. Check your inbox, and your spam folder too.</p>
-              ) : (
-                <form className="row g8" onSubmit={(e) => { e.preventDefault(); setGetLink(true); ctx.say("Review build: on the live site this emails the viewing link and access code."); }}>
-                  <input type="email" className="input" required placeholder="you@example.com" aria-label="Email you RSVP'd with" autoComplete="email" style={{ flex: 1, minWidth: 0 }} />
-                  <button className="btn btn-secondary" style={{ minHeight: 48 }}>Send my link</button>
-                </form>
-              )}
+              <p className="muted small">Sign in with the email you RSVP&rsquo;d with to watch. First time? Create your free account with that email. It only takes a password.</p>
+              <div className="row g8 wrap-row">
+                <Link href={`/sign-in/?next=/${show.slug}/%23player`} className="btn btn-primary btn-sm">Sign in to watch</Link>
+                <Link href={`/sign-in/?mode=create&next=/${show.slug}/%23player`} className="btn btn-secondary btn-sm">Create free account</Link>
+              </div>
             </section>
           ) : null}
           {open && !status && !show.atCapacity && show.kind !== "giveaway" ? (
@@ -219,8 +214,8 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
               <h2 id="after-h" className="h3">What happens after you RSVP</h2>
               <div className="steps">
                 {[
-                  ["Confirmation email, right away", "No account needed: just your name and email. Your seat is saved and the date goes on your calendar with one tap."],
-                  [show.kind === "in-person" ? "Check-in details before the show" : "“It's showtime” email when the show goes live", show.kind === "in-person" ? "Everything you need at the door, the day of the screening." : "With your viewing link and access code."],
+                  ["Confirmation email, right away", show.kind === "in-person" ? "No account needed: just your name and email. Your seat is saved and the date goes on your calendar with one tap." : "No account needed to RSVP: just your name and email. The date goes on your calendar with one tap."],
+                  [show.kind === "in-person" ? "Check-in details before the show" : "“It's showtime” email when the show goes live", show.kind === "in-person" ? "Everything you need at the door, the day of the screening." : "With your viewing link and access code. Sign in with your free Slipstream account to watch."],
                   ["Thank you when it closes", "With a link to the conversation and a peek at what's next."],
                 ].map(([t, d], i, a) => (
                   <div className="step" key={t}>

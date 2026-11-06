@@ -48,7 +48,7 @@ export default function ReviewBar() {
               ))}
             </div>
           </div>
-          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Tip: RSVP'd + During shows the screening room with the player and password. An account is optional. In-person seats and the waiting list are on the All screens page.</p>
+          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Tip: Signed in + RSVP'd + During shows the screening room. Watching needs an account; RSVPing doesn't. In-person seats and the waiting list are on the All screens page.</p>
           <div className="row g12 wrap-row" style={{ fontSize: 13 }}>
             <Link href="/review/" onClick={() => setOpen(false)}>All screens and states</Link>
             <button style={{ background: "none", border: 0, padding: 0, color: "#b42318", fontWeight: 600, cursor: "pointer" }} onClick={() => { ctx.reset(); ctx.say("Review session reset"); }}>Reset</button>

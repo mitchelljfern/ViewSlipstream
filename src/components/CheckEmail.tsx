@@ -5,11 +5,13 @@
  * what to do if it isn't in their inbox.
  *
  *   mode="rsvp"  right after RSVPing: confirmation sent, check spam
- *   mode="live"  in the screening room when the password is email only
+ *   mode="live"  in the screening room when the code is email only
+ *
+ * Deliberately no way to read the email on the site: guests must open the
+ * real email (real addresses, real open and click rates).
  */
-import Link from "next/link";
 import type { Show } from "@/lib/types";
-import { REVIEW_MODE, usePreview } from "./Preview";
+import { usePreview } from "./Preview";
 import { IconMail } from "./Icons";
 
 export const SENDER = "hello@viewslipstream.com";
@@ -43,7 +45,6 @@ export default function CheckEmail({ show, email, mode, onDeep }: { show: Show; 
       <p className="small" style={{ color: sub }}>Not in your inbox? Check spam, junk or promotions, or search for {SENDER}.</p>
       <div className="row g8 wrap-row">
         <button className="btn btn-secondary btn-sm" onClick={() => ctx.say(`Review build: on the live site this resends the email to ${to}.`)}>Resend the email</button>
-        {REVIEW_MODE ? <Link href={`/emails/live/?show=${show.slug}`} className="btn btn-secondary btn-sm">See the email</Link> : null}
       </div>
     </div>
   );

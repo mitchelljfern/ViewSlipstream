@@ -81,11 +81,18 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
     );
   }
 
+  /** Streaming shows need a free account to watch (client requirement). RSVPing doesn't. */
+  const needsAccountToWatch = show.kind === "streaming" || show.kind === "paid" || show.kind === "live";
+  const liveNow = phase === "live" && needsAccountToWatch;
   /** After a guest RSVP: offer a free account. Their name and email are already in; they only add a password. */
-  const accountPrompt = status && !signedIn && who && !skipAccount ? (
+  const accountPrompt = status && status !== "waitlisted" && !signedIn && who && (!skipAccount || liveNow) ? (
     <div className="on-deep stack g10" style={{ padding: "14px 14px 16px", borderRadius: 14, background: "rgba(0,0,0,.25)", border: "1px solid rgba(255,255,255,.14)" }}>
-      <b style={{ fontWeight: 600, fontSize: 16 }}>Create your free Slipstream account</b>
-      <p className="small" style={{ color: "rgba(255,255,255,.82)" }}>Set a password for {who.email} and next time you can RSVP in one tap and see all your shows in one place. Optional.</p>
+      <b style={{ fontWeight: 600, fontSize: 16 }}>{liveNow ? "Create your free account to watch" : "Create your free Slipstream account"}</b>
+      <p className="small" style={{ color: "rgba(255,255,255,.82)" }}>
+        {needsAccountToWatch
+          ? `You'll need a free Slipstream account to watch. Set a password for ${who.email}${liveNow ? " and you're in." : " now and you're ready at showtime."}`
+          : `Set a password for ${who.email} and next time you can RSVP in one tap and see all your shows in one place. Optional.`}
+      </p>
       <form className="stack g10" onSubmit={(e) => {
         e.preventDefault();
         act(() => { ctx.createAccount(); ctx.say("Account created. You're signed in."); });
@@ -94,8 +101,12 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
         <PasswordInput onDeep id={fid("newpw")} name="password" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
         <button className="btn btn-light" disabled={busy}>{busy ? "One moment…" : "Create free account"}</button>
       </form>
-      <button className="small" style={{ background: "none", border: 0, color: "rgba(255,255,255,.75)", textDecoration: "underline", cursor: "pointer" }}
-        onClick={() => setSkipAccount(true)}>No thanks, my RSVP is all set</button>
+      {liveNow ? (
+        <Link href={`/sign-in/?next=/${show.slug}/%23player`} className="small" style={{ color: "rgba(255,255,255,.85)", textAlign: "center" }}>Already have an account? Sign in</Link>
+      ) : (
+        <button className="small" style={{ background: "none", border: 0, color: "rgba(255,255,255,.75)", textDecoration: "underline", cursor: "pointer" }}
+          onClick={() => setSkipAccount(true)}>{needsAccountToWatch ? "Later, I'll do it at showtime" : "No thanks, my RSVP is all set"}</button>
+      )}
     </div>
   ) : null;
 
@@ -126,7 +137,8 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
           {isGiveaway
             ? `We'll email ${who?.email ?? "you"} if you win. Winners are drawn ${show.giveaway?.drawOn ?? "when entries close"}.`
             : watchNow
-              ? (ctx.access === "email" ? "The show is live. Your access code is in your email."
+              ? (!signedIn ? "The show is live. Sign in or create your free account to watch."
+                : ctx.access === "email" ? "The show is live. Your access code is in your email."
                 : ctx.access === "page" ? "The show is live. Your access code is above the player."
                 : "The show is live. Your access code is above the player and in your email.")
               : inPerson
@@ -136,7 +148,7 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
                 : "When the show goes live, your access code will be on this page and in your email."}
         </p>
         {!watchNow && !isGiveaway ? <CheckEmail show={show} email={who?.email} mode="rsvp" onDeep /> : null}
-        {watchNow ? (
+        {watchNow && !signedIn ? null : watchNow ? (
           <a href="#player" className="btn btn-light"><IconPlay size={18} />Watch now</a>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
@@ -149,7 +161,6 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
           </div>
         )}
         {accountPrompt}
-        <Link href={`/emails/rsvp/?show=${show.slug}`} className="small" style={{ color: "rgba(255,255,255,.8)", textAlign: "center" }}>Preview the confirmation email</Link>
         {!isPaid ? (
           <button className="small" style={{ background: "none", border: 0, color: "rgba(255,255,255,.7)", textDecoration: "underline", cursor: "pointer" }}
             onClick={() => act(() => { ctx.cancel(key); ctx.say(isGiveaway ? "Entry withdrawn" : savedSeats > 1 ? "Your seats were released" : "Your seat was released"); })}>
@@ -195,7 +206,7 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
       <div className="stack g8">
         <label className="check" htmlFor={fid("acct")}>
           <input id={fid("acct")} type="checkbox" checked={wantAccount} onChange={(e) => setWantAccount(e.target.checked)} />
-          <span>Create a free account <span style={{ color: "rgba(255,255,255,.65)" }}>(optional)</span></span>
+          <span>Create a free account <span style={{ color: "rgba(255,255,255,.65)" }}>{needsAccountToWatch ? "(you'll need one to watch)" : "(optional)"}</span></span>
         </label>
         {wantAccount ? (
           <div className="field">
@@ -287,7 +298,7 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
       <div className="row between"><h2 id={hid} className="h2">{heading}</h2><span className="chip" style={{ background: "rgba(255,255,255,.14)", color: "#fff" }}>{badge}</span></div>
       <p>{blurb}</p>
       {guestForm(isGiveaway ? "Enter the giveaway" : isPaid ? "Continue to checkout" : verb, done, (email) => confirmMsg(email))}
-      <p className="tiny" style={{ color: "rgba(255,255,255,.7)", textAlign: "center" }}>No account or password needed unless you want one.</p>
+      <p className="tiny" style={{ color: "rgba(255,255,255,.7)", textAlign: "center" }}>{needsAccountToWatch ? "No account needed to RSVP. You'll need a free account to watch." : "No account or password needed unless you want one."}</p>
       {signInLink(isGiveaway ? "enter" : "RSVP")}
       <p className="tiny" style={{ color: "rgba(255,255,255,.65)", lineHeight: 1.5 }}>We never share your personal information. You'll get three emails: a confirmation now, a note when the show is live, and a thank-you when it closes.</p>
       {isGiveaway && show.giveaway ? <p className="tiny" style={{ color: "rgba(255,255,255,.65)" }}>{show.giveaway.rules}</p> : null}

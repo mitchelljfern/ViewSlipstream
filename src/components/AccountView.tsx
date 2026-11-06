@@ -17,7 +17,7 @@ export default function AccountView() {
         <h1 className="h1" style={{ fontSize: 36 }}>Your account</h1>
         {c ? (
           <>
-            <p className="muted">You RSVP'd as {c.first} {c.last} ({c.email}) without an account. That's fine: your RSVPs and emails work either way. Set a password to see them all here and RSVP in one tap next time.</p>
+            <p className="muted">You RSVP'd as {c.first} {c.last} ({c.email}) without an account. Your RSVPs and emails are all set. To watch a show you'll need a free account: just set a password. You'll also see all your RSVPs here and RSVP in one tap next time.</p>
             <form className="stack g12" onSubmit={(e) => { e.preventDefault(); ctx.createAccount(); ctx.say("Account created. You're signed in."); }}>
               <label className="label" htmlFor="acct-pw">Create a password</label>
               <PasswordInput id="acct-pw" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
