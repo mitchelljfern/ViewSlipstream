@@ -24,6 +24,7 @@ import { calEvent } from "@/lib/ics";
 import AddToCalendar from "./AddToCalendar";
 import { initials, usePreview, type Guest, type RsvpStatus } from "./Preview";
 import { IconCheck, IconLock, IconPlay } from "./Icons";
+import CheckEmail from "./CheckEmail";
 
 type Forced = { phase?: Phase; status?: RsvpStatus | null; signedIn?: boolean; seats?: number; guestRsvp?: boolean };
 
@@ -125,11 +126,16 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
           {isGiveaway
             ? `We'll email ${who?.email ?? "you"} if you win. Winners are drawn ${show.giveaway?.drawOn ?? "when entries close"}.`
             : watchNow
-              ? "The show is live. Your viewing password is above the player and in your email."
+              ? (ctx.access === "email" ? "The show is live. Your access code is in your email."
+                : ctx.access === "page" ? "The show is live. Your access code is above the player."
+                : "The show is live. Your access code is above the player and in your email.")
               : inPerson
                 ? `${savedSeats > 1 ? `Your ${savedSeats} seats are` : "Your seat is"} saved. Bring the confirmation email to check in at ${show.venue?.name ?? "the theater"}.`
-                : `Confirmation sent to ${who?.email ?? "your email"}. We'll email again the moment the show is live.`}
+                : ctx.access === "email" ? "We'll email your access code the moment the show goes live."
+                : ctx.access === "page" ? "When the show goes live, come back to this page. Your access code will be right here."
+                : "When the show goes live, your access code will be on this page and in your email."}
         </p>
+        {!watchNow && !isGiveaway ? <CheckEmail show={show} email={who?.email} mode="rsvp" onDeep /> : null}
         {watchNow ? (
           <a href="#player" className="btn btn-light"><IconPlay size={18} />Watch now</a>
         ) : (

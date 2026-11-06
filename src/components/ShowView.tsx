@@ -14,7 +14,8 @@ import { usePreview } from "./Preview";
 import RsvpPanel from "./RsvpPanel";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
 import PosterTile from "./PosterTile";
-import { IconCalendar, IconCopy, IconDown, IconMic, IconPin, IconPlay } from "./Icons";
+import { IconCalendar, IconCopy, IconDown, IconLock, IconMail, IconMic, IconPin, IconPlay } from "./Icons";
+import CheckEmail from "./CheckEmail";
 
 const KIND_LABEL: Record<Show["kind"], string> = { streaming: "Streaming", "in-person": "In person", giveaway: "Giveaway", live: "Live stream", paid: "Paid" };
 
@@ -35,7 +36,10 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
   const [copied, setCopied] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const [playerNote, setPlayerNote] = useState(false);
-  useEffect(() => { setPlayerNote(false); }, [watching]);
+  // The live page has two videos, like the current site: the film, then the filmmaker conversation.
+  const [reel, setReel] = useState<"film" | "talk">("film");
+  const [getLink, setGetLink] = useState(false);
+  useEffect(() => { setPlayerNote(false); }, [watching, reel]);
 
   const pw = samplePassword(show);
   const left = show.endsAt ? countdown(show.endsAt, ctx.now) : null;
@@ -86,20 +90,44 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
         <section id="player" aria-label="Screening room">
           <div className="screen">
             <div>
+              {show.conversationLine && show.kind !== "live" ? (
+                <div className="reel-tabs" role="tablist" aria-label="Choose a video">
+                  {([["film", "The film"], ["talk", "The conversation"]] as const).map(([k, l]) => (
+                    <button key={k} role="tab" aria-selected={reel === k} className="reel-tab" onClick={() => setReel(k)}>
+                      {k === "film" ? <IconPlay size={14} /> : <IconMic size={15} />}{l}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
               <div className="player screen-frame">
-                {show.heroImage ? <img src={show.heroImage} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.25 }} /> : null}
-                <span className="eyebrow" style={{ position: "absolute", left: 16, top: 14 }}>{show.kind === "live" ? "YouTube Live" : "DaCast player · password protected"}</span>
-                <button className="facade" style={{ position: "relative", width: 76, height: 76, borderRadius: "50%", aspectRatio: "1", background: "#fff", color: "#000", display: "flex", alignItems: "center", justifyContent: "center", border: 0 }}
-                  aria-label={`Play ${show.title}`} onClick={() => setPlayerNote(true)}><IconPlay size={30} /></button>
-                {playerNote ? <p className="small" style={{ position: "absolute", bottom: 16, left: 16, right: 16, textAlign: "center", background: "rgba(0,0,0,.7)", padding: "10px 12px", borderRadius: 10 }}>Review build: on the live site the DaCast player for this show loads here and asks for the password below.</p> : null}
+                {show.heroImage ? <img src={show.heroImage} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.18 }} /> : null}
+                <span className="eyebrow" style={{ position: "absolute", left: 16, top: 14 }}>{show.kind === "live" ? "YouTube Live" : `DaCast player · ${reel === "film" ? "the film" : "the conversation"}`}</span>
+                {show.kind === "live" ? (
+                  <button className="facade" style={{ position: "relative", width: 76, height: 76, borderRadius: "50%", aspectRatio: "1", background: "#fff", color: "#000", display: "flex", alignItems: "center", justifyContent: "center", border: 0 }}
+                    aria-label={`Play ${show.title}`} onClick={() => setPlayerNote(true)}><IconPlay size={30} /></button>
+                ) : (
+                  // What DaCast shows before the code is entered (review build stand-in).
+                  <form className="dacast-gate" onSubmit={(e) => { e.preventDefault(); setPlayerNote(true); }}>
+                    <IconLock size={34} />
+                    <b>This content is protected with an access code</b>
+                    <div className="row g8" style={{ width: "100%", maxWidth: 360 }}>
+                      <input className="input" aria-label="Access code" placeholder="Enter access code" style={{ flex: 1, minWidth: 0 }} />
+                      <button className="btn btn-primary" style={{ minHeight: 48 }}>Watch</button>
+                    </div>
+                  </form>
+                )}
+                {playerNote ? <p className="small" style={{ position: "absolute", bottom: 16, left: 16, right: 16, textAlign: "center", background: "rgba(0,0,0,.75)", padding: "10px 12px", borderRadius: 10 }}>Review build: on the live site the DaCast player for {reel === "film" ? "the film" : "the conversation"} plays here once the code is entered.</p> : null}
               </div>
             </div>
           </div>
           <div className="wrap stack g16" style={{ paddingTop: 18 }}>
             {chips}
             <h1 className="h1">{show.title}</h1>
+            {ctx.access === "email" ? (
+              <CheckEmail show={show} email={ctx.who?.email} mode="live" />
+            ) : (
             <div className="card stack g10" style={{ padding: "14px 16px" }}>
-              <div className="row between"><b style={{ fontWeight: 600 }}>Viewing password</b><span className="muted tiny">Also in your email</span></div>
+              <div className="row between"><b style={{ fontWeight: 600 }}>Access code</b>{ctx.access === "both" ? <span className="muted tiny row g6"><IconMail size={14} />Also in your email</span> : null}</div>
               <div className="row g8">
                 <div style={{ flex: 1, height: 48, borderRadius: 12, background: "var(--field-bg)", border: "1px solid var(--line-strong)", display: "flex", alignItems: "center", padding: "0 14px", font: "600 18px/1 var(--font-display)", letterSpacing: ".16em" }}>{pw}</div>
                 <button className="btn btn-secondary" style={{ minHeight: 48, padding: "0 16px", fontSize: 14 }}
@@ -107,8 +135,9 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
                   <IconCopy size={16} />{copied ? "Copied" : "Copy"}
                 </button>
               </div>
-              <p className="muted small">Tap play, then paste the password into the player. Works on phone, tablet and laptop, and casts to a TV.</p>
+              <p className="muted small">Tap play, then paste the code into the player. Works on phone, tablet and laptop, and casts to a TV.</p>
             </div>
+            )}
             {left && show.endsAt ? (
               <div className="stack g8">
                 <span className="eyebrow">Available until {longDay(show.endsAt)} · {clock(show.endsAt)} PT</span>
@@ -162,7 +191,7 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
           {watching ? (
             <section className="card stack g10" style={{ padding: 16 }}>
               <b style={{ fontWeight: 600 }}>Trouble watching?</b>
-              <p className="muted small">Refresh the page, check the password has no spaces, or try another browser. Still stuck? We answer fast during show windows.</p>
+              <p className="muted small">Refresh the page, check the code has no spaces, or try another browser. Still stuck? We answer fast during show windows.</p>
               <a href="mailto:hello@viewslipstream.com?subject=Help%20watching" className="btn btn-secondary btn-sm" style={{ alignSelf: "flex-start" }}>Contact support</a>
             </section>
           ) : null}
@@ -170,13 +199,28 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
 
         <aside className="stack g24 show-aside">
           <RsvpPanel show={show} conversation={conversation} />
+          {phase === "live" && !watching && (show.kind === "streaming" || show.kind === "paid") ? (
+            // RSVP'd on another device (or lost the email): no login, just send the link again.
+            <section className="card stack g10" style={{ padding: "16px 18px" }} aria-labelledby="relink-h">
+              <h2 id="relink-h" className="h3" style={{ fontSize: 18 }}>Already RSVP&rsquo;d?</h2>
+              <p className="muted small">Enter the email you RSVP&rsquo;d with and we&rsquo;ll send your viewing link and access code again. No account needed.</p>
+              {getLink ? (
+                <p className="small row g8"><IconMail size={16} />Sent. Check your inbox, and your spam folder too.</p>
+              ) : (
+                <form className="row g8" onSubmit={(e) => { e.preventDefault(); setGetLink(true); ctx.say("Review build: on the live site this emails the viewing link and access code."); }}>
+                  <input type="email" className="input" required placeholder="you@example.com" aria-label="Email you RSVP'd with" autoComplete="email" style={{ flex: 1, minWidth: 0 }} />
+                  <button className="btn btn-secondary" style={{ minHeight: 48 }}>Send my link</button>
+                </form>
+              )}
+            </section>
+          ) : null}
           {open && !status && !show.atCapacity && show.kind !== "giveaway" ? (
             <section className="stack g14" aria-labelledby="after-h">
               <h2 id="after-h" className="h3">What happens after you RSVP</h2>
               <div className="steps">
                 {[
                   ["Confirmation email, right away", "No account needed: just your name and email. Your seat is saved and the date goes on your calendar with one tap."],
-                  [show.kind === "in-person" ? "Check-in details before the show" : "“It's showtime” email when the show goes live", show.kind === "in-person" ? "Everything you need at the door, the day of the screening." : "With your viewing link and password."],
+                  [show.kind === "in-person" ? "Check-in details before the show" : "“It's showtime” email when the show goes live", show.kind === "in-person" ? "Everything you need at the door, the day of the screening." : "With your viewing link and access code."],
                   ["Thank you when it closes", "With a link to the conversation and a peek at what's next."],
                 ].map(([t, d], i, a) => (
                   <div className="step" key={t}>

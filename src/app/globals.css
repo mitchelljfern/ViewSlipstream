@@ -691,3 +691,19 @@ a.list-row:hover { color: var(--text); background: rgba(var(--fg-rgb), 0.03); }
 .feature-tab-format.is-streaming svg, .feature-tab-format.is-live svg, .feature-tab-format.is-paid svg { color: var(--link); }
 .feature-tab-format.is-in-person svg { color: var(--text); }
 .feature-tab.is-past .feature-tab-format svg { color: inherit; }
+
+/* "Check your email" alert after RSVPing. */
+.check-email { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-radius: 14px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--line-strong); }
+.check-email > svg { flex: 0 0 auto; margin-top: 1px; }
+.check-email b { font-weight: 600; }
+.check-email.on-deep { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.28); color: #fff; }
+
+/* Screening room: the film and the conversation, like the current live page. */
+.reel-tabs { display: flex; gap: 6px; padding: 10px var(--gutter); overflow-x: auto; scrollbar-width: none; }
+.reel-tab { flex: 0 0 auto; }
+.reel-tab { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line-strong); background: transparent; color: var(--muted); font: 600 15px/1 var(--font-body); cursor: pointer; }
+.reel-tab[aria-selected="true"] { background: #fff; color: #000; border-color: #fff; }
+/* Stand-in for DaCast's own code prompt, shown until the player is wired up. */
+.dacast-gate { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 24px; text-align: center; color: #fff; width: 100%; }
+.dacast-gate b { font: 600 clamp(16px, 2vw, 22px)/1.25 var(--font-display); }
+@media (max-width: 639px) { .dacast-gate svg { width: 26px; height: 26px; } .dacast-gate { gap: 10px; padding: 16px; } }

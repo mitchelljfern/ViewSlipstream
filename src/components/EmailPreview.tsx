@@ -42,7 +42,12 @@ export default function EmailPreview({ type }: { type: T }) {
         ))}
         <Link href={`/emails/waitlist/?show=${show.slug}`} className="filter" aria-pressed={type === "waitlist"}>Waiting list (in person)</Link>
       </div>
-      <p className="muted small" style={{ textAlign: "center" }}>Subject: <b style={{ color: "#fff", fontWeight: 600 }}>{subject}</b></p>
+      <p className="muted small" style={{ textAlign: "center" }}>From: <b style={{ color: "#fff", fontWeight: 600 }}>Slipstream &lt;hello@viewslipstream.com&gt;</b> · Subject: <b style={{ color: "#fff", fontWeight: 600 }}>{subject}</b></p>
+      {type === "live" || type === "rsvp" ? (
+        <p className="muted tiny" style={{ textAlign: "center" }}>
+          Access code set to <b style={{ color: "#fff" }}>{ctx.access === "both" ? "page + email" : ctx.access === "page" ? "page only" : "email only"}</b>. Change it under Review.
+        </p>
+      ) : null}
       <article style={{ width: "100%", maxWidth: 600, background: "#fff", color: "#141414", borderRadius: 16, overflow: "hidden" }}>
         <div style={{ background: "#000", padding: "22px 28px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <img src="/slipstream-logo.png" alt="Slipstream" style={{ height: 11, width: "auto" }} />
@@ -54,7 +59,9 @@ export default function EmailPreview({ type }: { type: T }) {
             <>
               <h1 style={{ margin: 0, font: "600 26px/1.15 var(--font-display)", letterSpacing: "-.02em", color: "#141414" }}>You're in, {name}.</h1>
               <P>Your {seatWord} for <strong>{show.title}</strong> {seatCount > 1 ? "are" : "is"} saved. {window ? `It ${show.kind === "in-person" ? "screens" : "streams"} ${window}.` : ""}</P>
-              <div style={box}><b style={{ color: "#141414" }}>What happens next</b><span>{show.kind === "in-person" ? `Bring this email to check in${seatCount > 1 ? ` for all ${seatCount} seats` : ""}. We'll send a reminder the day before.` : "We'll email you the moment it goes live, with your viewing link and password. Nothing to do until then."}</span></div>
+              <div style={box}><b style={{ color: "#141414" }}>What happens next</b><span>{show.kind === "in-person" ? `Bring this email to check in${seatCount > 1 ? ` for all ${seatCount} seats` : ""}. We'll send a reminder the day before.`
+                : ctx.access === "page" ? "We'll email you the moment it goes live with a link to the screening room. Your access code will be waiting there."
+                : "We'll email you the moment it goes live, with your viewing link and access code. Nothing to do until then."}</span></div>
               <a href="#" style={btn}>Add to calendar</a>
               <div style={{ ...box, background: "#F5F7FA" }}><b style={{ color: "#141414" }}>Want one-tap RSVPs next time?</b>
                 <span>Create a free Slipstream account. Your name and email are already in, so you only pick a password. Optional: this RSVP works either way.</span>
@@ -71,12 +78,18 @@ export default function EmailPreview({ type }: { type: T }) {
           ) : type === "live" ? (
             <>
               <h1 style={{ margin: 0, font: "600 26px/1.15 var(--font-display)", letterSpacing: "-.02em", color: "#141414" }}>{show.title} is live.</h1>
-              <P>{show.endsAt ? <>Watch any time before <strong>{longDay(show.endsAt)} at {clock(show.endsAt)} PT</strong>. </> : null}Your link below signs you in automatically.</P>
+              <P>{show.endsAt ? <>Watch any time before <strong>{longDay(show.endsAt)} at {clock(show.endsAt)} PT</strong>. </> : null}The button below takes you straight to the screening room. No account or login needed.</P>
+              {show.conversationLine ? <P>The film and the {show.conversationLine.replace(/^the screening will be followed by an? /i, "").replace(/\.$/, "")} are both in the screening room, and the same code works for each.</P> : null}
               <a href="#" style={btn}>Watch now</a>
-              <div style={{ ...box, background: "#F5F7FA" }}><b style={{ color: "#141414" }}>Your viewing password</b>
-                <span style={{ font: "600 20px/1.2 var(--font-display)", letterSpacing: ".16em", color: "#141414" }}>{pw}</span>
-                <span style={{ color: "#6B7280" }}>Tap play, then enter this in the player. It's also on the show page once you're signed in.</span></div>
-              <P><span style={{ fontSize: 13, color: "#6B7280" }}>Works on phone, tablet and laptop, and casts to a TV. Trouble? <a href="#" style={{ color: "#1E73BE" }}>Get help</a>.</span></P>
+              {ctx.access === "page" ? (
+                <div style={box}><b style={{ color: "#141414" }}>Your access code</b>
+                  <span>It's waiting above the player when you open the screening room. Tap play, then paste it in.</span></div>
+              ) : (
+                <div style={{ ...box, background: "#F5F7FA" }}><b style={{ color: "#141414" }}>Your access code</b>
+                  <span style={{ font: "600 20px/1.2 var(--font-display)", letterSpacing: ".16em", color: "#141414" }}>{pw}</span>
+                  <span style={{ color: "#6B7280" }}>Tap play, then paste this into the player.{ctx.access === "both" ? " It's also above the player in the screening room." : ""}</span></div>
+              )}
+              <P><span style={{ fontSize: 13, color: "#6B7280" }}>Works on phone, tablet and laptop, and casts to a TV. Any trouble? Just reply to this email.</span></P>
             </>
           ) : (
             <>
