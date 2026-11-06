@@ -10,7 +10,7 @@ import { monthDay } from "@/lib/time";
 import DatePills from "./DatePills";
 import { usePreview } from "./Preview";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
-import { IconMic, IconPin, IconPlay } from "./Icons";
+import { IconGift, IconMic, IconPin, IconPlay } from "./Icons";
 import Countdown, { endLabel, startLabel } from "./Countdown";
 
 export const KIND = { streaming: "Streaming", "in-person": "In Person", giveaway: "Giveaway", live: "Live Stream", paid: "Paid" } as const;
@@ -119,6 +119,10 @@ export function FeatureTabs({ items }: { items: FeatureItem[] }) {
                 <span className="stack g4" style={{ minWidth: 0 }}>
                   <StatusBadge it={it} size="tab" />
                   <span className="feature-tab-title">{it.show.title}</span>
+                  <span className={`feature-tab-format is-${it.show.kind}`}>
+                    {it.show.kind === "in-person" ? <IconPin size={13} /> : it.show.kind === "giveaway" ? <IconGift size={13} /> : <IconPlay size={11} />}
+                    {it.show.kind === "in-person" ? "In person" : it.show.kind === "giveaway" ? "Giveaway" : "Streaming online"}
+                  </span>
                 </span>
               </button>
             ))}
