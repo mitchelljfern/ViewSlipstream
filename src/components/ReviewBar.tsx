@@ -43,7 +43,7 @@ export default function ReviewBar() {
           ) : null}
           <div className="stack g6"><span className="lbl">Access code goes</span>
             <div className="opts">
-              {([["both", "Page + email"], ["page", "Page only"], ["email", "Email only"]] as [Access, string][]).map(([a, l]) => (
+              {([["email", "Email only"], ["both", "Page + email"], ["page", "Page only"]] as [Access, string][]).map(([a, l]) => (
                 <button key={a} aria-pressed={ctx.access === a} onClick={() => ctx.setAccess(a)}>{l}</button>
               ))}
             </div>
