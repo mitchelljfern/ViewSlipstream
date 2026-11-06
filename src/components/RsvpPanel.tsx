@@ -101,10 +101,13 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
         <PasswordInput onDeep id={fid("newpw")} name="password" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
         <button className="btn btn-light" disabled={busy}>{busy ? "One moment…" : "Create free account"}</button>
       </form>
-      {liveNow ? (
-        <Link href={`/sign-in/?next=/${show.slug}/%23player`} className="small" style={{ color: "rgba(255,255,255,.85)", textAlign: "center" }}>Already have an account? Sign in</Link>
-      ) : (
-        <button className="small" style={{ background: "none", border: 0, color: "rgba(255,255,255,.75)", textDecoration: "underline", cursor: "pointer" }}
+      {/* Easy to find for guests who RSVP'd without signing in but already have an account. */}
+      <div className="stack g6" style={{ alignItems: "stretch" }}>
+        <span className="small" style={{ color: "rgba(255,255,255,.75)", textAlign: "center" }}>Already have an account?</span>
+        <Link href={`/sign-in/?next=/${show.slug}/${liveNow ? "%23player" : ""}`} className="btn btn-secondary btn-on-deep">Sign in</Link>
+      </div>
+      {liveNow ? null : (
+        <button className="small" style={{ background: "none", border: 0, color: "rgba(255,255,255,.75)", textDecoration: "underline", cursor: "pointer", minHeight: 44 }}
           onClick={() => setSkipAccount(true)}>{needsAccountToWatch ? "Later, I'll do it at showtime" : "No thanks, my RSVP is all set"}</button>
       )}
     </div>
