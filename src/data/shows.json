@@ -1,5 +1,36 @@
 [
  {
+  "slug": "elsinore",
+  "title": "Elsinore",
+  "series": "November Screenings",
+  "kind": "in-person",
+  "startsAt": "2026-11-18T19:00:00-08:00",
+  "endsAt": null,
+  "venue": {
+   "name": "AMC The Grove 14",
+   "address": "189 The Grove Dr, Los Angeles, CA 90036"
+  },
+  "about": [
+   "The deeply emotional and inspirational true story of Ian Charleson, a gifted actor whose greatest challenge becomes his greatest triumph. Facing his own mortality with unflinching honesty, wit, and grace, Charleson delivers a courageous performance that becomes a source of healing and inspiration for those around him.",
+   "Elsinore stars Andrew Scott, Olivia Colman, Billie Piper and Johnny Flynn, and is directed by Simon Stone.",
+   "In theaters November 20.",
+   "Parking: the theater offers validated discount parking in The Grove parking garage. Parking in the Farmers Market is not discounted."
+  ],
+  "conversationLine": null,
+  "trailerYoutubeId": "SzopCeFAWF0",
+  "heroImage": "https://viewslipstream.com/wp-content/uploads/2026/11/elsinore-E_03144_R-_rgb-scaled.jpg",
+  "poster": "https://viewslipstream.com/wp-content/uploads/2026/11/elsinore-poster.jpg",
+  "posterRatio": 0.677,
+  "partner": {
+   "name": "LACMA",
+   "logo": "https://viewslipstream.com/wp-content/uploads/2021/12/lacma-logo.png"
+  },
+  "titleArt": null,
+  "atCapacity": false,
+  "conversationId": null,
+  "maxSeats": 2
+ },
+ {
   "slug": "bitter-christmas",
   "title": "Bitter Christmas",
   "series": "November Screenings",
@@ -7,14 +38,13 @@
   "startsAt": "2026-11-10T19:00:00-08:00",
   "endsAt": null,
   "venue": {
-   "name": "AMC Century City 15",
-   "address": "10250 Santa Monica Blvd., Los Angeles, CA 90067"
+   "name": "The Culver Theater",
+   "address": "9500 Culver Blvd, Culver City, CA 90232"
   },
   "about": [
    "Bitter Christmas tells two alternating stories, one starring Elsa, an advertising director, in 2004, during a long weekend in December. The second takes place in 2026 and stars Raúl, a screenwriter and director who is writing a script that we soon discover is the story of Elsa, her boyfriend Bonifacio, and her friends Patricia and Natalia. Mixed with fiction, Elsa is, in a way, Raúl's alter ego, who, like him, resorts to autofiction as a solution to a long period of creative drought. He looks inside himself, and he can't help but also look at the people who make up his most intimate universe: his partner and his assistant.",
    "The film narrates the close relationship between reality and fiction, between inspiration and life, exploring the limits of autofiction and stories within stories.",
-   "Bitter Christmas will be in select theaters on November 13.",
-   "Parking: the theater offers 3 hours of validation for the Westfield Century City parking garage."
+   "Bitter Christmas will be in select theaters on November 13."
   ],
   "conversationLine": null,
   "trailerYoutubeId": "YTe1-7MVTmg",
