@@ -3,8 +3,9 @@
  *
  * Review phase: reads the JSON snapshot in src/data (built from the live
  * WordPress site by scripts/build_data_from_wordpress.py).
- * Phase 2: these functions become Supabase queries. Pages and components do
- * not change, which is the point of keeping every read behind this file.
+ * Live: LiveDataProvider loads current shows and home rows from Supabase in
+ * the browser and swaps them in with applyLive(). Pages and components do not
+ * change, which is the point of keeping every read behind this file.
  */
 import showsJson from "@/data/shows.json";
 import groupsJson from "@/data/featured-groups.json";
@@ -13,8 +14,8 @@ import conversationsJson from "@/data/conversations.json";
 import historyJson from "@/data/history.json";
 import type { ArchiveGroup, ArchiveItem, Conversation, Show } from "./types";
 
-const shows = showsJson as unknown as Show[];
-const groups = groupsJson as { title: string; slugs: string[] }[];
+let shows = showsJson as unknown as Show[];
+let groups = groupsJson as { title: string; slugs: string[] }[];
 const archive = archiveJson as ArchiveGroup[];
 const conversations = conversationsJson as Conversation[];
 /** Past shows imported from the WordPress export: full pages, never listed as current. */
@@ -83,3 +84,9 @@ export const showPageSlugs = (): string[] => {
 
 export const moreInSeries = (show: Show, n = 5): Show[] =>
   (shows.includes(show) ? shows : history).filter((s) => s.series === show.series && s.slug !== show.slug && s.title !== show.title).slice(0, n);
+
+/** Swap in live shows and home rows from Supabase (browser only). Past pages keep using the snapshot. */
+export function applyLive(live: { shows: Show[]; groups: { title: string; slugs: string[] }[] }) {
+  if (live.shows.length) shows = live.shows;
+  if (live.groups.length) groups = live.groups;
+}

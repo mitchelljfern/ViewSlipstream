@@ -22,9 +22,17 @@
 [build.environment]
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
-  # Review toolbar (pretend signed in / RSVP'd / showtime) stays on until the
-  # database is connected in phase 2. Set to "false" in a context to hide it.
+  # Review toolbar (pretend it's showtime, try the access code options). On for
+  # staging and pull requests, off on the live site (see [context.production]).
   NEXT_PUBLIC_REVIEW_MODE = "true"
+  # Slipstream's own Supabase project (org "View Slipstream"). Public by design:
+  # browsers need these, and row level security protects the data. The private
+  # service key never goes in this file.
+  NEXT_PUBLIC_SUPABASE_URL = "https://sfcifdwmkfekakjjpter.supabase.co"
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_8Mg_IMn91gDUwQUkIBlKhw_lZq3sytd"
+
+[context.production.environment]
+  NEXT_PUBLIC_REVIEW_MODE = "false"
 
 # Not in search yet: viewslipstream.com (WordPress) is still the real site, so
 # the netlify.app copies stay out of Google until the domain moves here.
@@ -72,3 +80,15 @@
   from = "/live/*"
   to = "/now-showing/"
   status = 302
+
+# Shows added in the Client Hub after the last deploy have no built page yet:
+# serve the live show page, which loads them from Supabase. Netlify only uses
+# this when no real page exists at that address.
+[[redirects]]
+  from = "/:slug/"
+  to = "/show/"
+  status = 200
+[[redirects]]
+  from = "/:slug"
+  to = "/show/"
+  status = 200
