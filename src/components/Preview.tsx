@@ -11,10 +11,10 @@
  */
 import { createContext, Fragment, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import type { Phase, Show } from "@/lib/types";
-import { phaseOf } from "@/lib/time";
+import { currentShow, phaseOf } from "@/lib/time";
 import { LIVE, siteOrigin, supabase } from "@/lib/supabase";
 import { fetchLive } from "@/lib/live";
-import { applyLive, getShow } from "@/lib/data";
+import { allShows, applyLive, getShow } from "@/lib/data";
 
 export const REVIEW_MODE = process.env.NEXT_PUBLIC_REVIEW_MODE !== "false";
 export { LIVE };
@@ -167,6 +167,8 @@ export function PreviewProvider({ buildNow, leadSlug: initialLead, children }: {
     fetchLive().then((live) => {
       if (!live) return;
       applyLive(live);
+      // The lead show ("Now Showing") was picked at build time; pick again from live shows.
+      if (live.shows.length) setLeadSlug(currentShow(allShows(), new Date())?.slug ?? null);
       if (live.access) setS((p) => (p.accessChosen ? p : { ...p, access: live.access! }));
       setDataVersion((v) => v + 1);
     });

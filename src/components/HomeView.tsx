@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import type { Conversation, Show } from "@/lib/types";
+import type { Show } from "@/lib/types";
+import { allConversations, allShows as listShows, featuredGroups } from "@/lib/data";
 import { monthDay, shortWhen, upcomingShows, minutes } from "@/lib/time";
 import { usePreview } from "./Preview";
 import VideoFacade from "./VideoFacade";
@@ -10,10 +11,17 @@ import { IconChevron, IconGift, IconMic, IconPlay } from "./Icons";
 import { FeatureTabs, KIND, pickFeatured } from "./HomeFeature";
 
 
-export default function HomeView({ groups, conversations, allShows }: {
-  groups: { title: string; shows: Show[] }[]; conversations: Conversation[]; allShows: Show[];
-}) {
+/**
+ * Reads shows and rows from the data module at render time, not from page props:
+ * props are frozen at build, while the data module swaps in Slipstream's live
+ * database (Preview remounts this when it arrives), so a show published from the
+ * Client Hub appears in the hero tabs and its row without a rebuild.
+ */
+export default function HomeView() {
   const ctx = usePreview();
+  const groups = featuredGroups();
+  const conversations = allConversations();
+  const allShows = listShows();
   const featured = pickFeatured(allShows, ctx.phaseFor);
   // Open shows that didn't fit in the hero tabs carry on in the Upcoming rail.
   const others = upcomingShows(allShows, ctx.now).filter((s) => !featured.some((f) => f.show.slug === s.slug));
