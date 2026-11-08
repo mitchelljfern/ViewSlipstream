@@ -10,12 +10,12 @@
 // RSVP and type, so calling this again is always safe.
 //
 // Secrets (Supabase > Edge Functions > Secrets): RESEND_API_KEY (required),
-// EMAIL_FROM (e.g. "Slipstream <hello@viewslipstream.com>"), SITE_URL.
+// EMAIL_FROM (e.g. "View Slipstream <hello@viewslipstream.com>"), SITE_URL.
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided automatically.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const RESEND = Deno.env.get("RESEND_API_KEY") ?? "";
-const FROM = Deno.env.get("EMAIL_FROM") ?? "Slipstream <hello@dashboard.socialupgrades.com>";
+const FROM = Deno.env.get("EMAIL_FROM") ?? "View Slipstream <hello@viewslipstream.com>";
 const SITE = (Deno.env.get("SITE_URL") ?? "https://viewslipstream.netlify.app").replace(/\/$/, "");
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
 
@@ -126,14 +126,14 @@ async function build(kind: Kind, show: Show, r: Rsvp, code: string | null, hasAc
 const plain = (html: string) => html.replace(/<a [^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/g, "$2: $1").replace(/<br\s*\/?>/g, "\n").replace(/<\/(p|div|h1|td)>/g, "\n\n").replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/\n{3,}/g, "\n\n").trim();
 
 async function send(kind: Kind, show: Show, r: Rsvp, code: string | null) {
-  // Never twice.
-  const { data: seen } = await db.from("email_log").select("id").eq("rsvp_id", r.id).eq("type", kind).limit(1);
+  // Never twice. A failed send doesn't count, so the next sweep tries it again.
+  const { data: seen } = await db.from("email_log").select("id").eq("rsvp_id", r.id).eq("type", kind).neq("status", "failed").limit(1);
   if (seen?.length) return "skipped";
   const hasAccount = Boolean(r.user_id);
   const mail = await build(kind, show, r, code, hasAccount);
   if (!mail) return "skipped";
-  const { data: log } = await db.from("email_log").insert({ rsvp_id: r.id, show_slug: show.slug, email: r.email, type: kind, status: "queued" }).select("id").single();
   if (!RESEND) return "no-key";
+  const { data: log } = await db.from("email_log").insert({ rsvp_id: r.id, show_slug: show.slug, email: r.email, type: kind, status: "queued" }).select("id").single();
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${RESEND}`, "Content-Type": "application/json", "Idempotency-Key": `${r.id}-${kind}` },
@@ -184,6 +184,10 @@ Deno.serve(async (req) => {
       if (!r || r.status === "cancelled") return Response.json({ result: "nothing to send" });
       const { data: show } = await db.from("shows").select("*").eq("slug", r.show_slug).maybeSingle();
       if (!show) return Response.json({ result: "no show" });
+      // RSVP'd while it's already streaming: skip "we'll email you when it goes live" and send the showtime email now.
+      const now = Date.now();
+      const liveNow = r.status === "confirmed" && isStreaming(show) && now >= new Date(show.starts_at).getTime() && now < endOf(show).getTime();
+      if (liveNow) return Response.json({ result: await send("live", show, r, await accessCode(show.slug)) });
       const kind: Kind = r.status === "waitlisted" ? "waitlist" : body.previous_status === "waitlisted" ? "promoted" : "rsvp";
       return Response.json({ result: await send(kind, show, r, null) });
     }
