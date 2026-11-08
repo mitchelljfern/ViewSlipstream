@@ -4,6 +4,7 @@
  * screening room once it does: a signed-in guest with an RSVP sees the
  * password-protected DaCast player at the top while the show is live.
  */
+import { getConversation, getShow, moreInSeries } from "@/lib/data";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Conversation, Show } from "@/lib/types";
@@ -22,8 +23,14 @@ const KIND_LABEL: Record<Show["kind"], string> = { streaming: "Streaming", "in-p
 /** Review build only: a stand-in password. The real one comes from the show record. */
 const samplePassword = (s: Show) => `${s.slug.split("-").find((w) => w.length > 3)?.toUpperCase() ?? "SHOW"}-${(s.startsAt ?? "2026").slice(0, 4)}`;
 
-export default function ShowView({ show, conversation, more }: { show: Show; conversation?: Conversation; more: Show[] }) {
+export default function ShowView({ show: built, conversation: builtConversation, more: builtMore }: { show: Show; conversation?: Conversation; more: Show[] }) {
   const ctx = usePreview();
+  // Built pages carry the show as it was at build time. Once Slipstream's live
+  // database loads (Preview remounts this), edits from the Client Hub win.
+  const live = ctx.dataVersion ? getShow(built.slug) : undefined;
+  const show = live ?? built;
+  const conversation = live ? getConversation(show.conversationId) : builtConversation;
+  const more = live ? moreInSeries(show) : builtMore;
   const phase = ctx.phaseFor(show);
   const status = ctx.rsvps[show.slug];
   // Watching needs a free Slipstream account (client requirement); RSVPing doesn't.
