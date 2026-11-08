@@ -10,7 +10,7 @@ import type { Conversation, Show } from "@/lib/types";
 import { clock, countdown, longDay, minutes, whenLine } from "@/lib/time";
 import Countdown, { startLabel } from "./Countdown";
 import AddToCalendar from "./AddToCalendar";
-import { usePreview } from "./Preview";
+import { LIVE, usePreview, type Screening } from "./Preview";
 import RsvpPanel from "./RsvpPanel";
 import VideoFacade, { youtubeEmbed, youtubeThumb } from "./VideoFacade";
 import PosterTile from "./PosterTile";
@@ -40,7 +40,18 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
   const [reel, setReel] = useState<"film" | "talk">("film");
   useEffect(() => { setPlayerNote(false); }, [watching, reel]);
 
-  const pw = samplePassword(show);
+  // Live: the real player embeds (and the code, if the client shows it on the page) for signed-in RSVPs.
+  const [room, setRoom] = useState<Screening | null>(null);
+  useEffect(() => {
+    if (!LIVE || !watching) { setRoom(null); return; }
+    let on = true;
+    void ctx.screening(show.slug).then((r) => { if (on) setRoom(r); });
+    return () => { on = false; };
+  }, [watching, show.slug]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [playerOn, setPlayerOn] = useState(false);
+  useEffect(() => { setPlayerOn(false); }, [reel]);
+  const liveEmbed = room?.ok ? (reel === "film" ? room.filmEmbed : room.conversationEmbed ?? room.filmEmbed) : null;
+  const pw = LIVE ? (room?.ok ? room.accessCode ?? "" : "") : samplePassword(show);
   const left = show.endsAt ? countdown(show.endsAt, ctx.now) : null;
   // The conversation line already sits in the facts card; don't repeat it in About.
   const aboutAll = show.about.filter((p) => p !== show.conversationLine);
@@ -101,7 +112,13 @@ export default function ShowView({ show, conversation, more }: { show: Show; con
               <div className="player screen-frame">
                 {show.heroImage ? <img src={show.heroImage} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.18 }} /> : null}
                 <span className="eyebrow" style={{ position: "absolute", left: 16, top: 14 }}>{show.kind === "live" ? "YouTube Live" : `DaCast player · ${reel === "film" ? "the film" : "the conversation"}`}</span>
-                {show.kind === "live" ? (
+                {liveEmbed && !playerOn ? (
+                  <button className="facade" style={{ position: "relative", width: 84, height: 84, borderRadius: "50%", aspectRatio: "1", background: "#fff", color: "#000", display: "flex", alignItems: "center", justifyContent: "center", border: 0 }}
+                    aria-label={`Play ${reel === "film" ? show.title : "the conversation"}`} onClick={() => setPlayerOn(true)}><IconPlay size={32} /></button>
+                ) : liveEmbed ? (
+                  <iframe src={liveEmbed} title={`${show.title}: ${reel === "film" ? "the film" : "the conversation"}`} allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowFullScreen
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, background: "#000" }} />
+                ) : show.kind === "live" ? (
                   <button className="facade" style={{ position: "relative", width: 76, height: 76, borderRadius: "50%", aspectRatio: "1", background: "#fff", color: "#000", display: "flex", alignItems: "center", justifyContent: "center", border: 0 }}
                     aria-label={`Play ${show.title}`} onClick={() => setPlayerNote(true)}><IconPlay size={30} /></button>
                 ) : (

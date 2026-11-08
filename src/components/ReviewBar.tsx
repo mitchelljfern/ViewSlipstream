@@ -6,7 +6,7 @@
  */
 import Link from "next/link";
 import { useState } from "react";
-import { REVIEW_MODE, usePreview, type Access, type PhaseOverride } from "./Preview";
+import { LIVE, REVIEW_MODE, usePreview, type Access, type PhaseOverride } from "./Preview";
 import { IconClose, IconSliders } from "./Icons";
 import { allShows } from "@/lib/data";
 
@@ -21,18 +21,20 @@ export default function ReviewBar() {
       {open ? (
         <div className="review-panel" role="dialog" aria-label="Review controls">
           <div className="row between"><h2>Review controls</h2><button className="icon-btn" style={{ color: "#111", width: 36, height: 36 }} aria-label="Close" onClick={() => setOpen(false)}><IconClose size={18} /></button></div>
-          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Staging only. Nothing here is saved anywhere but this browser, and no emails are sent.</p>
+          <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Staging only. These switches only change what you see in this browser.</p>
+          {LIVE ? <p style={{ fontSize: 12, color: "#5c6470", margin: 0 }}>Accounts and RSVPs are real now: sign in or RSVP on the site itself.</p> : null}
+          {lead ? (
+            <div className="stack g6"><span className="lbl">{lead.title}: pretend it's</span>
+              <div className="opts">{phases.map(([p, l]) => <button key={p} aria-pressed={ctx.phase === p} onClick={() => ctx.setPhase(p)}>{l}</button>)}</div>
+            </div>
+          ) : null}
+          {!LIVE ? (<>
           <div className="stack g6"><span className="lbl">Viewing as</span>
             <div className="opts">
               <button aria-pressed={!ctx.guest} onClick={() => ctx.signOut()}>No account</button>
               <button aria-pressed={!!ctx.guest} onClick={() => ctx.signIn(ctx.who ?? { first: "Alex", last: "Rivera", email: "alex@example.com" })}>Signed in</button>
             </div>
           </div>
-          {lead ? (
-            <div className="stack g6"><span className="lbl">{lead.title}: pretend it's</span>
-              <div className="opts">{phases.map(([p, l]) => <button key={p} aria-pressed={ctx.phase === p} onClick={() => ctx.setPhase(p)}>{l}</button>)}</div>
-            </div>
-          ) : null}
           {lead ? (
             <div className="stack g6"><span className="lbl">RSVP for {lead.title}</span>
               <div className="opts">
@@ -41,6 +43,7 @@ export default function ReviewBar() {
               </div>
             </div>
           ) : null}
+          </>) : null}
           <div className="stack g6"><span className="lbl">Access code goes</span>
             <div className="opts">
               {([["email", "Email only"], ["both", "Page + email"], ["page", "Page only"]] as [Access, string][]).map(([a, l]) => (

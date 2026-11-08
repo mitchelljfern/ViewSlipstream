@@ -24,7 +24,10 @@ export default function EmailPreview({ type }: { type: T }) {
   const conv = getConversation(show.conversationId);
   const pw = `${show.slug.split("-").find((w) => w.length > 3)?.toUpperCase() ?? "SHOW"}-${(show.startsAt ?? "2026").slice(0, 4)}`;
   const window = show.startsAt && show.endsAt ? `${longDay(show.startsAt)} at ${clock(show.startsAt)} through ${longDay(show.endsAt)} at ${clock(show.endsAt)}, Pacific time` : show.startsAt ? `${longDay(show.startsAt)} at ${clock(show.startsAt)}${show.venue ? `, ${show.venue.name}` : ""}` : "";
-  const next = allShows().find((s) => s.slug !== show.slug && ctx.phaseFor(s) !== "closed");
+  // "Up next" is whatever starts after this show ends (the thank-you goes out then), soonest first.
+  const endsAt = new Date(show.endsAt ?? show.startsAt ?? Date.now()).getTime();
+  const next = allShows().filter((s) => s.slug !== show.slug && s.startsAt && new Date(s.startsAt).getTime() > endsAt)
+    .sort((a, b) => new Date(a.startsAt!).getTime() - new Date(b.startsAt!).getTime())[0];
 
   const subject = type === "rsvp" ? `You're in: ${show.title} on Slipstream` : type === "live" ? `It's showtime: ${show.title} is streaming now`
     : type === "waitlist" ? `You're on the waiting list: ${show.title}` : `Thank you for watching ${show.title}`;
@@ -59,11 +62,11 @@ export default function EmailPreview({ type }: { type: T }) {
             <>
               <h1 style={{ margin: 0, font: "600 26px/1.15 var(--font-display)", letterSpacing: "-.02em", color: "#141414" }}>You're in, {name}.</h1>
               <P>Your {seatWord} for <strong>{show.title}</strong> {seatCount > 1 ? "are" : "is"} saved. {window ? `It ${show.kind === "in-person" ? "screens" : "streams"} ${window}.` : ""}</P>
-              <div style={box}><b style={{ color: "#141414" }}>What happens next</b><span>{show.kind === "in-person" ? `Bring this email to check in${seatCount > 1 ? ` for all ${seatCount} seats` : ""}. We'll send a reminder the day before.`
+              <div style={box}><b style={{ color: "#141414" }}>What happens next</b><span>{show.kind === "in-person" ? `Bring this email to check in${seatCount === 2 ? " for both seats" : seatCount > 2 ? ` for all ${seatCount} seats` : ""}. We'll send a reminder the day before.`
                 : ctx.access === "page" ? "We'll email you the moment it goes live with a link to the screening room. Your access code will be waiting there."
                 : "We'll email you the moment it goes live, with your viewing link and access code. Nothing to do until then."}</span></div>
               <a href="#" style={btn}>Add to calendar</a>
-              <div style={{ ...box, background: "#F5F7FA" }}><b style={{ color: "#141414" }}>Want one-tap RSVPs next time?</b>
+              <div style={{ ...box, background: "#F5F7FA" }}><b style={{ color: "#141414" }}>{show.kind === "in-person" ? "Want one-tap RSVPs next time?" : "Set up your free account to watch"}</b>
                 <span>{show.kind === "in-person" ? "Create a free Slipstream account. Your name and email are already in, so you only pick a password. Optional: this RSVP works either way." : "You'll need a free Slipstream account to watch. Your name and email are already in, so you only pick a password."}</span>
                 <a href="#" style={{ color: "#1E73BE", fontWeight: 600 }}>Create my free account</a></div>
               <P><span style={{ fontSize: 13, color: "#6B7280" }}>Can't make it? <a href="#" style={{ color: "#1E73BE" }}>Release your {seatWord}</a> so someone else can have {seatCount > 1 ? "them" : "it"}.</span></P>
@@ -94,7 +97,7 @@ export default function EmailPreview({ type }: { type: T }) {
           ) : (
             <>
               <h1 style={{ margin: 0, font: "600 26px/1.15 var(--font-display)", letterSpacing: "-.02em", color: "#141414" }}>Thanks for joining us.</h1>
-              <P>The window for <strong>{show.title}</strong> has closed.{conv ? " The conversation with the filmmakers stays up to rewatch any time." : ""}</P>
+              <P>{show.kind === "in-person" ? <>We hope you enjoyed <strong>{show.title}</strong>.</> : <>The window for <strong>{show.title}</strong> has closed.</>}{conv ? " The conversation with the filmmakers stays up to rewatch any time." : ""}</P>
               {conv ? <a href="#" style={{ ...btn, background: "#141414" }}>Rewatch the conversation</a> : null}
               {next ? <div style={box}><b style={{ color: "#141414" }}>Up next on Slipstream</b><span>{next.title}{next.startsAt ? `, ${longDay(next.startsAt)}` : ""}.</span><a href="#" style={{ color: "#1E73BE", fontWeight: 600 }}>RSVP for the next show</a></div> : null}
               <P><span style={{ fontSize: 13, color: "#6B7280" }}>Have 30 seconds? <a href="#" style={{ color: "#1E73BE" }}>Tell us how it went</a>.</span></P>

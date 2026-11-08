@@ -22,7 +22,7 @@ import type { Conversation, Phase, Show } from "@/lib/types";
 import { clock, longDay } from "@/lib/time";
 import { calEvent } from "@/lib/ics";
 import AddToCalendar from "./AddToCalendar";
-import { initials, usePreview, type Guest, type RsvpStatus } from "./Preview";
+import { initials, LIVE, usePreview, type Guest, type RsvpStatus } from "./Preview";
 import { IconCheck, IconLock, IconPlay } from "./Icons";
 import CheckEmail from "./CheckEmail";
 
@@ -95,7 +95,8 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
       </p>
       <form className="stack g10" onSubmit={(e) => {
         e.preventDefault();
-        act(() => { ctx.createAccount(); ctx.say("Account created. You're signed in."); });
+        const pw = String(new FormData(e.currentTarget).get("password") || "");
+        act(() => { ctx.createAccount(pw); if (!LIVE) ctx.say("Account created. You're signed in."); });
       }}>
         <label className="label" htmlFor={fid("newpw")} style={{ color: "#fff" }}>Create a password</label>
         <PasswordInput onDeep id={fid("newpw")} name="password" autoComplete="new-password" minLength={8} placeholder="At least 8 characters" required />
@@ -197,7 +198,7 @@ export default function RsvpPanel({ show, conversation, forced, demoPhase, rsvpK
         ctx.rsvpAsGuest(key, status, g, seats);
         if (isPaid && status !== "waitlisted") ctx.say("On the live site, Stripe Checkout opens here.");
         // Ticked "Create a free account": same step, so no account offer afterwards.
-        if (wantAccount) { ctx.createAccount(); ctx.say(`${toast(g.email)} Your free account is ready.`); } else ctx.say(toast(g.email));
+        if (wantAccount) { ctx.createAccount(String(f.get("password") || "")); if (!LIVE) ctx.say(`${toast(g.email)} Your free account is ready.`); else ctx.say(toast(g.email)); } else ctx.say(toast(g.email));
       });
     }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
