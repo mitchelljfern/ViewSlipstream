@@ -12,6 +12,7 @@
 // Secrets (Supabase > Edge Functions > Secrets): RESEND_API_KEY (required),
 // EMAIL_FROM (e.g. "View Slipstream <hello@viewslipstream.com>"), SITE_URL.
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided automatically.
+// Going live: set settings.email_recipients to "everyone" (it's "test" until then).
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const RESEND = Deno.env.get("RESEND_API_KEY") ?? "";
@@ -125,7 +126,16 @@ async function build(kind: Kind, show: Show, r: Rsvp, code: string | null, hasAc
 
 const plain = (html: string) => html.replace(/<a [^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/g, "$2: $1").replace(/<br\s*\/?>/g, "\n").replace(/<\/(p|div|h1|td)>/g, "\n\n").replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/\n{3,}/g, "\n\n").trim();
 
+// Test mode: until settings.email_recipients is "everyone", only Social Upgrades addresses get email.
+// Anything else is skipped and not logged, so it still sends once the site goes live.
+const TEST_DOMAINS = ["@socialupgrades.com"];
+async function testOnly() {
+  const { data } = await db.from("settings").select("value").eq("key", "email_recipients").maybeSingle();
+  return data?.value !== "everyone";
+}
+
 async function send(kind: Kind, show: Show, r: Rsvp, code: string | null) {
+  if (await testOnly() && !TEST_DOMAINS.some((d) => String(r.email).toLowerCase().endsWith(d))) return "test-mode";
   // Never twice. A failed send doesn't count, so the next sweep tries it again.
   const { data: seen } = await db.from("email_log").select("id").eq("rsvp_id", r.id).eq("type", kind).neq("status", "failed").limit(1);
   if (seen?.length) return "skipped";
